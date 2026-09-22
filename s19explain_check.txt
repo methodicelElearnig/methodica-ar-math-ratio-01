@@ -1,0 +1,9 @@
+const S19Q_EXPLAIN = ['الباقة الأصلية تكلف 28 شيكل، وتحتوي على 5 زهرات وردية و־9 زهرات بيضاء. للوصول إلى 70 شيكل، يجب تكبير الباقة بـ 2.5 ضعف، وحينئذ سنحصل على أنصاف أزهار، بحيث لا يمكن تصميم باقة كهذه.'];
+function s19qShowPopup(type) {
+  const cfg = {
+    retry:   { bg: '#ffdbdc', title: 'هذا غير دقيق، هل نحاول مجدداً؟', body: [] },
+    correct: { bg: '#edf8ed', title: 'كل الاحترام!', body: S19Q_EXPLAIN },
+    wrong2:  { bg: '#ffdbdc', title: 'هذا غير دقيق، تم عرض الإجابة الصحيحة.<br>هيا نفهم لماذا:', body: S19Q_EXPLAIN },
+  }[type];
+  const popup = document.getElementById('s19-popup');
+  if 

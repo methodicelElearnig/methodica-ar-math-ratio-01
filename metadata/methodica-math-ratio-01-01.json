@@ -1,0 +1,179 @@
+{
+  "id": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-01/",
+  "title": "لنتعلم شيئاً جديداً",
+  "learningUnitId": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01/",
+  "componentPurpose": "both",
+  "isAssessment": false,
+  "recommendedAfterFail": [],
+  "isRequired": true,
+  "relativeDifficulty": 2,
+  "masteryLevel": null,
+  "order": 1,
+  "depthLevel": "core-curriculum-basic",
+  "cognitiveLevels": ["process-thinking"],
+  "languages": ["Arabic"],
+  "skills": [],
+  "estimatedTimeInMinutes": 20,
+  "createdAt": "2026-08-30T00:00:00.000Z",
+  "updatedAt": "2026-08-30T00:00:00.000Z",
+  "subContent": [
+    {
+      "id": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-01/methodica-math-ratio-01-01-001/",
+      "title": "الاستهلال + التعليم: النسبة في محلول فقاعات الصابون",
+      "informationToBot": "هدف العنصر: افتتاحية تحفيزية (اختيار الشخصية المرافقة) ثم تعليم مفهوم 'النسبة' من خلال سيناريو تحضير محلول فقاعات الصابون لحفلة. اتجاهات التفكير: فهم أن مضاعفة جزء فقط من مكونات الوصفة يكسر النسبة الأصلية بين الكميات، وأن النسبة هي حاصل قسمة بين مقدارين يحافظ على علاقة ثابتة. الأخطاء الشائعة: افتراض أنه يمكن مضاعفة مكوّن واحد فقط والحصول على نتيجة مطابقة. معلومات إضافية: يشمل أيضاً 3 أمثلة إضافية للنسبة في الحياة اليومية (السرعة، معدل ملء بركة، الكثافة السكانية) كإثراء غير مقيَّم.",
+      "contentType": "instruction",
+      "mediaFormat": "text",
+      "questions": [
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-01/methodica-math-ratio-01-01-001/q1",
+          "questionType": "choice",
+          "questionText": "خرجت الفقاعات صغيرة جداً وانفجرت بسرعة كبيرة. برأيكم ما الذي قد يكون السبب؟",
+          "answers": [
+            "ضاعفنا جزءاً فقط من مكونات الوصفة وليس كلها",
+            "خلطنا المواد في وعاء كبير جداً",
+            "حضّرنا المحلول قبل أكثر من نصف ساعة من الحفلة"
+          ],
+          "correctAnswers": ["ضاعفنا جزءاً فقط من مكونات الوصفة وليس كلها"]
+        }
+      ]
+    },
+    {
+      "id": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-01/methodica-math-ratio-01-01-002/",
+      "title": "التعليم: كتابة النسبة، الاختزال والتوسيع (ملصقات)",
+      "informationToBot": "هدف العنصر: تعليم كيفية كتابة النسبة بالكتابة اللفظية وبالكتابة الرياضية (كسر/نسبة)، والتعرف على أنه يمكن اختزال وتوسيع النسبة كما الكسر، من خلال سيناريو ملصقات سوداء/حمراء وزرقاء/خضراء. اتجاهات التفكير: الحفاظ على ترتيب الكتابة (العدد الأول في الكتابة اللفظية يُكتب في اليسار/في البسط)، التمييز بين العبارات التي تعبّر عن نسبة مقابل معلومة ليست نسبة، وفهم أن النسبة بين كميتين متساويتين هي دائماً 1:1. الأخطاء الشائعة: عكس ترتيب الأعداد في النسبة؛ الخلط بين 'نسبة بين مقدارين' وبين معطى واحد (سعر، درجة حرارة). معلومات إضافية: يشمل أيضاً تدريباً تفاعلياً غير مقيَّم على اختزال النسب (الضغط على كل نسبة لعرض الحل).",
+      "contentType": "instruction",
+      "mediaFormat": "text",
+      "questions": [
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-01/methodica-math-ratio-01-01-002/q1",
+          "questionType": "choice",
+          "questionText": "أمامكم 12 ملصقاً: 4 سوداء و8 حمراء. ماذا يمكن أن نقول عن العلاقة بين الملصقات السوداء والحمراء؟ (حددوا جميع الإجابات المناسبة)",
+          "answers": [
+            "مقابل كل ملصقين أحمرين يوجد ملصق أسود واحد",
+            "مقابل كل ملصق أسود يوجد ملصقان أحمران",
+            "كمية الملصقات الحمراء أكبر بـ2 أضعاف من كمية الملصقات السوداء",
+            "كمية الملصقات السوداء هي نصف كمية الملصقات الحمراء"
+          ],
+          "correctAnswers": [
+            "مقابل كل ملصقين أحمرين يوجد ملصق أسود واحد",
+            "مقابل كل ملصق أسود يوجد ملصقان أحمران",
+            "كمية الملصقات الحمراء أكبر بـ2 أضعاف من كمية الملصقات السوداء",
+            "كمية الملصقات السوداء هي نصف كمية الملصقات الحمراء"
+          ]
+        },
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-01/methodica-math-ratio-01-01-002/q2",
+          "questionType": "choice",
+          "questionText": "من نفس الـ12 ملصقاً (4 سوداء، 8 حمراء) — ماذا يمكن أن نقول عن العلاقة بين الملصقات الحمراء وكل الملصقات؟ (حددوا جميع الإجابات المناسبة)",
+          "answers": [
+            "الملصقات الحمراء تشكّل 2/3 من كل الملصقات",
+            "الملصقات الحمراء تشكّل 50% من كل الملصقات",
+            "الملصقات الحمراء تشكّل غالبية الملصقات",
+            "العدد الكلي للملصقات أكبر بـ1.5 أضعاف من عدد الملصقات الحمراء"
+          ],
+          "correctAnswers": [
+            "الملصقات الحمراء تشكّل 2/3 من كل الملصقات",
+            "الملصقات الحمراء تشكّل غالبية الملصقات",
+            "العدد الكلي للملصقات أكبر بـ1.5 أضعاف من عدد الملصقات الحمراء"
+          ]
+        },
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-01/methodica-math-ratio-01-01-002/q3",
+          "questionType": "choice",
+          "questionText": "أي من الجمل التالية يمثّل نسبة بين مقدارين؟ (حددوا جميع الإجابات الصحيحة)",
+          "answers": [
+            "يوجد في المركز التجاري 23 محل ملابس و8 محلات أحذية",
+            "سعر القميص 79 شيكل",
+            "يوجد في حوض السمك 8 أسماك ذهبية و4 أسماك زرقاء",
+            "درجة الحرارة الآن هي 32°C"
+          ],
+          "correctAnswers": [
+            "يوجد في المركز التجاري 23 محل ملابس و8 محلات أحذية",
+            "يوجد في حوض السمك 8 أسماك ذهبية و4 أسماك زرقاء"
+          ]
+        },
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-01/methodica-math-ratio-01-01-002/q4",
+          "questionType": "fill-in",
+          "questionText": "أمامكم 5 ملصقات. 4 ملصقات زرقاء وملصق واحد أخضر. أ. اكتبوا النسبة بين عدد الملصقات الخضراء وعدد الملصقات الزرقاء.",
+          "answers": [],
+          "correctAnswers": ["4 : 1", "4:1"]
+        },
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-01/methodica-math-ratio-01-01-002/q5",
+          "questionType": "numeric",
+          "questionText": "ب. وفق نفس النسبة (4:1): إذا كان لدينا 3 ملصقات خضراء، كم ملصقاً أزرق سيكون لدينا؟",
+          "answers": [],
+          "correctAnswers": [12]
+        },
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-01/methodica-math-ratio-01-01-002/q6",
+          "questionType": "matching",
+          "questionText": "ج. وفق النسبة 4:1 (أزرق:أخضر)، حددوا ما إذا كانت كل حالة من الحالات التالية ممكنة:",
+          "answers": {
+            "source": [
+              "ملصقان أخضران و4 ملصقات زرقاء",
+              "6 ملصقات خضراء و24 ملصقاً أزرق",
+              "20 ملصقاً أخضر و80 ملصقاً أزرق",
+              "3 ملصقات خضراء و7 ملصقات زرقاء"
+            ],
+            "target": ["نعم", "لا"]
+          },
+          "correctAnswers": [
+            {"source": "ملصقان أخضران و4 ملصقات زرقاء", "target": "لا"},
+            {"source": "6 ملصقات خضراء و24 ملصقاً أزرق", "target": "نعم"},
+            {"source": "20 ملصقاً أخضر و80 ملصقاً أزرق", "target": "نعم"},
+            {"source": "3 ملصقات خضراء و7 ملصقات زرقاء", "target": "لا"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-01/methodica-math-ratio-01-01-003/",
+      "title": "تدريب موجّه: نسبة البلاطات في متجر",
+      "informationToBot": "هدف العنصر: حل خطوة بخطوة مع الشخصية المرافقة لتمرين النسبة الأول — النسبة بين البلاطات المزخرفة والبلاطات الملساء في شريط بلاطات في متجر، بما في ذلك الاختزال. اتجاهات التفكير: التعرف على ترتيب كتابة النسبة وفق ترتيب الظهور في الكتابة اللفظية، والتحقق مما إذا كان يمكن اختزال النسبة الناتجة. الأخطاء الشائعة: عكس ترتيب الأعداد في النسبة. معلومات إضافية: مسار موجَّه بالكامل (لا يوجد قرار مستقل من المتعلم بشأن الحل النهائي، فقط تأكيد للخطوات الوسيطة).",
+      "contentType": "solved-exercise",
+      "mediaFormat": "text",
+      "questions": [
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-01/methodica-math-ratio-01-01-003/q1",
+          "questionType": "choice",
+          "questionText": "عدد البلاطات المزخرفة مكتوب أولاً في الكتابة اللفظية. أين سيكون موقع هذا العدد في الكتابة الرياضية للنسبة؟",
+          "answers": ["اليمين", "اليسار"],
+          "correctAnswers": ["اليسار"]
+        },
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-01/methodica-math-ratio-01-01-003/q2",
+          "questionType": "true-false",
+          "questionText": "النسبة بين عدد البلاطات المزخرفة (3) وعدد البلاطات الملساء (9) هي 9:3. هل يمكن اختزال هذه النسبة؟",
+          "answers": ["نعم", "لا"],
+          "correctAnswers": ["نعم"]
+        }
+      ]
+    },
+    {
+      "id": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-01/methodica-math-ratio-01-01-004/",
+      "title": "إحماء 1: الماسات في لعبة الحاسوب",
+      "informationToBot": "هدف العنصر: تمرين إحماء أول لترسيخ مفهوم النسبة وترتيب كتابتها، من خلال سيناريو جمع ماسات سوداء وبيضاء في لعبة حاسوب. اتجاهات التفكير: تحديد ترتيب الأعداد في النسبة وفق ترتيب الظهور في الكتابة اللفظية، وحساب كم مرة تكون إحدى الكميتين أكبر من الأخرى انطلاقاً من النسبة المختزلة. الأخطاء الشائعة: كتابة النسبة بترتيب معكوس (25:100 بدلاً من 4:1 المختزلة). معلومات إضافية: لا يوجد.",
+      "contentType": "practice",
+      "mediaFormat": "interactive-content",
+      "questions": [
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-01/methodica-math-ratio-01-01-004/q1",
+          "questionType": "choice",
+          "questionText": "حصلت روتيم على 100 ماسة سوداء و25 ماسة بيضاء. حددوا جميع العبارات الصحيحة.",
+          "answers": [
+            "النسبة بين عدد الماسات السوداء وعدد الماسات البيضاء هي 25 : 100",
+            "النسبة بين عدد الماسات السوداء وعدد الماسات البيضاء هي 1 : 4",
+            "النسبة بين عدد الماسات السوداء وعدد الماسات البيضاء هي 4 : 1",
+            "عدد الماسات السوداء أكبر بـ4 أضعاف من عدد الماسات البيضاء"
+          ],
+          "correctAnswers": [
+            "النسبة بين عدد الماسات السوداء وعدد الماسات البيضاء هي 4 : 1",
+            "عدد الماسات السوداء أكبر بـ4 أضعاف من عدد الماسات البيضاء"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+<svg viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg">
+  <!-- handle -->
+  <path d="M14 38 Q60 -8 106 38" fill="none" stroke="#8A9AAA" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="14" cy="38" r="4.5" fill="#6B7B8C"/>
+  <circle cx="106" cy="38" r="4.5" fill="#6B7B8C"/>
+  <!-- bucket body -->
+  <path d="M10 40 L110 40 L98 124 Q60 132 22 124 Z" fill="#DDE7F0" stroke="#8A9AAA" stroke-width="3"/>
+  <!-- rim -->
+  <ellipse cx="60" cy="40" rx="50" ry="10" fill="#C7D5E2" stroke="#8A9AAA" stroke-width="3"/>
+  <!-- water -->
+  <ellipse cx="60" cy="41" rx="43" ry="7.5" fill="#57B8F0"/>
+  <path d="M25 46 Q42 51 60 47 Q78 43 94 47" fill="none" stroke="#8FD2F8" stroke-width="3" stroke-linecap="round"/>
+  <!-- shine -->
+  <path d="M24 56 L30 108" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" opacity="0.55"/>
+</svg>

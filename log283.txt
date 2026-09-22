@@ -1,0 +1,2 @@
+ssets/img/s1-flip-speed-placeholder.jpg" alt="תמרור سرعة القصوى المسموح بها 20 كم/س" loading="lazy" decoding="async">
+                    <span class="frc-card-

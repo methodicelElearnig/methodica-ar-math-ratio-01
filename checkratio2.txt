@@ -1,0 +1,20 @@
+501: 
+
+502:           <!-- §6 — reduction flip cards, side A→B (slides 19-20).
+
+503:                LTR row: DOM order left→right, so the first-mentioned
+
+504:                ratio 4:8 is the LAST child (physical right, RTL reading). -->
+
+505:           <div class="rs-block">
+
+506:             <p class="rs-text"><strong>מכיוון שהיחס הוא בעצם מנה בין שני מספרים, ניתן לצמצם את היחס, כפי שמצמצמים שברים.</strong></p>
+
+507:             <p class="rs-text">اضغطوا على كل نسبة لتتذكروا طريقة اختزالها (تبسيطها):</p>
+
+508:             <div class="option-cards rs-cards rs-cards--text" role="group" aria-label="بطاقات الاختزال — اضغطوا للاكتشاف">
+
+509:               <button class="frc-card frc-card--text" data-index="3" type="button" aria-expanded="false"
+
+510:                       aria-label="النسبة خمسة عشر إلى عشرين. اضغط للقلب" onclick="s4Flip(this)">
+

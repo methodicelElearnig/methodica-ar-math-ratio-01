@@ -1,0 +1,5 @@
+437: <!-- §5 — 5-sticker context + questions א/ב/ג (slides 16-18) -->
+443: <!-- א — ratio input (slide 16) -->
+455: <!-- ב — value input (slide 17) -->
+464: <!-- ג — statement assessment (slide 18) -->
+504: <p class="rs-text"><strong>מכיוון שהיחס הוא בעצם מנה בין שני מספרים, ניתן לצמצם את היחס, כפי שמצמצמים שברים.</strong></p>

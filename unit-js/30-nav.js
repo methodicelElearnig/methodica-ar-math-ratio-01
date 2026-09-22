@@ -1,0 +1,119 @@
+'use strict';
+/* ═══════════════════ Navigation + resume replay ═══════════════════
+   Shared by all six components. Definition-only.
+
+   currentScreen lives HERE, not in each script.js: goTo() writes it and the report modal, the
+   xAPI item scope and the resume payload all read it. A shared function writing a part-declared
+   `let` across files is exactly the coupling this layer exists to remove.
+
+   Per-part seams, all read at CALL time:
+     TOTAL_SCREENS          number of screens in this component
+     resetScreenState(n)    dispatches to the screen's sNNEnter()
+     capturePartPayload()   this component's payload, including currentScreen
+     applyResumeVars(st)    assigns the payload's answer variables — parameter MUST be named `st`
+     applyResumeDom(st)     restores DOM-only answers, taking the WHOLE payload
+     restoreScreenUI(n)     repaints the answered look
+*/
+
+var currentScreen = 0;
+
+function goTo(n) {
+  if (n < 0 || n >= TOTAL_SCREENS) return;
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const nextScreen = document.querySelector(`[data-screen="${n}"]`);
+  /* A screen the map names but the markup does not have. The reference unit already guarded
+     this; without it goTo() throws inside an onclick — which is what the screens now numbered
+     5 and 13 did. Placed BEFORE currentScreen = n, so a rejected navigation leaves no
+     inconsistent state behind. */
+  if (!nextScreen) return;
+  nextScreen.classList.add('active');
+  currentScreen = n;
+  try { xapiOnScreen(n); } catch (e) {}
+
+  /* Keep an answered screen answered when the learner returns to it.
+     sNNEnter() is an INITIALISER: it zeroes this screen's answer variables and wipes its DOM.
+     Snapshot before it runs, re-apply after, then let the existing painter rebuild the answered
+     look — the same three steps applyExecutionState() does for the landing screen, now applied
+     to every navigation. That is what makes a REVISITED screen keep its final state, and what
+     rebuilds it after a reload, when the DOM is pristine markup and only the restored variables
+     know the answer.
+     Some enters already early-return on a solved flag, so for those the re-apply is a no-op and
+     only the painter matters; the ones without such a guard rely on both halves.
+     A never-answered screen snapshots falsy values, so re-applying is a no-op and every painter
+     early-returns — pristine screens are unaffected. */
+  var _keep = null;
+  if (!_restoring) { try { _keep = capturePartPayload(); } catch (e) { _keep = null; } }
+
+  resetScreenState(n);
+
+  if (_keep) {
+    /* beginRepaint/endRepaint mark this window as "the painter is re-showing existing feedback",
+       as opposed to a live learner action producing new feedback. Anything with a side effect
+       tied to showing feedback can tell the two apart via resumeIsPainting(). */
+    beginRepaint();
+    try {
+      applyResumeVars(_keep);
+      applyResumeDom(_keep);
+      restoreScreenUI(n);
+    } catch (e) { console.error('[resume] repaint on nav', e); }
+    finally { endRepaint(); }
+  }
+
+  nextScreen.focus();
+  var heading = nextScreen.querySelector('h1, h2');
+  if (heading) announce(heading.textContent.trim());
+  /* Resume: the screen change is the choke point that bounds how much a learner can lose.
+     Debounced, and suppressed while restoring. */
+  scheduleResumeSave();
+}
+
+/* Replay a saved payload onto this component. Called by ../unit-js/50-loader.js on launch.
+
+   The two-pass shape is load-bearing: goTo() runs the screen's sNNEnter(), which resets exactly
+   what was just restored, so the variables are assigned again afterwards and only then painted.
+
+   ── screenOverride ──
+   '#screen=N' in the URL wins over the document in choosing the SCREEN, but not in restoring the
+   STATE. A version that skipped this function entirely when a hash was present made cross-part
+   "back" lose the whole restore — including XAPI_Q_RESULTS, from which the forward routing is
+   derived, so a learner who had met the threshold was sent into remediation. Always restore; the
+   hash only decides where to land. */
+function applyExecutionState(st, screenOverride) {
+  if (!st) return;
+  _restoring = true;
+  /* Replaying answers must not re-report them. The stub is held across goTo() too, which is what
+     keeps a finale screen from re-emitting the item, component and unit 'completed' when the
+     learner resumes onto it — the library's one-per-page-load rule cannot help across a page
+     load. */
+  var _origSend = window.sendStatement720;
+  window.sendStatement720 = function () {};
+  try {
+    applyResumeVars(st);
+    /* Range-checked against TOTAL_SCREENS: goTo() rejects out-of-range and RETURNS, which would
+       leave currentScreen on its previous value and have the painter draw a different screen. A
+       stale hash (a part that got shorter) falls back to the document rather than landing
+       nowhere. */
+    var _n = (typeof screenOverride === 'number' && screenOverride >= 0 &&
+              screenOverride < TOTAL_SCREENS)
+      ? screenOverride
+      : ((typeof st.currentScreen === 'number') ? st.currentScreen : 0);
+    goTo(_n);
+    applyResumeVars(st);   // undo the reset that this screen's sNNEnter() just did
+    applyResumeDom(st);    // before the painter, which locks/disables the inputs
+    restoreScreenUI(currentScreen);
+  } catch (e) {
+    console.error('[resume] apply', e);
+  } finally {
+    window.sendStatement720 = _origSend;
+    _restoring = false;
+  }
+  /* xapiOnScreen() latched xapiCurrentItem during the stubbed goTo without emitting anything.
+     Clearing the latch is what lets the resumed screen report its item 'initialized' exactly
+     once — and there is no prior item to close on a fresh page load. */
+  /* Before anything can close an item: tell the library about the answers just restored but
+     deliberately not re-sent, or it drops their 'completed'. See xapiSeedAnsweredFromResume()
+     in ../unit-js/20-xapi.js for why the library needs telling at all. */
+  try { xapiSeedAnsweredFromResume(); } catch (e) {}
+  xapiCurrentItem = null;
+  try { xapiOnScreen(currentScreen); } catch (e) {}
+}

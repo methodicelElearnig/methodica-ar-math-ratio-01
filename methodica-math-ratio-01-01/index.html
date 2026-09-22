@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>التعرف على حالات النسب — المكوّن 01</title>
+  <link rel="stylesheet" href="../unit-css/styles.css?v=5">
+</head>
+<!-- data-subject-theme activates the Math token override block in
+     css/style.css. :root holds the Science defaults; this one attribute
+     is the entire theme switch (figma-lomda-builder → subject-theming.md). -->
+<body data-subject-theme="math">
+
+  <!-- Shared inline SVG sprite for every speech bubble in the lomda.
+       Defined once so there is a single mask id in the document;
+       instanced via <use>: bubble-tail-right by S1/S3, bubble-tail-down
+       by S7. Lives here (not as external .svg files) because a
+       CSS-referenced external SVG cannot read the page's custom
+       properties, so its outline could only ever hold one theme's
+       colour. Every bubble outline is var(--subject-500). -->
+  <svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true" focusable="false">
+    <symbol id="bubble-tail-right" viewBox="0 0 241 137" preserveAspectRatio="none">
+      <mask id="bubble-tail-right-outline" maskUnits="userSpaceOnUse" x="0" y="0" width="241" height="137" fill="black">
+        <rect fill="white" width="241" height="137"/>
+        <path d="M220.421 56.5269V11.4516C220.421 6.78392 215.45 3 209.319 3H14.1024C7.9707 3 3 6.78392 3 11.4516V125.548C3 130.216 7.9707 134 14.1024 134H209.319C215.45 134 220.421 130.216 220.421 125.548V79.0645C220.421 78.7124 238 67.7427 238 67.7427C231.109 63.3513 227.305 60.9243 220.421 56.5269Z"/>
+      </mask>
+      <path d="M220.421 56.5269V11.4516C220.421 6.78392 215.45 3 209.319 3H14.1024C7.9707 3 3 6.78392 3 11.4516V125.548C3 130.216 7.9707 134 14.1024 134H209.319C215.45 134 220.421 130.216 220.421 125.548V79.0645C220.421 78.7124 238 67.7427 238 67.7427C231.109 63.3513 227.305 60.9243 220.421 56.5269Z" fill="#fff"/>
+      <path d="M220.421 56.5269H217.421V58.1704L218.806 59.0551L220.421 56.5269ZM238 67.7427L239.588 70.2879C240.462 69.7425 240.995 68.787 241 67.757C241.005 66.7269 240.481 65.7664 239.612 65.2128L238 67.7427ZM220.421 11.4516H217.421V56.5269H220.421H223.421V11.4516H220.421ZM209.319 3V6C211.788 6 213.911 6.7653 215.352 7.86247C216.791 8.95784 217.421 10.2546 217.421 11.4516H220.421H223.421C223.421 7.98093 221.566 5.05188 218.986 3.08837C216.41 1.12666 212.982 0 209.319 0V3ZM220.421 79.0645H217.421V125.548H220.421H223.421V79.0645H220.421ZM220.421 125.548H217.421C217.421 126.745 216.791 128.042 215.352 129.138C213.911 130.235 211.788 131 209.319 131V134V137C212.982 137 216.41 135.873 218.986 133.912C221.566 131.948 223.421 129.019 223.421 125.548H220.421ZM209.319 134V131H14.1024V134V137H209.319V134ZM14.1024 134V131C11.6334 131 9.51023 130.235 8.06894 129.138C6.63002 128.042 6 126.745 6 125.548H3H0C0 129.019 1.85532 131.948 4.43467 133.912C7.01165 135.873 10.4397 137 14.1024 137V134ZM3 11.4516H6C6 10.2546 6.63002 8.95784 8.06894 7.86247C9.51023 6.7653 11.6334 6 14.1024 6V3V0C10.4397 0 7.01165 1.12666 4.43467 3.08837C1.85532 5.05188 0 7.98093 0 11.4516H3ZM3 125.548H6V11.4516H3H0V125.548H3ZM14.1024 3V6H209.319V3V0H14.1024V3ZM220.421 56.5269L218.806 59.0551C225.691 63.4531 229.496 65.8807 236.388 70.2727L238 67.7427L239.612 65.2128C232.722 60.822 228.919 58.3955 222.036 53.9987L220.421 56.5269ZM238 67.7427C236.412 65.1976 236.412 65.1977 236.412 65.1978C236.411 65.1979 236.411 65.198 236.411 65.1982C236.41 65.1985 236.41 65.199 236.408 65.1997C236.406 65.2011 236.403 65.2031 236.399 65.2058C236.39 65.2111 236.378 65.219 236.361 65.2295C236.327 65.2504 236.278 65.2813 236.213 65.3217C236.084 65.4024 235.895 65.5207 235.654 65.6713C235.172 65.9726 234.484 66.4032 233.659 66.921C232.009 67.9563 229.807 69.3412 227.604 70.7379C225.404 72.1329 223.192 73.5463 221.526 74.6363C220.696 75.1789 219.981 75.6545 219.466 76.0125C219.214 76.1872 218.974 76.3587 218.782 76.5072C218.694 76.575 218.559 76.6827 218.423 76.8092C218.363 76.8656 218.229 76.9935 218.088 77.1708C218.018 77.2582 217.892 77.425 217.771 77.6548C217.676 77.8354 217.421 78.3502 217.421 79.0645H220.421H223.421C223.421 79.7734 223.169 80.2814 223.078 80.4538C222.961 80.6756 222.841 80.833 222.78 80.9098C222.656 81.066 222.547 81.1676 222.52 81.1929C222.451 81.2573 222.414 81.2834 222.455 81.2514C222.521 81.2006 222.658 81.1003 222.887 80.9414C223.333 80.632 223.992 80.1929 224.81 79.6576C226.44 78.5917 228.622 77.1967 230.817 75.8052C233.009 74.4155 235.202 73.036 236.848 72.0035C237.67 71.4874 238.356 71.0583 238.835 70.7583C239.075 70.6082 239.264 70.4905 239.392 70.4104C239.456 70.3703 239.505 70.3396 239.538 70.319C239.555 70.3086 239.567 70.3008 239.576 70.2956C239.58 70.293 239.583 70.2911 239.585 70.2898C239.586 70.2891 239.587 70.2886 239.587 70.2883C239.588 70.2882 239.588 70.288 239.588 70.288C239.588 70.2879 239.588 70.2879 238 67.7427Z" style="fill: var(--subject-500)" mask="url(#bubble-tail-right-outline)"/>
+    </symbol>
+
+    <!-- Tail at bottom-centre, pointing DOWN onto the character's head.
+         Used by S7. Single stroked path (no mask needed): white fill,
+         3px Subject/500 outline. Geometry preserved exactly from the
+         Figma export (viewBox 216x89, stroke-width 3, preserveAspectRatio
+         none so it stretches to the CSS box). -->
+    <symbol id="bubble-tail-down" viewBox="0 0 216 89" preserveAspectRatio="none">
+      <path d="M11.0303 1.5H204.971C207.842 1.50006 210.369 2.06137 212.121 2.90137C213.982 3.7935 214.5 4.73475 214.5 5.28711V76.6631C214.5 77.2154 213.982 78.1567 212.121 79.0488C210.369 79.8888 207.842 80.4501 204.971 80.4502H124.545V80.5146L124.416 80.5703L108.468 87.3652L92.9766 80.5762L92.834 80.5137V80.4502H11.0303C8.15832 80.4502 5.63138 79.8889 3.87891 79.0488C2.01789 78.1567 1.5 77.2154 1.5 76.6631V5.28711C1.50001 4.73475 2.01782 3.7935 3.87891 2.90137C5.63138 2.06132 8.15832 1.5 11.0303 1.5Z" fill="#fff" style="stroke: var(--subject-500)" stroke-width="3"/>
+    </symbol>
+
+    <!-- Small tail pointing UP, for the "SmallSpeechText" label bubble
+         (Figma node 1205:20133) — used by S13's "התחילו כאן" pointer under
+         station 1. Unlike the two bubbles above this one is a FILLED shape
+         with no stroke (fill = Subject/100, the light subject tint), so the
+         theme var goes on `fill` rather than `stroke`. Rounded corners
+         (r≈4) are preserved from the export — a CSS border-triangle can't
+         reproduce them, which is why this is real SVG geometry. -->
+    <symbol id="bubble-tail-up-small" viewBox="0 0 29.6626 26.75">
+      <path d="M11.3672 2C12.9068 -0.666668 16.7558 -0.666665 18.2954 2L29.1207 20.75C30.6603 23.4167 28.7358 26.75 25.6566 26.75H4.00597C0.926766 26.75 -0.997735 23.4167 0.541867 20.75L11.3672 2Z" style="fill: var(--subject-100)"/>
+    </symbol>
+  </svg>
+
+  <!-- Boot cover. Hides the window in which the first screen is already visible but the resume
+       document has not been read yet — without it a learner with saved progress sees screen 0 (and
+       possibly the wrong companion character) before the restore jumps them elsewhere.
+       A SIBLING of #app, not a child: #app is scaled by scaleApp(), and a child would inherit that
+       transform. Inline-styled so a stale CSS cache cannot leave it invisible.
+       Below it is a safety net that depends on no JS file at all: unit-js/50-loader.js removes the
+       cover on every exit path, and this removes it after 800ms if that never happens — which is
+       what stops a broken loader leaving a learner facing a blank page.
+       If bootXAPI has set window.__resumeInFlight (resume is on and a restore is coming), the net
+       waits for it rather than exposing the first screen mid-restore — up to a hard 11-second
+       ceiling, after which it exposes regardless. 11s and not 6s because 50-loader.js polls for the
+       metadata for up to 10s (METADATA_POLL_MAX) on top of two serial CDN scripts; a 6s ceiling
+       lifted the cover while the restore was still coming, reproducing the exact first-screen flash
+       the cover exists to prevent. The flag is read defensively, so a 50-loader.js that failed to
+       load gives back exactly the 800ms behaviour. -->
+  <div id="boot-cover" style="position:fixed;inset:0;z-index:9999;background:#ffffff"></div>
+  <script>
+  (function () {
+    var t0 = Date.now();
+    function tick() {
+      var c = document.getElementById('boot-cover');
+      if (!c || !c.parentNode) return;
+      if (window.__resumeInFlight && Date.now() - t0 < 11000) { setTimeout(tick, 100); return; }
+      c.parentNode.removeChild(c);
+    }
+    setTimeout(tick, 800);
+  })();
+  </script>
+  <div id="app">
+
+    <!-- Report / Issue button — global, outside all .screen divs.
+         Glyph is live inline SVG on currentColor (see the Report/Issue
+         block in css/style.css for why it is not a PNG). -->
+    <button class="flag-btn" id="flag-btn" type="button" onclick="openReportModal()" aria-label="هل وجدتم مشكلة؟">
+      <span class="flag-btn-icon">
+        <span class="flag-btn-glyph" aria-hidden="true">
+          <svg class="flag-btn-glyph-pole" viewBox="0 0 0.794329 17.0005" preserveAspectRatio="none" fill="none"><path d="M0.397164 17C0.177722 17 0 16.8239 0 16.6065V0.393501C0 0.176082 0.177722 0 0.397164 0C0.616607 0 0.794329 0.176082 0.794329 0.393501V16.607C0.794329 16.8245 0.616607 17.0005 0.397164 17.0005V17Z" fill="currentColor"/></svg>
+          <svg class="flag-btn-glyph-banner" viewBox="0 0 12 9.31542" preserveAspectRatio="none" fill="none"><path d="M2.76227 9.31542C1.91972 9.31542 1.06958 9.15545 0.213483 8.71363C0.0823588 8.64599 0 8.51124 0 8.36469V0.950975C0 0.814619 0.0715221 0.687925 0.188558 0.615989C0.305594 0.54459 0.45189 0.537611 0.574886 0.598811C0.577053 0.599884 0.578679 0.600958 0.580846 0.602032C2.31309 1.49586 4.05563 1.046 5.90003 0.569821C7.80946 0.0770055 9.78336 -0.431915 11.7865 0.601495C11.9176 0.669136 12 0.803882 12 0.950438V8.36415C12 8.4946 11.9344 8.617 11.8255 8.69001C11.7166 8.76302 11.5774 8.77805 11.4555 8.72974C11.443 8.7249 11.4311 8.71954 11.4197 8.71363C9.68745 7.8198 7.94491 8.26967 6.10051 8.7453C5.00709 9.02714 3.89199 9.31489 2.76281 9.31489L2.76227 9.31542ZM0.793787 8.11935C2.45559 8.87307 4.13094 8.44038 5.90003 7.98407C7.62469 7.53903 9.40191 7.08057 11.2062 7.75806V1.19631C9.54441 0.442591 7.86906 0.875281 6.09997 1.33159C4.37531 1.77663 2.59755 2.23509 0.793787 1.5576V8.11935Z" fill="currentColor"/></svg>
+        </span>
+      </span>
+      <span class="flag-btn-label">هل وجدتم مشكلة؟</span>
+    </button>
+
+    <!-- ═══════════════════════════════════════════════════════
+         Screen 01 — TwoOptionSelection (character selection)
+         Source: methodica-math-ratio-01-01.pptx, slide 3. Engine and
+         markup vendored verbatim from the approved percent-02 S0.
+         Characters (placeholders until the mager assets arrive):
+         right = character-1 (gray, glasses), left = character-2 (purple).
+         ═══════════════════════════════════════════════════════ -->
+    <section class="screen active" data-screen="0" id="s0">
+      <div class="select-content">
+        <div class="select-head">
+          <h1 class="select-title">أيّ شخصية تريدون أن ترافقكم؟</h1>
+        </div>
+        <div class="option-cards" role="radiogroup" aria-label="اختاروا شخصية">
+          <!-- LTR DOM order keeps the cards in a stable left/right layout
+               regardless of page RTL: character-2 (purple) renders LEFT,
+               character-1 (gray) renders RIGHT — per slide-3 notes. -->
+          <div class="option-card" role="radio" aria-checked="false" tabindex="0"
+               data-value="character-2" aria-label="اختيار الشخصية البنفسجية"
+               onclick="selectOption(this)">
+            <div class="option-card-img">
+              <video class="option-card-video" src="assets/video/character-2-selection.mp4"
+                   autoplay loop muted playsinline preload="auto" aria-label="شخصية وحش بنفسجي"></video>
+            </div>
+          </div>
+          <div class="option-card" role="radio" aria-checked="false" tabindex="0"
+               data-value="character-1" aria-label="اختيار الشخصية الرمادية ذات النظارات"
+               onclick="selectOption(this)">
+            <div class="option-card-img">
+              <video class="option-card-video" src="assets/video/character-1-selection.mp4"
+                   autoplay loop muted playsinline preload="auto" aria-label="شخصية وحش رمادية بالغة بنظارات"></video>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-continue" id="s0-continue" disabled onclick="advanceFromS0()"><span class="nav-label" data-label="بحرتي"><span>اخترت</span></span></button>
+    </section>
+<section class="screen" data-screen="1" id="s1">
+      <div class="rs-scroll" id="s1-scroll">
+        <div class="rs-inner">
+
+          <!-- §1 — story (slide 4) -->
+          <div class="rs-block">
+            <p class="rs-text">أنتم تحضرون لحفل بركة سباحة على مستوى الطبقة الصفية، ولهذه الغاية ترغبون في تحضير محلول لفقاعات صابون ضخمة جداً</p>
+            <img class="rs-story-img" src="../unit-assets/img/s1-story-placeholder.jpg"
+                 alt="أطفال في ساحة مع فقاعات صابون عملاقة" loading="lazy" decoding="async">
+          </div>
+
+          <!-- §2 — recipe with zoom (slide 5) -->
+          <div class="rs-block">
+            <!-- pptx layout: both text lines in one block (title, then the
+                 doubling line right under it), the recipe image to its LEFT -->
+            <div class="rs-recipe-row">
+              <div class="rs-recipe-texts">
+                <p class="rs-text"><strong>استخدمتم الوصفة التالية.</strong></p>
+                <p class="rs-text">لكي يكفي المحلول كمية كبيرة من المشاركين، قررتم مضاعفة كمية سائل الجلي (سائل غسل الصحون) في الوصفة بمقدار الضعف (مرتين ).</p>
+              </div>
+              <div class="rs-recipe-frame">
+                <button class="img-zoom-btn" type="button" aria-label="تكبير الصورة" data-zoom-src="true">
+                  <svg class="img-zoom-btn__icon" viewBox="0 0 21 21" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="6.5" stroke="currentColor" stroke-width="2"/><line x1="13.5" y1="13.5" x2="19" y2="19" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+                </button>
+                <span class="zoom-img-inner"><img src="../unit-assets/img/s1-recipe-placeholder.jpg" alt="وصفة لفقاعات صابون ضخمة: 5 لترات من الماء، حوالي 300 مل من سائل الجلي، 60 مل من الجلسرين (أو شراب الذرة)، 3 ملاعق صغيرة من مسحوق الخبيز (بيكربونات الصودا)" loading="lazy" decoding="async"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- §3 — single-attempt question (slide 6) -->
+          <div class="rs-block">
+            <h2 class="rs-title">عذراً! حدث خطأ ما...</h2>
+            <p class="rs-text">خرجت الفقاعات صغيرة جداً وانفجرت بسرعة كبيرة.</p>
+            <div class="rs-question-row">
+              <div class="rs-question-main">
+                <p class="rs-text"><strong>ما الذي تعتقدون أنه قد يكون السبب؟</strong></p>
+                <div class="scq-answers" role="radiogroup" aria-label="ما الذي تعتقدون أنه قد يكون السبب؟">
+                  <button class="scq-opt" type="button" role="radio" aria-checked="false" data-id="a" onclick="s1qSelect('a')">
+                    <span class="scq-radio" aria-hidden="true"></span>
+                    لقد ضاعفنا بعض مكونات الوصفة فقط وليس جميعها
+                  </button>
+                  <button class="scq-opt" type="button" role="radio" aria-checked="false" data-id="b" onclick="s1qSelect('b')">
+                    <span class="scq-radio" aria-hidden="true"></span>
+                    <span class="scq-opt-text">خلطنا المواد في وعاء كبير جداً</span>
+                  </button>
+                  <button class="scq-opt" type="button" role="radio" aria-checked="false" data-id="c" onclick="s1qSelect('c')">
+                    <span class="scq-radio" aria-hidden="true"></span>
+                    لقد حضّرنا المحلول قبل أكثر من نصف ساعة من الحفل
+                  </button>
+                </div>
+                <button class="btn-continue rs-check" id="s1q-check" disabled onclick="s1qCheck()">هل إجابتي صحيحة؟</button>
+                <div class="rs-feedback" id="s1q-feedback"></div>
+              </div>
+              <!-- companion character, detective pose (asset pair pending) -->
+              <div class="rs-q-char">
+                <img id="s1-q-char" src="" alt="الشخصية المرافقة ذات قبعة المحقق وعدسة مكبرة" loading="lazy" decoding="async">
+              </div>
+            </div>
+          </div>
+
+          <!-- §4 — doubling explanation (slide 7) -->
+          <div class="rs-block">
+            <h2 class="rs-title">إذن ماذا حدث للفقاعات؟</h2>
+            <p class="rs-text">إذا ضربنا في 2 جزءًا من المكونات فقط، لن نحصل على فقاعات كتلك التي ستتكوّن من المحلول في الوصفة الأصلية.</p>
+            <p class="rs-text">لتحضير كمية أكبر من المحلول بنفس الطريقة، علينا ضرب كميات جميع المكوّنات في 2. مثلاً:</p>
+            <!-- pptx slide 7: original = one bucket + one bottle; the doubled
+                 side shows TWO buckets and TWO bottles, each with its own label -->
+            <div class="rs-double-row">
+              <div class="rs-double-group">
+                <div class="rs-double-item">
+                  <img src="../unit-assets/img/s1-bucket.svg" alt="دلو ماء" loading="lazy" decoding="async">
+                  <span class="rs-double-label">5 لتر</span>
+                </div>
+                <span class="rs-double-op">+</span>
+                <div class="rs-double-item">
+                  <img src="../unit-assets/img/s1-soap.svg" alt="زجاجة سائل جلي الصحون" loading="lazy" decoding="async">
+                  <span class="rs-double-label">300 مل سائل غسيل الصحون</span>
+                </div>
+              </div>
+              <span class="rs-double-op" dir="ltr">× 2</span>
+              <div class="rs-double-group">
+                <div class="rs-double-item">
+                  <img src="../unit-assets/img/s1-bucket.svg" alt="دلو ماء أول" loading="lazy" decoding="async">
+                  <span class="rs-double-label">5 لتر</span>
+                </div>
+                <div class="rs-double-item">
+                  <img src="../unit-assets/img/s1-bucket.svg" alt="دلو ماء ثانٍ" loading="lazy" decoding="async">
+                  <span class="rs-double-label">5 لتر</span>
+                </div>
+                <span class="rs-double-op">+</span>
+                <div class="rs-double-item">
+                  <img src="../unit-assets/img/s1-soap.svg" alt="زجاجة سائل الجلي الأولى" loading="lazy" decoding="async">
+                  <span class="rs-double-label">300 مل</span>
+                </div>
+                <div class="rs-double-item">
+                  <img src="../unit-assets/img/s1-soap.svg" alt="زجاجة سائل الجلي الثانية" loading="lazy" decoding="async">
+                  <span class="rs-double-label">300 مل</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- §5 — ratio definition + flip cards (slides 8-9). The slides
+               also place the companion character at the side with a
+               tail-down bubble above it (wedgeRectCallout). -->
+          <div class="rs-block">
+            <h2 class="rs-title">هذه نسبة: مصطلح يصف العلاقة بين كميتين/مقدارين.</h2>
+            <div class="rs-question-row">
+              <div class="rs-question-main">
+                <p class="rs-text">بمساعدة نسبة بين المقادير / الكميات، سنتمكن من معرفة كم مرة تكون إحدى الكميات أكبر من الأخرى، وكيفية الحفاظ على علاقة ثابتة بين كميتين.</p>
+                <p class="rs-text">نسبة يمكن أن يكون بين كميات من النوع نفسه (مثلاً بين عدة عناصر) أو بين كميات من أنواع مختلفة، كـنسبة بين الكمية والتكلفة (سعر الوحدة) أو نسبة بين المسافة والزمن (السرعة).</p>
+              </div>
+              <div class="char-bubble-vert">
+                <div class="rs-bubble rs-bubble--down">
+                  <svg class="rs-bubble-shape rs-bubble-shape--down" viewBox="0 0 216 89" preserveAspectRatio="none" aria-hidden="true"><use href="#bubble-tail-down"/></svg>
+                  <span class="rs-bubble-text rs-bubble-text--down">هيا نتعلم عن نسبة!</span>
+                </div>
+                <div class="rs-q-char rs-q-char--sm">
+                  <img id="s1-def-char" src="" alt="الشخصية المرافقة" loading="lazy" decoding="async">
+                </div>
+              </div>
+            </div>
+            <p class="rs-text"><strong>في الحياة اليومية، وفي العلوم والرياضيات، تستند مفاهيم كثيرة بشكل مباشر إلى نسبة بين مقدارين أو أكثر، حتى لو لم نسمِّها "نسبة". انقر على كل مثال لترى كيف يعبّر عن نسبة:</strong></p>
+            <div class="option-cards rs-cards" role="group" aria-label="بطاقات — اضغطوا للاكتشاف">
+              <button class="frc-card" data-index="2" type="button" aria-expanded="false"
+                      aria-label="بطاقة: كثافة سكانية. اضغطوا للقلب" onclick="s1Flip(this)">
+                <div class="frc-card-inner">
+                  <div class="frc-card-front">
+                    <img src="../unit-assets/img/s1-flip-density-placeholder.jpg" alt="جدول التجمعات السكانية الأكثر اكتظاظاً في إسرائيل" loading="lazy" decoding="async">
+                    الكثافة السكانية
+                  </div>
+                  <div class="frc-card-back" aria-hidden="true">
+                    <div class="frc-card-back-content"><strong>الكثافة السكانية:</strong> النسبة بين عدد السكان ومساحة المنطقة.</div>
+                  </div>
+                </div>
+              </button>
+              <button class="frc-card" data-index="1" type="button" aria-expanded="false"
+                      aria-label="بطاقة: ملء البركة. اضغطوا للقلب" onclick="s1Flip(this)">
+                <div class="frc-card-inner">
+                  <div class="frc-card-front">
+                    <img src="../unit-assets/img/s1-flip-pool-placeholder.jpg" alt="ملء البركة بواسطة  خرطوم مياه (أنبوب)" loading="lazy" decoding="async">
+                    ملء البركة
+                  </div>
+                  <div class="frc-card-back" aria-hidden="true">
+                    <div class="frc-card-back-content"><strong>ملء البركة<br>(معدل/وتيرة الملء):</strong>نسبة بين كمية الماء وزمن الملء</div>
+                  </div>
+                </div>
+              </button>
+              <button class="frc-card" data-index="0" type="button" aria-expanded="false"
+                      aria-label="بطاقة: السرعة. اضغطوا للقلب" onclick="s1Flip(this)">
+                <div class="frc-card-inner">
+                  <div class="frc-card-front">
+                    <img src="../unit-assets/img/s1-flip-speed-placeholder.jpg" alt="إشارة السرعة القصوى المسموح بها 20 كم/س" loading="lazy" decoding="async">
+                    <span class="frc-card-title">سرعة</span>
+                  </div>
+                  <div class="frc-card-back" aria-hidden="true">
+                    <div class="frc-card-back-content"><strong>السرعة:</strong> النسبة بين المسافة والزمن</div>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <button class="btn-continue" id="s1-continue" disabled onclick="advanceScreen()"><span class="nav-label" data-label="المتابعة"><span>المتابعة</span></span></button>
+      <button class="scq-back" type="button" onclick="goBack()"><span class="nav-label" data-label="عودة"><span>عودة</span></span></button>
+    </section>
+<section class="screen" data-screen="2" id="s2">
+      <div class="qs-stack">
+        <p class="s9-intro"><strong>أمامكم 12 ملصقًا دائريًا متطابقًا، أسود وأحمر، مرتّبة في صف واحد، تشمل:</strong></p>
+        <ul class="qs-bullets">
+          <li>4 ملصقات سوداء</li>
+          <li>8 ملصقات حمراء</li>
+        </ul>
+        <img class="qs-stickers" src="../unit-assets/img/s2-stickers-12.svg"
+             alt="صف من 12 ملصقًا دائريًا: 4 سوداء و8 حمراء" loading="lazy" decoding="async">
+        <p class="scq-qtext qs-qtext">ماذا يمكن القول عن العلاقة بين الملصقات السوداء والحمراء؟
+
+حددوا جميع الإجابات المناسبة.</p>
+        <div class="scq-answers qs-answers" role="group" aria-label="حددوا جميع الإجابات المناسبة">
+          <button class="scq-opt" type="button" role="checkbox" aria-checked="false" data-id="a" onclick="s2Toggle('a')">
+            <span class="mcq-check" aria-hidden="true"></span>
+            مقابل كل ملصقين أحمرين، يوجد ملصق أسود واحد
+          </button>
+          <button class="scq-opt" type="button" role="checkbox" aria-checked="false" data-id="b" onclick="s2Toggle('b')">
+            <span class="mcq-check" aria-hidden="true"></span>
+            مقابل كل ملصق أسود، يوجد ملصقان أحمران
+          </button>
+          <button class="scq-opt" type="button" role="checkbox" aria-checked="false" data-id="c" onclick="s2Toggle('c')">
+            <span class="mcq-check" aria-hidden="true"></span>
+            <span class="scq-opt-text">كمية الملصقات الحمراء أكبر بمرتين من كمية الملصقات السوداء</span>
+          </button>
+          <button class="scq-opt" type="button" role="checkbox" aria-checked="false" data-id="d" onclick="s2Toggle('d')">
+            <span class="mcq-check" aria-hidden="true"></span>
+            <span class="scq-opt-text">كمية الملصقات السوداء هي نصف كمية الملصقات الحمراء</span>
+          </button>
+        </div>
+      </div>
+      <button class="btn-continue" id="s2-check" disabled onclick="s2Check()">هل إجابتي صحيحة؟</button>
+      <button class="scq-back" type="button" onclick="goBack()"><span class="nav-label" data-label="رجوع"><span>رجوع</span></span></button>
+    </section>
+<section class="screen" data-screen="3" id="s3">
+      <div class="qs-stack">
+        <p class="s9-intro"><strong>أمامكم 12 ملصقًا دائريًا متطابقًا، أسود وأحمر، مرتّبة في صف واحد، تشمل:</strong></p>
+        <ul class="qs-bullets">
+          <li>4 ملصقات سوداء</li>
+          <li>8 ملصقات حمراء</li>
+        </ul>
+        <img class="qs-stickers" src="../unit-assets/img/s2-stickers-12.svg"
+             alt="صف من 12 ملصقًا دائريًا: 4 سوداء و8 حمراء" loading="lazy" decoding="async">
+        <p class="scq-qtext qs-qtext">ماذا يمكن القول عن العلاقة بين الملصقات الحمراء ومجموع (إجمالي) الملصقات (السوداء والحمراء معاً)؟<br>
+          <span class="qs-qsub">حددوا جميع الإجابات المناسبة..</span></p>
+        <div class="scq-answers qs-answers" role="group" aria-label="حددوا جميع الإجابات المناسبة">
+          <button class="scq-opt" type="button" role="checkbox" aria-checked="false" data-id="a" onclick="s3Toggle('a')">
+            <span class="mcq-check" aria-hidden="true"></span>
+            <span class="scq-opt-text">الملصقات الحمراء تشكّل <span class="frac" dir="ltr"><span class="frac-num">2</span><span class="frac-den">3</span></span> من مجموع الملصقات</span>
+          </button>
+          <button class="scq-opt" type="button" role="checkbox" aria-checked="false" data-id="b" onclick="s3Toggle('b')">
+            <span class="mcq-check" aria-hidden="true"></span>
+            <span class="scq-opt-text">الملصقات الحمراء تشكّل 50% من مجموع الملصقات</span>
+          </button>
+          <button class="scq-opt" type="button" role="checkbox" aria-checked="false" data-id="c" onclick="s3Toggle('c')">
+            <span class="mcq-check" aria-hidden="true"></span>
+            <span class="scq-opt-text">الملصقات الحمراء تشكّل غالبية الملصقات</span>
+          </button>
+          <button class="scq-opt" type="button" role="checkbox" aria-checked="false" data-id="d" onclick="s3Toggle('d')">
+            <span class="mcq-check" aria-hidden="true"></span>
+            <span class="scq-opt-text">العدد الإجمالي للملصقات أكبر بـ 1.5 مرة من عدد الملصقات الحمراء</span>
+          </button>
+        </div>
+      </div>
+      <button class="btn-continue" id="s3-check" disabled onclick="s3Check()">هل إجابتي صحيحة؟</button>
+      <button class="scq-back" type="button" onclick="goBack()"><span class="nav-label" data-label="رجوع"><span>رجوع</span></span></button>
+    </section>
+<section class="screen" data-screen="4" id="s4">
+      <div class="rs-scroll" id="s4-scroll">
+        <div class="rs-inner">
+
+          <!-- §1 — why so many questions? (slide 12) -->
+          <div class="rs-block">
+            <h2 class="rs-title">ولماذا نطرح كل هذه الأسئلة؟</h2>
+            <p class="rs-text"><strong>لأننا أردنا أن تتعرفوا على مصطلح جديد: نسبة.</strong></p>
+            <p class="rs-text">ما هي النسبة؟
+النسبة هي حاصل قسمة عددين موجبين (أعداد، مقادير، كميات وغيرها).
+
+وهي تتيح لنا فهم أيّهما أكبر / أصغر / مساوٍ للآخر، وكيف يرتبط العددان ببعضهما البعض.</p>
+            <p class="rs-text">إذا عدنا إلى ملصقاتنا، لدينا 4 ملصقات سوداء و8 ملصقات حمراء.</p>
+            <p class="rs-text">النسبة بين الملصقات السوداء والملصقات الحمراء هي <span dir="ltr">4: 8</span>.</p>
+            <img class="qs-stickers" src="../unit-assets/img/s2-stickers-12.svg"
+                 alt="صف من 12 ملصقًا دائريًا: 4 سوداء و8 حمراء" loading="lazy" decoding="async">
+          </div>
+
+          <!-- §2 — notation (slide 13, bolds per the reference render) -->
+          <div class="rs-block">
+            <p class="rs-text"><strong>يمكن تمثيل نسبة بالكتابة اللفظية، والكتابة الرياضية، وكسر بسيط / العشري، ونسبة مئوية.</strong></p>
+            <p class="rs-text">بالكتابة اللفظية: نكتب النسبة من اليمين إلى اليسار - في صف الملصقات توجد 4 ملصقات سوداء و8 ملصقات حمراء.</p>
+            <p class="rs-text"><strong>بالكتابة الرياضية:</strong> نكتب نسبة <strong>من اليسار إلى اليمين</strong> – <span dir="ltr">4: 8</span> أو بصورة كسر <span class="frac" dir="ltr"><span class="frac-num">4</span><span class="frac-den">8</span></span> (خارج القسمة).</p>
+            <p class="rs-text">بما أن النسبة تصف حاصل قسمة (ناتج عملية القسمة)، فهناك أهمية لترتيب الكتابة.</p>
+            <p class="rs-text">الرقم المذكور أولاً في الكتابة اللفظية يُكتب على اليسار في الكتابة الرياضية، وفي بسط في حالة القسمة.</p>
+          </div>
+
+          <!-- §3 — example beside the companion character (slide 14) -->
+          <div class="rs-block">
+            <div class="rs-question-row">
+              <div class="rs-question-main">
+                <p class="rs-text"><strong>نوضح بمثال:</strong></p>
+                <p class="rs-text">ذ</p>
+              </div>
+              <!-- pptx slide 14: bubble sits to the character's RIGHT
+                   (wedgeRectCallout) — first child renders rightmost in RTL -->
+              <div class="rs-char-bubble-group">
+                <div class="rs-bubble">
+                  <svg class="rs-bubble-shape" viewBox="0 0 241 137" preserveAspectRatio="none" aria-hidden="true"><use href="#bubble-tail-right"/></svg>
+                  <span class="rs-bubble-text">في ما يلي، سنتعلم كيفية التعبير عن نسبة باستخدام كسر بسيط / العشري ونسبة مئوية.</span>
+                </div>
+                <div class="rs-q-char">
+                  <img id="s4-char-1" src="" alt="الشخصية المرافقة" loading="lazy" decoding="async">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- §4 — embedded MCQ (slide 15) -->
+          <div class="rs-block">
+            <p class="rs-text"><strong>أي من الجمل التالية تمثل نسبة بين كميتين؟</strong><br>حدد جميع الإجابات الصحيحة:</p>
+            <div class="scq-answers" role="group" aria-label="ضعوا علامة على جميع الإجابات الصحيحة">
+              <button class="scq-opt" type="button" role="checkbox" aria-checked="false" data-id="a" onclick="s4q1Toggle('a')">
+                <span class="mcq-check" aria-hidden="true"></span>
+                <span class="scq-opt-text">في المركز التجاري 23 محل ملابس و8 محلات أحذية</span>
+              </button>
+              <button class="scq-opt" type="button" role="checkbox" aria-checked="false" data-id="b" onclick="s4q1Toggle('b')">
+                <span class="mcq-check" aria-hidden="true"></span>
+                <span class="scq-opt-text">سعر القميص 79 شيكلاً</span>
+              </button>
+              <button class="scq-opt" type="button" role="checkbox" aria-checked="false" data-id="c" onclick="s4q1Toggle('c')">
+                <span class="mcq-check" aria-hidden="true"></span>
+                <span class="scq-opt-text">في حوض السمك يوجد 8 سمكة ذهبية و4 أسماك زرقاء</span>
+              </button>
+              <button class="scq-opt" type="button" role="checkbox" aria-checked="false" data-id="d" onclick="s4q1Toggle('d')">
+                <span class="mcq-check" aria-hidden="true"></span>
+                <span class="scq-opt-text">درجة الحرارة الآن هي 32°C</span>
+              </button>
+            </div>
+            <button class="btn-continue rs-check" id="s4q1-check" disabled onclick="s4q1Check()">هل إجابتي صحيحة؟</button>
+            <div class="rs-feedback" id="s4q1-feedback"></div>
+          </div>
+
+          <!-- §5 — 5-sticker context + questions א/ב/ג (slides 16-18) -->
+          <div class="rs-block">
+            <p class="rs-text"><strong>أمامكم 5 ملصقات. 4 ملصقات زرقاء وواحدة خضراء.</strong></p>
+            <img class="qs-stickers qs-stickers--small" src="../unit-assets/img/s4-stickers-5.svg"
+                 alt="صف من 5 ملصقات دائرية: 4 زرقاء وواحدة خضراء" loading="lazy" decoding="async">
+
+            <!-- א — ratio input (slide 16) -->
+            <p class="rs-text rs-subq"><strong>أ. اكتبوا نسبة بين عدد الملصقات الخضراء وعدد الملصقات الزرقاء.</strong></p>
+            <div class="ratio-input-row" dir="ltr">
+              <input id="s4q2-left" class="viq-input-box" type="number" inputmode="numeric" min="0"
+                     aria-label="الحد الأيسر في نسبة" oninput="s4q2OnInput()">
+              <span class="ratio-colon">:</span>
+              <input id="s4q2-right" class="viq-input-box" type="number" inputmode="numeric" min="0"
+                     aria-label="الحد الأيمن في نسبة" oninput="s4q2OnInput()">
+            </div>
+            <button class="btn-continue rs-check" id="s4q2-check" disabled onclick="s4q2Check()">هل إجابتي صحيحة؟</button>
+            <div class="rs-feedback" id="s4q2-feedback"></div>
+
+            <!-- ב — value input (slide 17) -->
+            <p class="rs-text rs-subq"><strong>ب. وفقاً لنفس نسبة: إذا كان لدينا 3 ملصقات خضراء، كم عدد الملصقات الزرقاء التي سيكون لدينا؟</strong></p>
+            <div class="ratio-input-row" dir="ltr">
+              <input id="s4q3-input" class="viq-input-box" type="number" inputmode="numeric" min="0"
+                     aria-label="عدد الملصقات الزرقاء" oninput="s4q3OnInput()">
+            </div>
+            <button class="btn-continue rs-check" id="s4q3-check" disabled onclick="s4q3Check()"><span class="nav-label" data-label="هل إجابتي صحيحة؟"><span>هل إجابتي صحيحة؟</span></span></button>
+            <div class="rs-feedback" id="s4q3-feedback"></div>
+
+            <!-- ג — statement assessment (slide 18) -->
+            <p class="rs-text rs-subq"><strong>ج. وفقًا لنفس نسبة، هل من الممكن أن يكون لدينا:</strong></p>
+            <div class="saq-rows" role="group" aria-label="حددوا لكل عبارة: نعم أو لا">
+              <div class="saq-row" data-id="a">
+                <span class="saq-text">2 ملصقات خضراء و4 ملصقات زرقاء؟</span>
+                <div class="saq-toggle" role="radiogroup" aria-label="2 ملصقات خضراء و4 ملصقات زرقاء؟">
+                  <button class="saq-pill" type="button" role="radio" aria-checked="false" data-val="yes" onclick="s4q4Pick('a','yes',this)">نعم</button>
+                  <button class="saq-pill" type="button" role="radio" aria-checked="false" data-val="no" onclick="s4q4Pick('a','no',this)">لا</button>
+                </div>
+              </div>
+              <div class="saq-row" data-id="b">
+                <span class="saq-text">6 ملصقات خضراء و-24 ملصقاً أزرق؟</span>
+                <div class="saq-toggle" role="radiogroup" aria-label="6 ملصقات خضراء و-24 ملصقة زرقاء?">
+                  <button class="saq-pill" type="button" role="radio" aria-checked="false" data-val="yes" onclick="s4q4Pick('b','yes',this)">نعم</button>
+                  <button class="saq-pill" type="button" role="radio" aria-checked="false" data-val="no" onclick="s4q4Pick('b','no',this)">لا</button>
+                </div>
+              </div>
+              <div class="saq-row" data-id="c">
+                <span class="saq-text">20 ملصقة خضراء و80 ملصقة زرقاء؟</span>
+                <div class="saq-toggle" role="radiogroup" aria-label="20 ملصقة خضراء و-80 ملصقة زرقاء؟">
+                  <button class="saq-pill" type="button" role="radio" aria-checked="false" data-val="yes" onclick="s4q4Pick('c','yes',this)">نعم</button>
+                  <button class="saq-pill" type="button" role="radio" aria-checked="false" data-val="no" onclick="s4q4Pick('c','no',this)">لا</button>
+                </div>
+              </div>
+              <div class="saq-row" data-id="d">
+                <span class="saq-text">3 ملصقات خضراء و7 ملصقات زرقاء؟</span>
+                <div class="saq-toggle" role="radiogroup" aria-label="3 ملصقات خضراء و-7 ملصقات زرقاء؟">
+                  <button class="saq-pill" type="button" role="radio" aria-checked="false" data-val="yes" onclick="s4q4Pick('d','yes',this)">نعم</button>
+                  <button class="saq-pill" type="button" role="radio" aria-checked="false" data-val="no" onclick="s4q4Pick('d','no',this)">لا</button>
+                </div>
+              </div>
+            </div>
+            <button class="btn-continue rs-check" id="s4q4-check" disabled onclick="s4q4Check()"><span class="nav-label" data-label="هل إجابتي صحيحة؟"><span>هل إجابتي صحيحة؟</span></span></button>
+            <div class="rs-feedback" id="s4q4-feedback"></div>
+          </div>
+
+          <!-- §6 — reduction flip cards, side A→B (slides 19-20).
+               LTR row: DOM order left→right, so the first-mentioned
+               ratio 4:8 is the LAST child (physical right, RTL reading). -->
+          <div class="rs-block">
+            <p class="rs-text"><strong>بما أنّ النسبة هي في الأساس حاصل قسمة بين عددين، يمكن اختزال النسبة، تمامًا كما تُختزل الكسور.</strong></p>
+            <p class="rs-text">اضغطوا على كل نسبة لتتذكروا طريقة اختزالها (تبسيطها):</p>
+            <div class="option-cards rs-cards rs-cards--text" role="group" aria-label="بطاقات الاختزال — اضغطوا للاكتشاف">
+              <button class="frc-card frc-card--text" data-index="3" type="button" aria-expanded="false"
+                      aria-label="النسبة خمسة عشر إلى عشرين. اضغط للقلب" onclick="s4Flip(this)">
+                <div class="frc-card-inner">
+                  <div class="frc-card-front frc-front--text">
+                    <span class="frac frac--big" dir="ltr"><span class="frac-num">15</span><span class="frac-den">20</span></span>
+                  </div>
+                  <div class="frc-card-back" aria-hidden="true">
+                    <div class="frc-card-back-content frc-back--text">
+                      <span class="frac" dir="ltr"><span class="frac-num">15</span><span class="frac-den">20</span></span>
+                      <p>سنقسم بسط ومقام على 5 ونحصل على نسبة (الكسر) المختزل:</p>
+                      <span class="frac" dir="ltr"><span class="frac-num">3</span><span class="frac-den">4</span></span>
+                    </div>
+                  </div>
+                </div>
+              </button>
+              <button class="frc-card frc-card--text" data-index="2" type="button" aria-expanded="false"
+                      aria-label="النسبة ثلاثة إلى اثنتي عشرة. اضغط للقلب" onclick="s4Flip(this)">
+                <div class="frc-card-inner">
+                  <div class="frc-card-front frc-front--text">
+                    <span class="frac frac--big" dir="ltr"><span class="frac-num">3</span><span class="frac-den">12</span></span>
+                  </div>
+                  <div class="frc-card-back" aria-hidden="true">
+                    <div class="frc-card-back-content frc-back--text">
+                      <span class="frac" dir="ltr"><span class="frac-num">3</span><span class="frac-den">12</span></span>
+                      <p>سنقسم بسط ومقام على 3 للحصول على نسبة (الكسر) المختزل:</p>
+                      <span class="frac" dir="ltr"><span class="frac-num">1</span><span class="frac-den">4</span></span>
+                    </div>
+                  </div>
+                </div>
+              </button>
+              <button class="frc-card frc-card--text" data-index="1" type="button" aria-expanded="false"
+                      aria-label="النسبة تسعة إلى ستة. اضغط للقلب" onclick="s4Flip(this)">
+                <div class="frc-card-inner">
+                  <div class="frc-card-front frc-front--text">
+                    <span class="frc-ratio" dir="ltr">9 : 6</span>
+                  </div>
+                  <div class="frc-card-back" aria-hidden="true">
+                    <div class="frc-card-back-content frc-back--text">
+                      <span class="frc-ratio-sm" dir="ltr">9 : 6</span>
+                      <p>نقسم حدي (عنصري) النسبة على 3 فنحصل على النسبة المختزلة:</p>
+                      <span class="frc-ratio-sm" dir="ltr">3 : 2</span>
+                    </div>
+                  </div>
+                </div>
+              </button>
+              <button class="frc-card frc-card--text" data-index="0" type="button" aria-expanded="false"
+                      aria-label="النسبة أربعة إلى ثمانية. اضغط للقلب" onclick="s4Flip(this)">
+                <div class="frc-card-inner">
+                  <div class="frc-card-front frc-front--text">
+                    <span class="frc-ratio" dir="ltr">4 : 8</span>
+                  </div>
+                  <div class="frc-card-back" aria-hidden="true">
+                    <div class="frc-card-back-content frc-back--text">
+                      <span class="frc-ratio-sm" dir="ltr">4 : 8</span>
+                      <p>نقسم حدي (عنصري) النسبة على 4 فنحصل على النسبة المختزلة:</p>
+                      <span class="frc-ratio-sm" dir="ltr">1 : 2</span>
+                    </div>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- §7 — equal quantities + closing (slide 21) -->
+          <div class="rs-block">
+            <h2 class="rs-title">وماذا يحدث عندما يكون لدينا كميتان متساويتان؟</h2>
+            <div class="rs-question-row">
+              <div class="rs-question-main">
+                <p class="rs-text">على سبيل المثال، لدينا وعاء يحتوي على 5 تفاحات و5 برتقالات.<br> نسبة بين التفاحات والبرتقالات سيكون <span dir="ltr"><strong>5: 5</strong></span>.<br> نبسّط نسبة بالقسمة على 5، ونحصل على نسبة <span dir="ltr"><strong>1:1</strong></span>.</p>
+                <p class="rs-text"><strong>نسبة بين كميتين متساويتين سيكون دائمًا <span dir="ltr">1:1</span>.</strong></p>
+              </div>
+              <img class="rs-fruit-img" src="../unit-assets/img/s4-fruit-bowl.png"
+                   alt="وعاء يحتوي على 5 تفاحات حمراء و5 برتقالات" loading="lazy" decoding="async">
+            </div>
+            <div class="rs-closing-row">
+              <div class="rs-char-bubble-group">
+                <div class="rs-bubble">
+                  <svg class="rs-bubble-shape" viewBox="0 0 241 137" preserveAspectRatio="none" aria-hidden="true"><use href="#bubble-tail-right"/></svg>
+                  <span class="rs-bubble-text">تعلمنا الكثير عن نسبة،<br>حان وقت التدريب!</span>
+                </div>
+                <div class="rs-q-char">
+                  <img id="s4-char-2" src="" alt="الشخصية المرافقة" loading="lazy" decoding="async">
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <button class="btn-continue" id="s4-continue" disabled onclick="advanceScreen()"><span class="nav-label" data-label="المتابعة"><span>المتابعة</span></span></button>
+      <button class="scq-back" type="button" onclick="goBack()"><span class="nav-label" data-label="عودة"><span>عودة</span></span></button>
+    </section>
+<section class="screen" data-screen="5" id="s5">
+      <div class="s1-content">
+        <div class="s1-text">
+          <h1 class="s1-title">سنبدأ التدريب بعد قليل،</h1>
+          <p class="s1-subtitle">لحظة قبل ذلك، تعالوا نحلّ تمرينًا واحدًا معًا</p>
+        </div>
+        <div class="s1-video-wrap">
+          <img class="s5-hug-img" src="../unit-assets/img/characters-hug.jpg" alt="الشخصيتان المرافقتان في عناق" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <button class="btn-continue" id="s5-continue" onclick="advanceScreen()"><span class="nav-label" data-label="المتابعة"><span>المتابعة</span></span></button>
+      <button class="scq-back" type="button" onclick="goBack()"><span class="nav-label" data-label="رجوع"><span>رجوع</span></span></button>
+    </section>
+<section class="screen" data-screen="6" id="s6">
+      <div class="s18-question">
+        <div class="s18-title-band"><h1 class="s18-title">نسبة – لنحل التمرين الأول معاً</h1></div>
+        <div class="s18-card">
+          <div class="s18-text-group">
+            <p class="s18-lead">تأملوا التمرين التالي. لا تحلوه،<br>فقط انظروا إلى معطيات وفكروا إذا كان لديكم اتّجاه للحل.</p>
+            <p class="s18-scenario">في صالة عرض متجر البلاط، يُعرض شريط بلاط لجدار المطبخ.<br>الشريط مؤلف من 3 بلاطات مزخرفة و9 بلاطات سادة.</p>
+          </div>
+          <p class="s18-ask">علينا إيجاد نسبة بين عدد البلاطات المزخرفة وعدد البلاطات السادة، وتبسيط النسبة قدر الإمكان.</p>
+          <div class="tile-strip-wrap">
+            <div class="tile-strip" role="img" aria-label="شريط من 12 بلاطة: 3 مزخرفة و-9 سادة"><span class="tile"></span><span class="tile tile--decorated"><img src="../unit-assets/img/guided-tile-decorated.jpg" alt="" loading="lazy" decoding="async"></span><span class="tile tile--decorated"><img src="../unit-assets/img/guided-tile-decorated.jpg" alt="" loading="lazy" decoding="async"></span><span class="tile"></span><span class="tile tile--decorated"><img src="../unit-assets/img/guided-tile-decorated.jpg" alt="" loading="lazy" decoding="async"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="guided-char guided-char--big is-pending" id="s6-char-stage">
+        <div class="rs-bubble rs-bubble--down">
+          <svg class="rs-bubble-shape rs-bubble-shape--down" viewBox="0 0 216 89" preserveAspectRatio="none" aria-hidden="true"><use href="#bubble-tail-down"/></svg>
+          <span class="rs-bubble-text rs-bubble-text--down">سنشرح الحل فورًا،<br>خطوة بخطوة</span>
+        </div>
+        <img id="s6-char" src="" alt="الشخصية المرافقة" loading="lazy" decoding="async">
+      </div>
+      <button class="btn-continue" id="s6-continue" disabled onclick="advanceScreen()"><span class="nav-label" data-label="المتابعة"><span>المتابعة</span></span></button>
+      <button class="scq-back" type="button" onclick="goBack()"><span class="nav-label" data-label="عودة"><span>عودة</span></span></button>
+    </section>
+<section class="screen" data-screen="7" id="s7">
+      <div class="s18-question">
+        <div class="s18-title-band"><h1 class="s18-title">نسبة – لنحل التمرين الأول معاً</h1></div>
+        <div class="s18-card">
+          <div class="s18-text-group">
+            <p class="s18-lead">تأملوا في التمرين التالي. لا تحلّوه،<br>فقط انظروا إلى معطيات وفكّروا فيما إذا كان لديكم اتّجاه للحل.</p>
+            <p class="s18-scenario">في قاعة عرض محل البلاط، يُعرض شريط بلاط لجدار مطبخ.<br>الشريط مكوّن من 3 بلاطات مزخرفة و9 بلاطات سادة.</p>
+          </div>
+          <p class="s18-ask">اكتبوا نسبة بين عدد البلاطات المزخرفة وعدد البلاطات الملساء، وبسّطوا نسبة قدر الإمكان.</p>
+          <div class="tile-strip-wrap">
+            <div class="tile-strip" role="img" aria-label="شريط مؤلف من 12 بلاطة: 3 مزخرفة و-9 سادة"><span class="tile"></span><span class="tile tile--decorated"><img src="../unit-assets/img/guided-tile-decorated.jpg" alt="" loading="lazy" decoding="async"></span><span class="tile tile--decorated"><img src="../unit-assets/img/guided-tile-decorated.jpg" alt="" loading="lazy" decoding="async"></span><span class="tile"></span><span class="tile tile--decorated"><img src="../unit-assets/img/guided-tile-decorated.jpg" alt="" loading="lazy" decoding="async"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="s19-guided-card">
+        <svg class="s19-bulb" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg>
+        <div class="s19-twxt">
+          <div class="s19-per1">
+            <p class="s19-elaboration">طُلب منا كتابة نسبة بين نوعَي البلاط.</p>
+          </div>
+          <div class="s19-per3">
+            <p class="s19-question-line">عدد البلاطات المزخرفة مكتوب أولاً بالصيغة اللفظية. أين سيكون موضع ذلك العدد في الصيغة الرياضية لـنسبة؟</p>
+            <div class="s19-options" role="radiogroup" aria-label="أين سيكون موقع العدد في الكتابة الرياضية؟">
+              <button type="button" class="s19-opt" data-id="a" role="radio" aria-checked="false" onclick="gstepSelect('s7', 'a')"><span class="s19-opt-badge s19-badge-correct" aria-hidden="true"><svg viewBox="0 0 10.4133 7.51728" fill="none"><path d="M3.36229 7.51715C3.06671 7.51727 2.78322 7.39978 2.57439 7.1906L0.192279 4.80937C-0.0640367 4.55298 -0.0640367 4.13736 0.192279 3.88096C0.448678 3.62464 0.864299 3.62464 1.1207 3.88096L3.36229 6.12255L9.29261 0.192237C9.54901 -0.064079 9.96463 -0.064079 10.221 0.192237C10.4773 0.448635 10.4773 0.864256 10.221 1.12065L4.1502 7.1906C3.94136 7.39978 3.65788 7.51727 3.36229 7.51715Z" fill="white"/></svg></span><span class="s19-opt-badge s19-badge-incorrect" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M9.76736 0.232637C9.61836 0.0836796 9.4163 0 9.20561 0C8.99492 0 8.79286 0.0836796 8.64386 0.232637L5 3.87649L1.35615 0.232637C1.20714 0.0836796 1.00508 0 0.794391 0C0.583702 0 0.381639 0.0836796 0.232637 0.232637C0.0836796 0.381639 0 0.583702 0 0.794391C0 1.00508 0.0836796 1.20714 0.232637 1.35615L3.87649 5L0.232637 8.64386C0.0836796 8.79286 0 8.99492 0 9.20561C0 9.4163 0.0836796 9.61836 0.232637 9.76736C0.381639 9.91632 0.583702 10 0.794391 10C1.00508 10 1.20714 9.91632 1.35615 9.76736L5 6.12351L8.64386 9.76736C8.79286 9.91632 8.99492 10 9.20561 10C9.4163 10 9.61836 9.91632 9.76736 9.76736C9.91632 9.61836 10 9.4163 10 9.20561C10 8.99492 9.91632 8.79286 9.76736 8.64386L6.12351 5L9.76736 1.35615C9.91632 1.20714 10 1.00508 10 0.794391C10 0.583702 9.91632 0.381639 9.76736 0.232637Z" fill="white"/></svg></span><span class="s19-opt-text">من اليمين</span></button>
+              <button type="button" class="s19-opt" data-id="b" role="radio" aria-checked="false" onclick="gstepSelect('s7', 'b')"><span class="s19-opt-badge s19-badge-correct" aria-hidden="true"><svg viewBox="0 0 10.4133 7.51728" fill="none"><path d="M3.36229 7.51715C3.06671 7.51727 2.78322 7.39978 2.57439 7.1906L0.192279 4.80937C-0.0640367 4.55298 -0.0640367 4.13736 0.192279 3.88096C0.448678 3.62464 0.864299 3.62464 1.1207 3.88096L3.36229 6.12255L9.29261 0.192237C9.54901 -0.064079 9.96463 -0.064079 10.221 0.192237C10.4773 0.448635 10.4773 0.864256 10.221 1.12065L4.1502 7.1906C3.94136 7.39978 3.65788 7.51727 3.36229 7.51715Z" fill="white"/></svg></span><span class="s19-opt-badge s19-badge-incorrect" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M9.76736 0.232637C9.61836 0.0836796 9.4163 0 9.20561 0C8.99492 0 8.79286 0.0836796 8.64386 0.232637L5 3.87649L1.35615 0.232637C1.20714 0.0836796 1.00508 0 0.794391 0C0.583702 0 0.381639 0.0836796 0.232637 0.232637C0.0836796 0.381639 0 0.583702 0 0.794391C0 1.00508 0.0836796 1.20714 0.232637 1.35615L3.87649 5L0.232637 8.64386C0.0836796 8.79286 0 8.99492 0 9.20561C0 9.4163 0.0836796 9.61836 0.232637 9.76736C0.381639 9.91632 0.583702 10 0.794391 10C1.00508 10 1.20714 9.91632 1.35615 9.76736L5 6.12351L8.64386 9.76736C8.79286 9.91632 8.99492 10 9.20561 10C9.4163 10 9.61836 9.91632 9.76736 9.76736C9.91632 9.61836 10 9.4163 10 9.20561C10 8.99492 9.91632 8.79286 9.76736 8.64386L6.12351 5L9.76736 1.35615C9.91632 1.20714 10 1.00508 10 0.794391C10 0.583702 9.91632 0.381639 9.76736 0.232637Z" fill="white"/></svg></span><span class="s19-opt-text">من اليسار</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-continue" id="s7-continue" disabled onclick="advanceScreen()"><span class="nav-label" data-label="المتابعة"><span>المتابعة</span></span></button>
+      <button class="scq-back" type="button" onclick="goBack()"><span class="nav-label" data-label="رجوع"><span>رجوع</span></span></button>
+    </section>
+<section class="screen" data-screen="8" id="s8">
+      <div class="s18-question">
+        <div class="s18-title-band"><h1 class="s18-title">نسبة – لنحل التمرين الأول معاً</h1></div>
+        <div class="s18-card">
+          <div class="s18-text-group">
+            <p class="s18-lead">تأملوا التمرين التالي. لا تحلوه،<br>فقط انظروا إلى معطيات وفكروا إذا كان لديكم اتّجاه للحل.</p>
+            <p class="s18-scenario">في قاعة عرض لمتجر بلاط، يُعرَض شريط بلاط لجدار المطبخ.<br>الشريط مكوّن من 3 بلاطات مزخرفة و9 بلاطات سادة.</p>
+          </div>
+          <p class="s18-ask">اكتبوا نسبة بين عدد البلاطات المزخرفة وعدد البلاطات السادة، وبسّطوا نسبة قدر الإمكان.</p>
+          <div class="tile-strip-wrap">
+            <div class="tile-strip" role="img" aria-label="شريط من 12 بلاطة: 3 مزخرفة و-9 سادة"><span class="tile"></span><span class="tile tile--decorated"><img src="../unit-assets/img/guided-tile-decorated.jpg" alt="" loading="lazy" decoding="async"></span><span class="tile tile--decorated"><img src="../unit-assets/img/guided-tile-decorated.jpg" alt="" loading="lazy" decoding="async"></span><span class="tile"></span><span class="tile tile--decorated"><img src="../unit-assets/img/guided-tile-decorated.jpg" alt="" loading="lazy" decoding="async"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="s19-guided-card">
+        <svg class="s19-bulb" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg>
+        <div class="s19-twxt">
+          <div class="s19-per3">
+            <p class="s19-question-line">الرقم المكتوب أولاً في الكتابة اللفظية يُكتب على اليسار في الكتابة الرياضية، لذلك نسبة بين عدد البلاطات المزخرفة وعدد البلاطات السادة سيكون:</p>
+            <div class="s19-options" role="radiogroup" aria-label="ما هو نسبة؟">
+              <button type="button" class="s19-opt" data-id="a" role="radio" aria-checked="false" onclick="gstepSelect('s8', 'a')"><span class="s19-opt-badge s19-badge-correct" aria-hidden="true"><svg viewBox="0 0 10.4133 7.51728" fill="none"><path d="M3.36229 7.51715C3.06671 7.51727 2.78322 7.39978 2.57439 7.1906L0.192279 4.80937C-0.0640367 4.55298 -0.0640367 4.13736 0.192279 3.88096C0.448678 3.62464 0.864299 3.62464 1.1207 3.88096L3.36229 6.12255L9.29261 0.192237C9.54901 -0.064079 9.96463 -0.064079 10.221 0.192237C10.4773 0.448635 10.4773 0.864256 10.221 1.12065L4.1502 7.1906C3.94136 7.39978 3.65788 7.51727 3.36229 7.51715Z" fill="white"/></svg></span><span class="s19-opt-badge s19-badge-incorrect" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M9.76736 0.232637C9.61836 0.0836796 9.4163 0 9.20561 0C8.99492 0 8.79286 0.0836796 8.64386 0.232637L5 3.87649L1.35615 0.232637C1.20714 0.0836796 1.00508 0 0.794391 0C0.583702 0 0.381639 0.0836796 0.232637 0.232637C0.0836796 0.381639 0 0.583702 0 0.794391C0 1.00508 0.0836796 1.20714 0.232637 1.35615L3.87649 5L0.232637 8.64386C0.0836796 8.79286 0 8.99492 0 9.20561C0 9.4163 0.0836796 9.61836 0.232637 9.76736C0.381639 9.91632 0.583702 10 0.794391 10C1.00508 10 1.20714 9.91632 1.35615 9.76736L5 6.12351L8.64386 9.76736C8.79286 9.91632 8.99492 10 9.20561 10C9.4163 10 9.61836 9.91632 9.76736 9.76736C9.91632 9.61836 10 9.4163 10 9.20561C10 8.99492 9.91632 8.79286 9.76736 8.64386L6.12351 5L9.76736 1.35615C9.91632 1.20714 10 1.00508 10 0.794391C10 0.583702 9.91632 0.381639 9.76736 0.232637Z" fill="white"/></svg></span><span class="s19-opt-text"><span dir="ltr">9 : 3</span></span></button>
+              <button type="button" class="s19-opt" data-id="b" role="radio" aria-checked="false" onclick="gstepSelect('s8', 'b')"><span class="s19-opt-badge s19-badge-correct" aria-hidden="true"><svg viewBox="0 0 10.4133 7.51728" fill="none"><path d="M3.36229 7.51715C3.06671 7.51727 2.78322 7.39978 2.57439 7.1906L0.192279 4.80937C-0.0640367 4.55298 -0.0640367 4.13736 0.192279 3.88096C0.448678 3.62464 0.864299 3.62464 1.1207 3.88096L3.36229 6.12255L9.29261 0.192237C9.54901 -0.064079 9.96463 -0.064079 10.221 0.192237C10.4773 0.448635 10.4773 0.864256 10.221 1.12065L4.1502 7.1906C3.94136 7.39978 3.65788 7.51727 3.36229 7.51715Z" fill="white"/></svg></span><span class="s19-opt-badge s19-badge-incorrect" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M9.76736 0.232637C9.61836 0.0836796 9.4163 0 9.20561 0C8.99492 0 8.79286 0.0836796 8.64386 0.232637L5 3.87649L1.35615 0.232637C1.20714 0.0836796 1.00508 0 0.794391 0C0.583702 0 0.381639 0.0836796 0.232637 0.232637C0.0836796 0.381639 0 0.583702 0 0.794391C0 1.00508 0.0836796 1.20714 0.232637 1.35615L3.87649 5L0.232637 8.64386C0.0836796 8.79286 0 8.99492 0 9.20561C0 9.4163 0.0836796 9.61836 0.232637 9.76736C0.381639 9.91632 0.583702 10 0.794391 10C1.00508 10 1.20714 9.91632 1.35615 9.76736L5 6.12351L8.64386 9.76736C8.79286 9.91632 8.99492 10 9.20561 10C9.4163 10 9.61836 9.91632 9.76736 9.76736C9.91632 9.61836 10 9.4163 10 9.20561C10 8.99492 9.91632 8.79286 9.76736 8.64386L6.12351 5L9.76736 1.35615C9.91632 1.20714 10 1.00508 10 0.794391C10 0.583702 9.91632 0.381639 9.76736 0.232637Z" fill="white"/></svg></span><span class="s19-opt-text"><span dir="ltr">3 : 9</span></span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-continue" id="s8-continue" disabled onclick="advanceScreen()"><span class="nav-label" data-label="المتابعة"><span>المتابعة</span></span></button>
+      <button class="scq-back" type="button" onclick="goBack()"><span class="nav-label" data-label="عودة"><span>عودة</span></span></button>
+    </section>
+<section class="screen" data-screen="9" id="s9">
+      <div class="s18-question">
+        <div class="s18-title-band"><h1 class="s18-title">نسبة – لنحل التمرين الأول معاً</h1></div>
+        <div class="s18-card">
+          <div class="s18-text-group">
+            <p class="s18-lead">تأملوا التمرين التالي. لا تحلوه،<br>فقط انظروا إلى معطيات وفكروا إذا كان لديكم اتّجاه للحل.</p>
+            <p class="s18-scenario">في قاعة عرض متجر البلاط، يُعرض شريط بلاط لجدار المطبخ.<br>يتكون الشريط من 3 بلاطات مزخرفة و9 بلاطات سادة.</p>
+          </div>
+          <p class="s18-ask">اكتبوا نسبة بين عدد البلاطات المزخرفة وعدد البلاطات السادة، وبسّطوا النسبة قدر الإمكان.</p>
+          <div class="tile-strip-wrap">
+            <div class="tile-strip" role="img" aria-label="شريط من 12 بلاطة: 3 مزخرفة و-9 سادة."><span class="tile"></span><span class="tile tile--decorated"><img src="../unit-assets/img/guided-tile-decorated.jpg" alt="" loading="lazy" decoding="async"></span><span class="tile tile--decorated"><img src="../unit-assets/img/guided-tile-decorated.jpg" alt="" loading="lazy" decoding="async"></span><span class="tile"></span><span class="tile tile--decorated"><img src="../unit-assets/img/guided-tile-decorated.jpg" alt="" loading="lazy" decoding="async"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="s19-guided-card">
+        <svg class="s19-bulb" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg>
+        <div class="s19-twxt">
+          <div class="s19-per1">
+            <p class="s19-elaboration">نسبة هي <span dir="ltr">3: 9</span>.</p>
+          </div>
+          <div class="s19-per3">
+            <p class="s19-question-line">الآن لنتحقق، هل يمكن تبسيط نسبة؟</p>
+            <div class="s19-options" role="radiogroup" aria-label="هل يمكن الاختزال؟">
+              <button type="button" class="s19-opt" data-id="a" role="radio" aria-checked="false" onclick="gstepSelect('s9', 'a')"><span class="s19-opt-badge s19-badge-correct" aria-hidden="true"><svg viewBox="0 0 10.4133 7.51728" fill="none"><path d="M3.36229 7.51715C3.06671 7.51727 2.78322 7.39978 2.57439 7.1906L0.192279 4.80937C-0.0640367 4.55298 -0.0640367 4.13736 0.192279 3.88096C0.448678 3.62464 0.864299 3.62464 1.1207 3.88096L3.36229 6.12255L9.29261 0.192237C9.54901 -0.064079 9.96463 -0.064079 10.221 0.192237C10.4773 0.448635 10.4773 0.864256 10.221 1.12065L4.1502 7.1906C3.94136 7.39978 3.65788 7.51727 3.36229 7.51715Z" fill="white"/></svg></span><span class="s19-opt-badge s19-badge-incorrect" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M9.76736 0.232637C9.61836 0.0836796 9.4163 0 9.20561 0C8.99492 0 8.79286 0.0836796 8.64386 0.232637L5 3.87649L1.35615 0.232637C1.20714 0.0836796 1.00508 0 0.794391 0C0.583702 0 0.381639 0.0836796 0.232637 0.232637C0.0836796 0.381639 0 0.583702 0 0.794391C0 1.00508 0.0836796 1.20714 0.232637 1.35615L3.87649 5L0.232637 8.64386C0.0836796 8.79286 0 8.99492 0 9.20561C0 9.4163 0.0836796 9.61836 0.232637 9.76736C0.381639 9.91632 0.583702 10 0.794391 10C1.00508 10 1.20714 9.91632 1.35615 9.76736L5 6.12351L8.64386 9.76736C8.79286 9.91632 8.99492 10 9.20561 10C9.4163 10 9.61836 9.91632 9.76736 9.76736C9.91632 9.61836 10 9.4163 10 9.20561C10 8.99492 9.91632 8.79286 9.76736 8.64386L6.12351 5L9.76736 1.35615C9.91632 1.20714 10 1.00508 10 0.794391C10 0.583702 9.91632 0.381639 9.76736 0.232637Z" fill="white"/></svg></span><span class="s19-opt-text">نعم</span></button>
+              <button type="button" class="s19-opt" data-id="b" role="radio" aria-checked="false" onclick="gstepSelect('s9', 'b')"><span class="s19-opt-badge s19-badge-correct" aria-hidden="true"><svg viewBox="0 0 10.4133 7.51728" fill="none"><path d="M3.36229 7.51715C3.06671 7.51727 2.78322 7.39978 2.57439 7.1906L0.192279 4.80937C-0.0640367 4.55298 -0.0640367 4.13736 0.192279 3.88096C0.448678 3.62464 0.864299 3.62464 1.1207 3.88096L3.36229 6.12255L9.29261 0.192237C9.54901 -0.064079 9.96463 -0.064079 10.221 0.192237C10.4773 0.448635 10.4773 0.864256 10.221 1.12065L4.1502 7.1906C3.94136 7.39978 3.65788 7.51727 3.36229 7.51715Z" fill="white"/></svg></span><span class="s19-opt-badge s19-badge-incorrect" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none"><path d="M9.76736 0.232637C9.61836 0.0836796 9.4163 0 9.20561 0C8.99492 0 8.79286 0.0836796 8.64386 0.232637L5 3.87649L1.35615 0.232637C1.20714 0.0836796 1.00508 0 0.794391 0C0.583702 0 0.381639 0.0836796 0.232637 0.232637C0.0836796 0.381639 0 0.583702 0 0.794391C0 1.00508 0.0836796 1.20714 0.232637 1.35615L3.87649 5L0.232637 8.64386C0.0836796 8.79286 0 8.99492 0 9.20561C0 9.4163 0.0836796 9.61836 0.232637 9.76736C0.381639 9.91632 0.583702 10 0.794391 10C1.00508 10 1.20714 9.91632 1.35615 9.76736L5 6.12351L8.64386 9.76736C8.79286 9.91632 8.99492 10 9.20561 10C9.4163 10 9.61836 9.91632 9.76736 9.76736C9.91632 9.61836 10 9.4163 10 9.20561C10 8.99492 9.91632 8.79286 9.76736 8.64386L6.12351 5L9.76736 1.35615C9.91632 1.20714 10 1.00508 10 0.794391C10 0.583702 9.91632 0.381639 9.76736 0.232637Z" fill="white"/></svg></span><span class="s19-opt-text">لا</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-continue" id="s9-continue" disabled onclick="advanceScreen()"><span class="nav-label" data-label="المتابعة"><span>المتابعة</span></span></button>
+      <button class="scq-back" type="button" onclick="goBack()"><span class="nav-label" data-label="رجوع"><span>رجوع</span></span></button>
+    </section>
+<section class="screen" data-screen="10" id="s10">
+      <div class="s18-question">
+        <div class="s18-title-band"><h1 class="s18-title">نسبة – لنحل التمرين الأول معاً</h1></div>
+        <div class="s18-card">
+          <div class="s18-text-group">
+            <p class="s18-lead">تأملوا التمرين التالي. لا تحلوه،<br>فقط انظروا إلى معطيات وفكروا فيما إذا كانت لديكم اتّجاه للحل.</p>
+            <p class="s18-scenario">في قاعة عرض محل البلاط، يُعرض شريط بلاط لجدار المطبخ.<br>الشريط مكوّن من 3 بلاطات مزخرفة و9 بلاطات سادة.</p>
+          </div>
+          <p class="s18-ask">اكتبوا نسبة بين عدد البلاطات المزخرفة وعدد البلاطات السادة، وبسّطوا نسبة قدر الإمكان.</p>
+          <div class="tile-strip-wrap">
+            <div class="tile-strip" role="img" aria-label="شريط من 12 بلاطة: 3 مزخرفة و-9 سادة"><span class="tile"></span><span class="tile tile--decorated"><img src="../unit-assets/img/guided-tile-decorated.jpg" alt="" loading="lazy" decoding="async"></span><span class="tile tile--decorated"><img src="../unit-assets/img/guided-tile-decorated.jpg" alt="" loading="lazy" decoding="async"></span><span class="tile"></span><span class="tile tile--decorated"><img src="../unit-assets/img/guided-tile-decorated.jpg" alt="" loading="lazy" decoding="async"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span><span class="tile"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="s19-guided-card">
+        <svg class="s19-bulb" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg>
+        <div class="s19-twxt">
+          <div class="s19-per3">
+            <p class="s19-elaboration">نسبة بين عدد البلاطات المزخرفة وعدد البلاطات السادة هو <span dir="ltr">3: 9</span>.</p>
+            <p class="s19-elaboration s19-closing">سنبسّط بـ3 وسنحصل على نسبة مبسَّط <span dir="ltr">1: 3</span>.</p>
+          </div>
+        </div>
+      </div>
+      <button class="btn-continue" id="s10-continue" onclick="advanceScreen()"><span class="nav-label" data-label="المتابعة"><span>المتابعة</span></span></button>
+      <button class="scq-back" type="button" onclick="goBack()"><span class="nav-label" data-label="رجوع"><span>رجوع</span></span></button>
+    </section>
+<section class="screen" data-screen="11" id="s11">
+      <div class="s1-content">
+        <div class="s1-text">
+          <h1 class="s1-title">والآن، تمرين للإحماء!</h1>
+        </div>
+        <div class="s1-video-wrap">
+          <video class="s5-hug-img" id="s11-char" src="" autoplay loop muted playsinline
+                 preload="auto" aria-label="الشخصية المرافقة تلوّح بيديها"></video>
+        </div>
+      </div>
+      <button class="btn-continue" id="s11-continue" onclick="advanceScreen()"><span class="nav-label" data-label="المتابعة"><span>المتابعة</span></span></button>
+      <button class="scq-back" type="button" onclick="goBack()">رجوع</button>
+    </section>
+<section class="screen" data-screen="12" id="s12">
+      <div class="qs-stack">
+        <p class="s9-intro">رنين تلعب لعبة حاسوب يجب فيها جمع الماس بلونين – أسود وأبيض.<br> لقد حصلت على 100 ماسة سوداء و-25 ماسة بيضاء.</p>
+        <p class="scq-qtext qs-qtext">حددوا جميع العبارات الصحيحة.</p>
+        <div class="scq-answers qs-answers" role="group" aria-label="حددوا جميع العبارات الصحيحة.">
+          <button class="scq-opt" type="button" role="checkbox" aria-checked="false" data-id="a" onclick="s12Toggle('a')"><span class="mcq-check" aria-hidden="true"></span><span class="scq-opt-text">نسبة بين عدد الماسات السوداء وعدد الماسات البيضاء هو <span dir="ltr">100: 25</span></span></button>
+          <button class="scq-opt" type="button" role="checkbox" aria-checked="false" data-id="b" onclick="s12Toggle('b')"><span class="mcq-check" aria-hidden="true"></span><span class="scq-opt-text">نسبة بين عدد الماسات السوداء وعدد الماسات البيضاء هو <span dir="ltr">4:1</span></span></button>
+          <button class="scq-opt" type="button" role="checkbox" aria-checked="false" data-id="c" onclick="s12Toggle('c')"><span class="mcq-check" aria-hidden="true"></span><span class="scq-opt-text">نسبة بين عدد الماسات السوداء وعدد الماسات البيضاء هو <span dir="ltr">1: 4</span></span></button>
+          <button class="scq-opt" type="button" role="checkbox" aria-checked="false" data-id="d" onclick="s12Toggle('d')"><span class="mcq-check" aria-hidden="true"></span><span class="scq-opt-text">عدد الألماسات السوداء أكبر بـ 4 مرات من عدد الألماسات البيضاء</span></button>
+        </div>
+      </div>
+      <button class="btn-continue" id="s12-check" disabled onclick="s12Check()"><span class="nav-label" data-label="هل إجابتي صحيحة؟"><span>هل إجابتي صحيحة؟</span></span></button>
+      <button class="scq-hint" id="s12-hint" type="button" onclick="openHint('s12')">
+        <span class="nav-label" data-label="هل يمكن تلميح؟"><span>هل يمكن تلميح؟</span></span>
+        <svg class="scq-hint-icon" viewBox="0 0 25.9999 22.2883" fill="none" aria-hidden="true"><path d="M17.7925 2.76345C16.3676 1.37911 14.5057 0.68776 12.5488 0.815545C9.07995 1.04163 6.27286 3.9168 6.01796 7.50134C5.85646 9.77363 6.7035 11.9443 8.34374 13.4548C9.23036 14.2723 9.74016 15.465 9.74016 16.7265H11.2284H14.7733H16.2615C16.2615 15.4847 16.7919 14.2707 17.7181 13.3959C19.17 12.0263 20.0012 10.0751 20.0012 8.04361C20.0012 6.01215 19.1953 4.12486 17.7909 2.76018L17.7925 2.76345ZM13.0001 5.54524C11.6701 5.54524 10.5856 6.66582 10.5856 8.04525C10.5856 8.46956 10.2515 8.81524 9.84149 8.81524C9.43143 8.81524 9.09736 8.46956 9.09736 8.04525C9.09736 5.8172 10.8484 4.00527 13.0001 4.00527C13.4133 4.00527 13.7473 4.35094 13.7473 4.77525C13.7473 5.19957 13.4133 5.54524 13.0001 5.54524Z" fill="currentColor"/><path d="M9.73858 19.6245C9.73858 20.3289 9.99823 20.9908 10.478 21.4904L10.4938 21.5068C10.9783 22.0098 11.6242 22.2883 12.3114 22.2883H13.6888C14.3775 22.2883 15.025 22.0114 15.5111 21.5052C15.9956 21.0039 16.2631 20.3355 16.2631 19.6277V17.9895H9.73858V19.6245ZM11.2268 19.5294H14.7717V19.6277C14.7717 19.9243 14.6609 20.2077 14.4566 20.419C14.254 20.6254 13.9753 20.7483 13.6888 20.7483H12.3114C12.028 20.7483 11.7588 20.6336 11.5561 20.4305L11.5451 20.4174C11.3424 20.211 11.2268 19.9226 11.2268 19.6261V19.5311V19.5294Z" fill="currentColor"/><path d="M25.2558 7.27531H22.607C22.1954 7.27531 21.8629 7.62099 21.8629 8.0453C21.8629 8.46961 22.197 8.81529 22.607 8.81529H25.2558C25.6674 8.81529 25.9999 8.46961 25.9999 8.0453C25.9999 7.62099 25.6658 7.27531 25.2558 7.27531Z" fill="currentColor"/><path d="M4.1386 8.0453C4.1386 7.61935 3.80453 7.27531 3.39447 7.27531H0.744124C0.332481 7.27531 0 7.62099 0 8.0453C0 8.46961 0.334064 8.81529 0.744124 8.81529H3.39289C3.80453 8.81529 4.13701 8.46961 4.13701 8.0453H4.1386Z" fill="currentColor"/><path d="M20.8702 3.11398C21.0175 3.11398 21.1663 3.06811 21.2961 2.97472L23.4667 1.40198C23.804 1.15788 23.8847 0.677863 23.6488 0.328911C23.4129 -0.0200418 22.949 -0.105232 22.6118 0.140509L20.4412 1.71325C20.1039 1.95736 20.0232 2.43737 20.2591 2.78632C20.4032 3.00094 20.6343 3.11562 20.8702 3.11562V3.11398Z" fill="currentColor"/><path d="M4.70372 13.1172L2.53309 14.69C2.19586 14.9341 2.11512 15.4141 2.35102 15.763C2.49509 15.9777 2.72625 16.0923 2.96215 16.0923C3.10939 16.0923 3.25822 16.0465 3.38804 15.9531L5.55867 14.3803C5.8959 14.1362 5.97665 13.6562 5.74074 13.3073C5.50484 12.9583 5.04095 12.8731 4.70372 13.1189V13.1172Z" fill="currentColor"/><path d="M23.4668 14.6884L21.2961 13.1157C20.9589 12.8716 20.495 12.9567 20.2591 13.3041C20.0232 13.653 20.1055 14.133 20.4412 14.3771L22.6118 15.9499C22.7416 16.0449 22.8904 16.0891 23.0377 16.0891C23.272 16.0891 23.5032 15.9744 23.6488 15.7598C23.8847 15.4109 23.8024 14.9309 23.4668 14.6868V14.6884Z" fill="currentColor"/><path d="M5.55869 1.71322L3.38806 0.140478C3.05083 -0.103625 2.58694 -0.0184349 2.35104 0.328879C2.11513 0.677832 2.19746 1.15785 2.53311 1.40195L4.70374 2.97469C4.83356 3.06971 4.98239 3.11395 5.12963 3.11395C5.36395 3.11395 5.5951 2.99927 5.74076 2.78465C5.97666 2.4357 5.89434 1.95569 5.55869 1.71158V1.71322Z" fill="currentColor"/></svg>
+      </button>
+      <button class="scq-back" type="button" onclick="goBack()"><span class="nav-label" data-label="رجوع"><span>رجوع</span></span></button>
+    </section>
+
+
+    <!-- Feedback popups for S2/S3 — outside all .screen divs (percent-02
+         convention: draggable, closed by goTo() via the [id$="-popup"] hook) -->
+    <div class="scq-popup hidden" id="s2-popup" onpointerdown="mcqPopupPointerDown(event, 's2-popup')">
+      <div class="scq-popup-header">
+        <p class="scq-popup-title" id="s2-popup-title"></p>
+      </div>
+      <div class="scq-popup-body" id="s2-popup-body"></div>
+    </div>
+    <div class="scq-popup hidden" id="s3-popup" onpointerdown="mcqPopupPointerDown(event, 's3-popup')">
+      <div class="scq-popup-header">
+        <p class="scq-popup-title" id="s3-popup-title"></p>
+      </div>
+      <div class="scq-popup-body" id="s3-popup-body"></div>
+    </div>
+
+
+    <div class="scq-popup hidden" id="s12-popup" onpointerdown="mcqPopupPointerDown(event, 's12-popup')">
+      <div class="scq-popup-header">
+        <p class="scq-popup-title" id="s12-popup-title"></p>
+      </div>
+      <div class="scq-popup-body" id="s12-popup-body"></div>
+    </div>
+
+    <div class="scq-popup hidden" id="s14-popup" onpointerdown="mcqPopupPointerDown(event, 's14-popup')">
+      <div class="scq-popup-header">
+        <p class="scq-popup-title" id="s14-popup-title"></p>
+      </div>
+      <div class="scq-popup-body" id="s14-popup-body"></div>
+    </div>
+
+    <div class="scq-popup hidden" id="s15-popup" onpointerdown="mcqPopupPointerDown(event, 's15-popup')">
+      <div class="scq-popup-header">
+        <p class="scq-popup-title" id="s15-popup-title"></p>
+      </div>
+      <div class="scq-popup-body" id="s15-popup-body"></div>
+    </div>
+
+    <div class="scq-popup hidden" id="s16-popup" onpointerdown="mcqPopupPointerDown(event, 's16-popup')">
+      <div class="scq-popup-header">
+        <p class="scq-popup-title" id="s16-popup-title"></p>
+      </div>
+      <div class="scq-popup-body" id="s16-popup-body"></div>
+    </div>
+
+    <div class="scq-popup hidden" id="s17-popup" onpointerdown="mcqPopupPointerDown(event, 's17-popup')">
+      <div class="scq-popup-header">
+        <p class="scq-popup-title" id="s17-popup-title"></p>
+      </div>
+      <div class="scq-popup-body" id="s17-popup-body"></div>
+    </div>
+
+    <div class="scq-popup hidden" id="s18-popup" onpointerdown="mcqPopupPointerDown(event, 's18-popup')">
+      <div class="scq-popup-header">
+        <p class="scq-popup-title" id="s18-popup-title"></p>
+      </div>
+      <div class="scq-popup-body" id="s18-popup-body"></div>
+    </div>
+
+    <div class="scq-popup hidden" id="s19-popup" onpointerdown="mcqPopupPointerDown(event, 's19-popup')">
+      <div class="scq-popup-header">
+        <p class="scq-popup-title" id="s19-popup-title"></p>
+      </div>
+      <div class="scq-popup-body" id="s19-popup-body"></div>
+    </div>
+
+    <div class="scq-hint-overlay hidden" id="s12-hint-overlay" onclick="closeHintOnBackdrop(event, 's12')">
+      <div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s12-hint-title">
+        <div class="scq-hint-text">
+          <h2 class="scq-hint-title" id="s12-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2>
+          <div class="scq-hint-body"><p>انتبهوا إلى ترتيب كتابة نسبة: أولاً عدد الألماس الأسود، ثم عدد الألماس الأبيض.</p><p>بعد ذلك احسبوا: بكم مرة يكون عدد الماسات السوداء أكبر من عدد الماسات البيضاء؟</p></div>
+        </div>
+        <button class="scq-hint-close" type="button" onclick="closeHint('s12')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button>
+      </div>
+    </div>
+
+    <div class="scq-hint-overlay hidden" id="s14-hint-overlay" onclick="closeHintOnBackdrop(event, 's14')">
+      <div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s14-hint-title">
+        <div class="scq-hint-text">
+          <h2 class="scq-hint-title" id="s14-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2>
+          <div class="scq-hint-body"><p>في كل بيتزا، احسبوا بشكل منفصل عدد القطع التي تحتوي على زيتون وعدد القطع التي تحتوي على فطر.</p><p>ثم اكتبوا النسبة بالترتيب الذي يظهر في التمثيل اللفظي.</p></div>
+        </div>
+        <button class="scq-hint-close" type="button" onclick="closeHint('s14')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button>
+      </div>
+    </div>
+
+    <div class="scq-hint-overlay hidden" id="s15-hint-overlay" onclick="closeHintOnBackdrop(event, 's15')">
+      <div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s15-hint-title">
+        <div class="scq-hint-text">
+          <h2 class="scq-hint-title" id="s15-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2>
+          <div class="scq-hint-body"><p>في النسبة المعطاة، مقابل كل 3 كرات شوكولاتة حليب، توجد 4 كرات شوكولاتة داكنة.</p><p>تحققوا في أي إجابة تم الحفاظ على نفس النسبة بين الكميات.</p></div>
+        </div>
+        <button class="scq-hint-close" type="button" onclick="closeHint('s15')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button>
+      </div>
+    </div>
+
+    <div class="scq-hint-overlay hidden" id="s16-hint-overlay" onclick="closeHintOnBackdrop(event, 's16')">
+      <div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s16-hint-title">
+        <div class="scq-hint-text">
+          <h2 class="scq-hint-title" id="s16-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2>
+          <div class="scq-hint-body"><p>تحققوا من عدد مجموعات التي تضم 3 كرات شوكولاتة حليب و4 كرات شوكولاتة داكنة في كل من الرزم، واحسبوا أسعارها وفقاً لذلك.</p></div>
+        </div>
+        <button class="scq-hint-close" type="button" onclick="closeHint('s16')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button>
+      </div>
+    </div>
+
+    <div class="scq-hint-overlay hidden" id="s17-hint-overlay" onclick="closeHintOnBackdrop(event, 's17')">
+      <div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s17-hint-title">
+        <div class="scq-hint-text">
+          <h2 class="scq-hint-title" id="s17-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2>
+          <div class="scq-hint-body"><p>قارنوا السعر 56 شيكل. بسعر الباقة الأصلية. بكم مرة ارتفع السعر؟</p></div>
+        </div>
+        <button class="scq-hint-close" type="button" onclick="closeHint('s17')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button>
+      </div>
+    </div>
+
+    <div class="scq-hint-overlay hidden" id="s18-hint-overlay" onclick="closeHintOnBackdrop(event, 's18')">
+      <div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s18-hint-title">
+        <div class="scq-hint-text">
+          <h2 class="scq-hint-title" id="s18-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2>
+          <div class="scq-hint-body"><p>قارنوا السعر 84 شيكل بسعر الباقة الأصلية.. بكم مرة ارتفع السعر؟</p></div>
+        </div>
+        <button class="scq-hint-close" type="button" onclick="closeHint('s18')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button>
+      </div>
+    </div>
+
+    <div class="scq-hint-overlay hidden" id="s19-hint-overlay" onclick="closeHintOnBackdrop(event, 's19')">
+      <div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s19-hint-title">
+        <div class="scq-hint-text">
+          <h2 class="scq-hint-title" id="s19-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2>
+          <div class="scq-hint-body"><p>قارنوا السعر 70 شيكل بسعر الباقة الأصلية.</p><p>هل يتيح عامل التكبير الحصول على عدد صحيح من الزهور الوردية والبيضاء؟</p></div>
+        </div>
+        <button class="scq-hint-close" type="button" onclick="closeHint('s19')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button>
+      </div>
+    </div>
+
+
+    <div class="scq-popup hidden" id="s21-popup" onpointerdown="mcqPopupPointerDown(event, 's21-popup')"><div class="scq-popup-header"><p class="scq-popup-title" id="s21-popup-title"></p></div><div class="scq-popup-body" id="s21-popup-body"></div></div>
+
+    <div class="scq-popup hidden" id="s22-popup" onpointerdown="mcqPopupPointerDown(event, 's22-popup')"><div class="scq-popup-header"><p class="scq-popup-title" id="s22-popup-title"></p></div><div class="scq-popup-body" id="s22-popup-body"></div></div>
+
+    <div class="scq-popup hidden" id="s23-popup" onpointerdown="mcqPopupPointerDown(event, 's23-popup')"><div class="scq-popup-header"><p class="scq-popup-title" id="s23-popup-title"></p></div><div class="scq-popup-body" id="s23-popup-body"></div></div>
+
+    <div class="scq-popup hidden" id="s24-popup" onpointerdown="mcqPopupPointerDown(event, 's24-popup')"><div class="scq-popup-header"><p class="scq-popup-title" id="s24-popup-title"></p></div><div class="scq-popup-body" id="s24-popup-body"></div></div>
+
+    <div class="scq-popup hidden" id="s25-popup" onpointerdown="mcqPopupPointerDown(event, 's25-popup')"><div class="scq-popup-header"><p class="scq-popup-title" id="s25-popup-title"></p></div><div class="scq-popup-body" id="s25-popup-body"></div></div>
+
+    <div class="scq-popup hidden" id="s27-popup" onpointerdown="mcqPopupPointerDown(event, 's27-popup')"><div class="scq-popup-header"><p class="scq-popup-title" id="s27-popup-title"></p></div><div class="scq-popup-body" id="s27-popup-body"></div></div>
+
+    <div class="scq-popup hidden" id="s28-popup" onpointerdown="mcqPopupPointerDown(event, 's28-popup')"><div class="scq-popup-header"><p class="scq-popup-title" id="s28-popup-title"></p></div><div class="scq-popup-body" id="s28-popup-body"></div></div>
+
+    <div class="scq-popup hidden" id="s29-popup" onpointerdown="mcqPopupPointerDown(event, 's29-popup')"><div class="scq-popup-header"><p class="scq-popup-title" id="s29-popup-title"></p></div><div class="scq-popup-body" id="s29-popup-body"></div></div>
+
+    <div class="scq-popup hidden" id="s34-popup" onpointerdown="mcqPopupPointerDown(event, 's34-popup')"><div class="scq-popup-header"><p class="scq-popup-title" id="s34-popup-title"></p></div><div class="scq-popup-body" id="s34-popup-body"></div></div>
+
+    <div class="scq-popup hidden" id="s35-popup" onpointerdown="mcqPopupPointerDown(event, 's35-popup')"><div class="scq-popup-header"><p class="scq-popup-title" id="s35-popup-title"></p></div><div class="scq-popup-body" id="s35-popup-body"></div></div>
+
+    <div class="scq-popup hidden" id="s36-popup" onpointerdown="mcqPopupPointerDown(event, 's36-popup')"><div class="scq-popup-header"><p class="scq-popup-title" id="s36-popup-title"></p></div><div class="scq-popup-body" id="s36-popup-body"></div></div>
+
+    <div class="scq-hint-overlay hidden" id="s21-hint-overlay" onclick="closeHintOnBackdrop(event, 's21')"><div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s21-hint-title"><div class="scq-hint-text"><h2 class="scq-hint-title" id="s21-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2><div class="scq-hint-body"><p>احرصوا على اختزال حدّي النسبة بأكبر عدد ممكن.</p></div></div><button class="scq-hint-close" type="button" onclick="closeHint('s21')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button></div></div>
+
+    <div class="scq-hint-overlay hidden" id="s22-hint-overlay" onclick="closeHintOnBackdrop(event, 's22')"><div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s22-hint-title"><div class="scq-hint-text"><h2 class="scq-hint-title" id="s22-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2><div class="scq-hint-body"><p>احرصوا على توسيع (ضرب) حدّي النسبة بنفس العدد.</p></div></div><button class="scq-hint-close" type="button" onclick="closeHint('s22')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button></div></div>
+
+    <div class="scq-hint-overlay hidden" id="s23-hint-overlay" onclick="closeHintOnBackdrop(event, 's23')"><div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s23-hint-title"><div class="scq-hint-text"><h2 class="scq-hint-title" id="s23-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2><div class="scq-hint-body"><p>في كتابة نسبة يوجد أهمية لترتيب الأعداد: العدد الذي يظهر أولاً في الكتابة اللفظية سيكون العدد الأيسر في الكتابة الرياضية.</p></div></div><button class="scq-hint-close" type="button" onclick="closeHint('s23')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button></div></div>
+
+    <div class="scq-hint-overlay hidden" id="s24-hint-overlay" onclick="closeHintOnBackdrop(event, 's24')"><div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s24-hint-title"><div class="scq-hint-text"><h2 class="scq-hint-title" id="s24-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2><div class="scq-hint-body"><p>استخدموا معرفتكم بالتبسيط (الاختزال)، واحرصوا على قسمة كلا العددين في النسبة على نفس الرقم.</p></div></div><button class="scq-hint-close" type="button" onclick="closeHint('s24')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button></div></div>
+
+    <div class="scq-hint-overlay hidden" id="s25-hint-overlay" onclick="closeHintOnBackdrop(event, 's25')"><div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s25-hint-title"><div class="scq-hint-text"><h2 class="scq-hint-title" id="s25-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2><div class="scq-hint-body"><p>استخدموا معرفتكم بالاختزال والتوسيع، واحرصوا على ضرب أو قسمة العددين في النسبة على نفس الرقم.</p></div></div><button class="scq-hint-close" type="button" onclick="closeHint('s25')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button></div></div>
+
+    <div class="scq-hint-overlay hidden" id="s27-hint-overlay" onclick="closeHintOnBackdrop(event, 's27')"><div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s27-hint-title"><div class="scq-hint-text"><h2 class="scq-hint-title" id="s27-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2><div class="scq-hint-body"><p>انتبهوا لوحدات القياس في السؤال.</p></div></div><button class="scq-hint-close" type="button" onclick="closeHint('s27')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button></div></div>
+
+    <div class="scq-hint-overlay hidden" id="s28-hint-overlay" onclick="closeHintOnBackdrop(event, 's28')"><div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s28-hint-title"><div class="scq-hint-text"><h2 class="scq-hint-title" id="s28-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2><div class="scq-hint-body"><p>جدوا بكم ضعف زادت سحر كمية الطحين، وزيدوا باقي المكونات وفقاً لذلك للحفاظ على النسب بين الكميات في الوصفة.</p></div></div><button class="scq-hint-close" type="button" onclick="closeHint('s28')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button></div></div>
+
+    <div class="scq-hint-overlay hidden" id="s29-hint-overlay" onclick="closeHintOnBackdrop(event, 's29')"><div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s29-hint-title"><div class="scq-hint-text"><h2 class="scq-hint-title" id="s29-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2><div class="scq-hint-body"><p>اقرأوا كل عبارة وتحققوا أي حلوى تظهر أولاً وأيها ثانياً.</p></div></div><button class="scq-hint-close" type="button" onclick="closeHint('s29')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button></div></div>
+
+    <div class="scq-hint-overlay hidden" id="s34-hint-overlay" onclick="closeHintOnBackdrop(event, 's34')"><div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s34-hint-title"><div class="scq-hint-text"><h2 class="scq-hint-title" id="s34-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2><div class="scq-hint-body"><p>لإيجاد مساحة مربَّع، نضرب طول ضلع في نفسه.</p><p>لإيجاد محيط مربَّع، نضرب طول ضلع في 4.</p></div></div><button class="scq-hint-close" type="button" onclick="closeHint('s34')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button></div></div>
+
+    <div class="scq-hint-overlay hidden" id="s35-hint-overlay" onclick="closeHintOnBackdrop(event, 's35')"><div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s35-hint-title"><div class="scq-hint-text"><h2 class="scq-hint-title" id="s35-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2><div class="scq-hint-body"><p>الضلعان المتساويان في مثلث متساوي الساقين يُسميان ساقين، والضلع الآخر يُسمى قاعدة.</p></div></div><button class="scq-hint-close" type="button" onclick="closeHint('s35')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button></div></div>
+
+    <div class="scq-hint-overlay hidden" id="s36-hint-overlay" onclick="closeHintOnBackdrop(event, 's36')"><div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s36-hint-title"><div class="scq-hint-text"><h2 class="scq-hint-title" id="s36-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2><div class="scq-hint-body"><p>افحصوا كل عبارة مقابل معطيات في الجدول.</p></div></div><button class="scq-hint-close" type="button" onclick="closeHint('s36')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button></div></div>
+
+
+    <div class="scq-popup hidden" id="s39-popup" onpointerdown="mcqPopupPointerDown(event, 's39-popup')"><div class="scq-popup-header"><p class="scq-popup-title" id="s39-popup-title"></p></div><div class="scq-popup-body" id="s39-popup-body"></div></div>
+
+    <div class="scq-popup hidden" id="s40-popup" onpointerdown="mcqPopupPointerDown(event, 's40-popup')"><div class="scq-popup-header"><p class="scq-popup-title" id="s40-popup-title"></p></div><div class="scq-popup-body" id="s40-popup-body"></div></div>
+
+    <div class="scq-popup hidden" id="s42-popup" onpointerdown="mcqPopupPointerDown(event, 's42-popup')"><div class="scq-popup-header"><p class="scq-popup-title" id="s42-popup-title"></p></div><div class="scq-popup-body" id="s42-popup-body"></div></div>
+
+    <div class="scq-popup hidden" id="s43-popup" onpointerdown="mcqPopupPointerDown(event, 's43-popup')"><div class="scq-popup-header"><p class="scq-popup-title" id="s43-popup-title"></p></div><div class="scq-popup-body" id="s43-popup-body"></div></div>
+
+    <div class="scq-hint-overlay hidden" id="s39-hint-overlay" onclick="closeHintOnBackdrop(event, 's39')"><div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s39-hint-title"><div class="scq-hint-text"><h2 class="scq-hint-title" id="s39-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2><div class="scq-hint-body"><p>تحققوا من مقدار انخفاض درجات الحرارة من بداية القياس وحتى نهايته، وفي كم ساعة حدث هذا الانخفاض. بعد ذلك، اكتبوا النسبة بصيغة رياضية صحيحة واختزلوها.</p></div></div><button class="scq-hint-close" type="button" onclick="closeHint('s39')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button></div></div>
+
+    <div class="scq-hint-overlay hidden" id="s40-hint-overlay" onclick="closeHintOnBackdrop(event, 's40')"><div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s40-hint-title"><div class="scq-hint-text"><h2 class="scq-hint-title" id="s40-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2><div class="scq-hint-body"><p>تحققوا بكم درجة تتغير درجة الحرارة في كل ساعة، وفقاً للبيانات في الرسم البياني.</p></div></div><button class="scq-hint-close" type="button" onclick="closeHint('s40')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button></div></div>
+
+    <div class="scq-hint-overlay hidden" id="s42-hint-overlay" onclick="closeHintOnBackdrop(event, 's42')"><div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s42-hint-title"><div class="scq-hint-text"><h2 class="scq-hint-title" id="s42-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2><div class="scq-hint-body"><p>في كل رسم بياني، تحققوا بكم درجة انخفضت درجات الحرارة، وخلال كم ساعة.</p></div></div><button class="scq-hint-close" type="button" onclick="closeHint('s42')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button></div></div>
+
+    <div class="scq-hint-overlay hidden" id="s43-hint-overlay" onclick="closeHintOnBackdrop(event, 's43')"><div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s43-hint-title"><div class="scq-hint-text"><h2 class="scq-hint-title" id="s43-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748334 4.35748 0.103168 8.99148C-0.387999 12.5078 0.894168 16.0031 3.532 18.34C4.99267 19.6338 5.83033 21.5191 5.83033 23.5095V23.9155C5.83033 26.1671 7.662 27.9988 9.91367 27.9988H11.0803C13.332 27.9988 15.1637 26.1671 15.1637 23.9155V23.5036C15.1637 21.5366 16.041 19.6431 17.6347 18.1708C19.7708 16.1945 20.997 13.398 20.997 10.4988C20.997 7.50864 19.716 4.65031 17.4818 2.65764ZM13.997 23.9143C13.997 25.522 12.6892 26.831 11.0803 26.831H9.91367C8.30483 26.831 6.997 25.522 6.997 23.9143V23.5083C6.997 23.0545 6.9585 22.6041 6.88617 22.1643H14.1137C14.0367 22.6041 13.997 23.051 13.997 23.5025V23.9143ZM16.8425 17.3133C15.691 18.3773 14.865 19.6385 14.4077 20.9976H11.0792V12.1986C12.7323 11.9198 13.9958 10.479 13.9958 8.74764C13.9958 8.42564 13.7345 8.16431 13.4125 8.16431C13.0905 8.16431 12.8292 8.42564 12.8292 8.74764C12.8292 10.0345 11.7827 11.081 10.4958 11.081C9.209 11.081 8.1625 10.0345 8.1625 8.74764C8.1625 8.42564 7.90117 8.16431 7.57917 8.16431C7.25717 8.16431 6.99583 8.42564 6.99583 8.74764C6.99583 10.479 8.25933 11.9198 9.9125 12.1986V20.9976H6.60267C6.16633 19.6431 5.38 18.4193 4.3055 17.4661C1.9605 15.3895 0.821834 12.2815 1.25817 9.15248C1.831 5.03648 5.2505 1.70448 9.38867 1.22848C9.7655 1.18531 10.14 1.16431 10.511 1.16431C12.807 1.16431 14.9735 1.98448 16.7072 3.52914C18.6917 5.30014 19.8315 7.83998 19.8315 10.4976C19.8315 13.111 18.771 15.5318 16.8437 17.3133H16.8425Z" fill="white"/></svg> تلميح</h2><div class="scq-hint-body"><p>صحيح أن الرسم البياني يتوقف عند الساعة الثامنة، ولكن كيف تعتقدون كان سيستمر الخط؟</p></div></div><button class="scq-hint-close" type="button" onclick="closeHint('s43')"><span class="nav-label" data-label="الرجوع الى السؤال"><span>الرجوع الى السؤال</span></span></button></div></div>
+
+    <!-- Standard clone-based image zoom modal (percent-02 pattern) -->
+    <div id="img-zoom-modal" class="img-zoom-modal hidden">
+      <div class="img-zoom-backdrop" data-zoom-close="true"></div>
+      <div class="img-zoom-panel" role="dialog" aria-modal="true" aria-label="تكبير الصورة">
+        <button class="img-zoom-close-btn" type="button" aria-label="إغلاق" data-zoom-close="true">
+          <svg viewBox="0 0 15 15" fill="none" aria-hidden="true">
+            <path d="M1 1L14 14M14 1L1 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="img-zoom-stage" id="img-zoom-stage"></div>
+      </div>
+    </div>
+
+  <!-- ═══════════════════ REPORT MODAL (ported from methodica-science-mass-measure-01) ═══════════════════ -->
+  
+  
+
+  </div>
+  
+  <!-- Report modals — verbatim client chrome (matches unit-js/25-report.js) -->
+  <div id="report-modal"
+         class="report-modal-overlay"
+         hidden
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="report-modal-title">
+      <div class="report-modal-box">
+        <button class="report-close-btn" onclick="tryCloseReportModal()" aria-label="إغلاق">&#10005;</button>
+        <h2 class="report-modal-title" id="report-modal-title">الإبلاغ عن مشكلة</h2>
+        <p class="report-modal-body">هل هناك شيء غير واضح أو لا يعمل كما يجب؟ أخبرونا بما حدث لنقوم بمعالجته.</p>
+
+        <div class="report-field">
+          <label class="report-label" for="report-type"><span class="required-star">*</span> ما نوع المشكلة</label>
+                    <div class="report-custom-select" id="report-type-wrapper">
+            <button class="report-select-btn is-placeholder" type="button" aria-haspopup="listbox" aria-expanded="false">
+              <span class="report-select-value">اختاروا نوع المشكلة</span>
+            </button>
+            <ul class="report-select-list" role="listbox" hidden>
+              <li class="report-select-option" data-value="technical" role="option">عطل تقني أو أن شيئًا ما لا يعمل</li>
+              <li class="report-select-option" data-value="unclear" role="option">هناك شيء غير واضح بالنسبة لي</li>
+              <li class="report-select-option" data-value="other" role="option">أخر</li>
+            </ul>
+            <input type="hidden" id="report-type" value="">
+          </div>
+          <span class="report-field-error" id="report-type-error" hidden>اختاروا نوع المشكلة</span>
+        </div>
+
+        <div class="report-field">
+          <label class="report-label" for="report-text"><span class="required-star">*</span> ماذا حدث؟</label>
+          <textarea class="report-textarea" id="report-text" maxlength="250" rows="4" placeholder="وضّحوا ما الذي حدث لكي نتمكن من فهم المشكلة" onblur="reportTextBlur()"></textarea>
+          <span class="report-field-error" id="report-text-error" hidden>اكتبوا ما الذي حدث</span>
+          <span class="report-char-count" id="report-char-count">0 / 250</span>
+        </div>
+
+        <div class="report-actions">
+          <button class="report-cancel-btn" onclick="tryCloseReportModal()">إلغاء</button>
+          <button class="report-submit-btn" onclick="submitReport()" disabled>إرسال البلاغ</button>
+        </div>
+      </div>
+    </div>
+  <div id="report-confirm-modal"
+         class="report-modal-overlay"
+         hidden
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="confirm-modal-title">
+      <div class="report-modal-box report-confirm-box">
+        <h2 class="report-modal-title" id="confirm-modal-title">هل أنت متأكد من إغلاق النافذة؟</h2>
+        <p class="report-modal-body">عند الضغط على إغلاق لن يتم إرسال بلاغ</p>
+        <div class="report-actions">
+          <button class="report-cancel-btn" onclick="forceCloseReportModal()">إغلاق النافذة</button>
+          <button class="report-submit-btn" onclick="backToReportForm()">أريد الابلاغ</button>
+        </div>
+      </div>
+    </div>
+  <div id="report-thanks-modal"
+         class="report-modal-overlay"
+         hidden
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="thanks-modal-title">
+      <div class="report-modal-box report-confirm-box">
+        <h2 class="report-modal-title" id="thanks-modal-title">تم إرسال البلاغ، شكرًا لك!</h2>
+        <p class="report-modal-body">تلقّينا بلاغكم وسنعالجه في أقرب وقت.</p>
+        <div class="report-actions">
+          <button class="report-submit-btn" onclick="closeReportThanks()">إغلاق</button>
+        </div>
+      </div>
+    </div>
+
+  <div id="a11y-announcer" role="status" aria-live="polite" aria-atomic="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap"></div>
+
+  <script src="../unit-js/10-identity.js?v=8"></script>
+  <script src="../unit-js/15-ui.js?v=8"></script>
+  <script src="../unit-js/20-xapi.js?v=8"></script>
+  <script src="../unit-js/25-report.js?v=8"></script>
+  <script src="../unit-js/28-feedback-drag.js?v=8"></script>
+  <script src="../unit-js/30-nav.js?v=8"></script>
+  <script src="../unit-js/40-resume.js?v=8"></script>
+  <script src="../unit-js/50-loader.js?v=8"></script>
+  <script src="../unit-js/60-devbridge.js?v=8"></script>
+  <script src="script.js?v=8"></script>
+  <script src="../unit-js/90-boot.js?v=8"></script>
+</body>
+</html>

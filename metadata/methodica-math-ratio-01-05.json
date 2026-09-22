@@ -1,0 +1,84 @@
+{
+  "id": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-05/",
+  "title": "لنتحدَّ أنفسنا",
+  "learningUnitId": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01/",
+  "componentPurpose": "practice",
+  "isAssessment": false,
+  "recommendedAfterFail": [],
+  "isRequired": true,
+  "relativeDifficulty": 5,
+  "masteryLevel": null,
+  "order": 5,
+  "depthLevel": "core-curriculum-basic",
+  "cognitiveLevels": ["interpretation-and-reasoning"],
+  "languages": ["Arabic"],
+  "skills": [],
+  "estimatedTimeInMinutes": 6,
+  "createdAt": "2026-08-30T00:00:00.000Z",
+  "updatedAt": "2026-08-30T00:00:00.000Z",
+  "subContent": [
+    {
+      "id": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-05/methodica-math-ratio-01-05-001/",
+      "title": "متقدم 1: النسبة بين مربعين",
+      "informationToBot": "هدف العنصر: تحليل كيف تؤثر النسبة بين أطوال أضلاع مربعين (4 سم و8 سم) على النسبة بين محيطيهما ومساحتيهما. اتجاهات التفكير: حساب المساحة (ضرب طول الضلع في نفسه) والمحيط (ضرب طول الضلع في 4)، وبناء نسبة بين القيم المحسوبة لكل مربع. الأخطاء الشائعة: افتراض أن نسبة المساحات تساوي نسبة أطوال الأضلاع (دون الرفع للقوة الثانية). معلومات إضافية: لا يوجد.",
+      "contentType": "practice",
+      "mediaFormat": "interactive-content",
+      "questions": [
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-05/methodica-math-ratio-01-05-001/q1",
+          "questionType": "choice",
+          "questionText": "طول ضلع المربع أ هو 4 سم، وطول ضلع المربع ب هو 8 سم. حددوا جميع العبارات الصحيحة.",
+          "answers": [
+            "النسبة بين طول ضلع المربع أ وطول ضلع المربع ب هي 1 : 2",
+            "النسبة بين مساحة المربع أ ومساحة المربع ب هي 4 : 1",
+            "النسبة بين محيط المربع أ ومحيط المربع ب هي 2 : 1",
+            "إذا كبّرنا طول ضلع كل مربع بمقدار الضعف، فإن النسبة بين محيط المربع أ ومحيط المربع ب ستكون 4 : 1"
+          ],
+          "correctAnswers": [
+            "النسبة بين مساحة المربع أ ومساحة المربع ب هي 4 : 1",
+            "النسبة بين محيط المربع أ ومحيط المربع ب هي 2 : 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-05/methodica-math-ratio-01-05-002/",
+      "title": "متقدم 2: مثلث متساوي الساقين",
+      "informationToBot": "هدف العنصر: حساب النسبة بين مجموع أطوال الساقين وطول القاعدة في مثلث متساوي الساقين (الساق 6 سم، القاعدة 4 سم). اتجاهات التفكير: حساب مجموع الساقين قبل بناء النسبة، واختزال النسبة الناتجة. الأخطاء الشائعة: استخدام طول ساق واحدة بدلاً من مجموع الساقين. معلومات إضافية: لا يوجد.",
+      "contentType": "practice",
+      "mediaFormat": "interactive-content",
+      "questions": [
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-05/methodica-math-ratio-01-05-002/q1",
+          "questionType": "choice",
+          "questionText": "معطى مثلث متساوي الساقين. طول الساق 6 سم، طول القاعدة 4 سم. ما هي النسبة المختزلة بين مجموع طولي الساقين وطول القاعدة في المثلث؟",
+          "answers": ["2 : 3", "3 : 1", "1 : 4", "1 : 3"],
+          "correctAnswers": ["3 : 1"]
+        }
+      ]
+    },
+    {
+      "id": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-05/methodica-math-ratio-01-05-003/",
+      "title": "متقدم 3: كمية الشرب الموصى بها",
+      "informationToBot": "هدف العنصر: تحليل ومقارنة نسب من جدول بيانات (كمية الشرب اليومية الموصى بها للأولاد والبنات حسب الفئات العمرية). اتجاهات التفكير: فحص كل عبارة مقابل البيانات المناسبة في الجدول، والتعرف على متى تكون النسبة بين كميتين متساويتين 1:1. الأخطاء الشائعة: مقارنة فئات عمرية غير مناسبة. معلومات إضافية: بيانات الجدول — الأولاد: 0.9/1.2/1.8/2.6/2.8 ليتر؛ البنات: 0.9/1.2/1.6/1.8/2.0 ليتر، حسب الفئات العمرية 1-3/4-8/9-13/14-18/فوق 18.",
+      "contentType": "practice",
+      "mediaFormat": "interactive-content",
+      "questions": [
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01-05/methodica-math-ratio-01-05-003/q1",
+          "questionType": "choice",
+          "questionText": "يعرض الجدول كمية الشرب الموصى بها يومياً للأولاد والبنات، حسب الفئة العمرية. حددوا جميع العبارات الصحيحة.",
+          "answers": [
+            "كمية الشرب الموصى بها للأولاد فوق سن 18 أكبر بـ1.4 أضعاف من كمية الشرب الموصى بها للبنات فوق سن 18",
+            "النسبة بين كمية الشرب الموصى بها للأولاد وكمية الشرب الموصى بها للبنات في سن 1-3 هي 1 : 1",
+            "النسبة بين كمية الشرب الموصى بها للأولاد فوق سن 18 وكمية الشرب الموصى بها للأولاد في سن 4-8 هي 1 : 4"
+          ],
+          "correctAnswers": [
+            "كمية الشرب الموصى بها للأولاد فوق سن 18 أكبر بـ1.4 أضعاف من كمية الشرب الموصى بها للبنات فوق سن 18",
+            "النسبة بين كمية الشرب الموصى بها للأولاد وكمية الشرب الموصى بها للبنات في سن 1-3 هي 1 : 1"
+          ]
+        }
+      ]
+    }
+  ]
+}

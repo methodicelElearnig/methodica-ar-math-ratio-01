@@ -1,0 +1,8 @@
+463:             <button class="btn-continue rs-check" id="s4q3-check" disabled onclick="s4q3Check()"><span class="nav-label" data-label="צדקתי?"><span>צדקתי?</span></span></button>
+
+498:             <button class="btn-continue rs-check" id="s4q4-check" disabled onclick="s4q4Check()"><span class="nav-label" data-label="צדקתי?"><span>צדקתי?</span></span></button>
+
+781:       <button class="btn-continue" id="s12-check" disabled onclick="s12Check()"><span class="nav-label" data-label="צדקתי?"><span>צדקתי?</span></span></button>
+
+858:           <h2 class="scq-hint-title" id="s12-hint-title"><svg class="scq-hint-title-icon" viewBox="0 0 20.997 27.9988" fill="none" aria-hidden="true"><path d="M17.4818 2.65764C15.2512 0.668476 12.2563 -0.275357 9.25683 0.0699765C4.59833 0.60431 0.748
+948:     <div class="scq-hint-overlay hidden" id="s21-hint-overlay" onclick="closeHintOnBackdrop(event, 's21')"><div class="scq-hint-popup" role="dialog" aria-modal="true" aria-labelledby="s21-hint-title"><div class="scq-hint-text"><h2 class="scq-hint-tit

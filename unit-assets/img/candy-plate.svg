@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 360" role="img">
+<defs>
+  <linearGradient id="pRim" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#ffffff"/><stop offset="0.55" stop-color="#e9edf2"/>
+    <stop offset="1" stop-color="#c9d1da"/>
+  </linearGradient>
+  <linearGradient id="pWell" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#dfe5ec"/><stop offset="0.5" stop-color="#f4f7fa"/>
+    <stop offset="1" stop-color="#ffffff"/>
+  </linearGradient>
+</defs>
+<ellipse cx="190" cy="268" rx="150" ry="20" fill="#000" opacity="0.10"/>
+<ellipse cx="190" cy="234" rx="166" ry="62" fill="#b9c2cc"/>
+<ellipse cx="190" cy="230" rx="166" ry="62" fill="url(#pRim)"/>
+<ellipse cx="190" cy="232" rx="132" ry="46" fill="#cdd5de"/>
+<ellipse cx="190" cy="231" rx="130" ry="45" fill="url(#pWell)"/>
+<path d="M78,214 A130,45 0 0 1 214,193" fill="none" stroke="#ffffff" stroke-width="5"
+      stroke-linecap="round" opacity="0.85"/>
+</svg>

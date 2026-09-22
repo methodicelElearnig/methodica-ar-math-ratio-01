@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 48" role="img">
+<defs>
+  <linearGradient id="cTop" x1="0" y1="0" x2="0.3" y2="1">
+    <stop offset="0" stop-color="#8f5a2c"/><stop offset="1" stop-color="#6b3f1b"/>
+  </linearGradient>
+  <linearGradient id="cFace" x1="0" y1="0" x2="0.25" y2="1">
+    <stop offset="0" stop-color="#7b4a22"/><stop offset="0.55" stop-color="#63391a"/>
+    <stop offset="1" stop-color="#4a2913"/>
+  </linearGradient>
+  <linearGradient id="wrap" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#f2f4f7"/><stop offset="0.45" stop-color="#cdd4dc"/>
+    <stop offset="1" stop-color="#9aa5b1"/>
+  </linearGradient>
+</defs>
+<ellipse cx="37" cy="43.5" rx="27" ry="3.4" fill="#000" opacity="0.13"/>
+<!-- bar body: top face + front face -->
+<path d="M10,14 L60,10 L67,15 L17,19 Z" fill="url(#cTop)"/>
+<path d="M17,19 L67,15 L67,35 L17,41 Z" fill="url(#cFace)"/>
+<path d="M10,14 L17,19 L17,41 L10,35 Z" fill="#42240f"/>
+<!-- segment grooves on the front face -->
+<g stroke="#3a1f0d" stroke-width="1.5" opacity="0.85">
+  <path d="M33.6,17.7 L33.6,39.7"/><path d="M50.3,16.4 L50.3,37.4"/>
+  <path d="M17,30.6 L67,25.4"/>
+</g>
+<g stroke="#a4703c" stroke-width="0.9" opacity="0.55">
+  <path d="M35,17.5 L35,39.5"/><path d="M51.7,16.2 L51.7,37.2"/>
+  <path d="M17,32 L67,26.8"/>
+</g>
+<!-- gloss -->
+<path d="M19,20.6 L31,19.6 L31,22 L19,23 Z" fill="#c98d4f" opacity="0.35"/>
+<!-- foil wrapper peeled at the left end -->
+<path d="M4,17 L12,13.4 L15.5,17 L15.5,38 L11,41.5 L4,37 Z" fill="url(#wrap)"/>
+<path d="M4,17 L12,13.4 L15.5,17 L7.6,20.4 Z" fill="#ffffff" opacity="0.6"/>
+<path d="M7.6,20.4 L7.6,40.4" stroke="#8e99a6" stroke-width="0.9" opacity="0.8" fill="none"/>
+<path d="M11.2,19 L11.2,39.4" stroke="#8e99a6" stroke-width="0.7" opacity="0.6" fill="none"/>
+</svg>
