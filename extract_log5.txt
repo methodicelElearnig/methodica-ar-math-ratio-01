@@ -1,2 +1,0 @@
-id="s45-continue" onclick="advanceScreen()"><span class="nav-label" data-label="סיימתי"><span>انتهيت</span></span></button>
-      <button class="scq-b

@@ -1,7 +1,0 @@
-يكل.',
-            'للحصول على رزمة سعرها 6 ش.ج، نقسم السعر على 2. لذلك نقسم أيضًا عدد ألواح الشوكولاته والحلوى على 2، فنحصل على لواح شوكولاتة واحد و־2 حلوى.'],
-  correctTitle: 'ممتاز!', wrongTitle: 'هذا خطأ، لكنه أيضًا فرصة للتعلم:',
-};
-BQ.s25 = {
-  kinds: { a: { key: 'snack', img: 'candy-bar.svg' }, b: { key: 'candy', img: 'candy-piece.svg' } },
-  snack: 2, candy: 4, target: { snack: 4, candy: 8 }, attempts: 0, don

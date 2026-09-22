@@ -1,1 +1,0 @@
-OLD: <span class="viq-row-label">4.5 שוקולד חלב ו-6 שוקולד מריר</span><span class="viq-row-input"><input id="s16-in-1" class="viq-input-box" type="number" inputmode="numeric" min="0" aria-label="السعر بالشيكل" oninput="s16OnInput()"><span class="viq-unit">ש&quot;ח</span></span>
