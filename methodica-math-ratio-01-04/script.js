@@ -726,7 +726,7 @@ function makeClickHint(id) {
 /* ═══════════════════════════════════════════════════════════
    S2 + S3 — standalone MultipleChoiceQuestion screens (slides 10-11).
    Engine is percent-02's S25, behavior-identical, parameterized so the
-   two screens share one implementation: toggle → هل أصبت؟ → first wrong
+   two screens share one implementation: toggle → هل إجابتي صحيحة؟ → first wrong
    marks ONLY the learner's wrong picks + retry popup; final wrong
    reveals the full correct set; correct/final relabel to هل نكمل؟.
    Popups are draggable (percent-02 drag/clamp machinery, vendored).
@@ -914,7 +914,7 @@ function mcqReset(q) {
   document.getElementById(q.id + '-popup')?.classList.add('hidden');
   if (window._lastPopup) delete window._lastPopup[q.id + '-popup'];
   const chk = document.getElementById(q.id + '-check');
-  if (chk) { setNavLabel(chk, 'هل أصبت؟'); chk.disabled = true; }
+  if (chk) { setNavLabel(chk, 'هل إجابتي صحيحة؟'); chk.disabled = true; }
 }
 
 function s2Toggle(id) { mcqToggle(MCQ.s2, id); }
@@ -1534,7 +1534,7 @@ function s14Reset() {
     el.value = ''; el.disabled = false; el.classList.remove('error', 'correct');
   });
   const chk = document.getElementById('s14-check');
-  if (chk) { setNavLabel(chk, 'هل أصبت؟'); chk.disabled = true; }
+  if (chk) { setNavLabel(chk, 'هل إجابتي صحيحة؟'); chk.disabled = true; }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1625,7 +1625,7 @@ function s16Reset() {
     el.value = ''; el.disabled = false; el.classList.remove('error', 'correct');
   });
   const chk = document.getElementById('s16-check');
-  if (chk) { setNavLabel(chk, 'هل أصبت؟'); chk.disabled = true; }
+  if (chk) { setNavLabel(chk, 'هل إجابتي صحيحة؟'); chk.disabled = true; }
 }
 
 /* ═══════════════════════════════════════════════════════════

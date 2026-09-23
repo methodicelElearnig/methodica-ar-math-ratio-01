@@ -2363,7 +2363,7 @@
       </trans-unit>
       <trans-unit id="01-01-99-065">
         <source>צדקתי?</source>
-        <target>هل أصبت؟</target>
+        <target>هل إجابتي صحيحة؟</target>
         <note from="screen-id">01-01-99</note>
         <note from="element-role">body-text</note>
         <note from="source-location">methodica-math-ratio-01-01/script.js:960</note>
@@ -3148,7 +3148,7 @@
       </trans-unit>
       <trans-unit id="01-02-14-025">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>&lt;span class="nav-label" data-label="هل أصبت؟"&gt;&lt;span&gt;هل أصبت؟&lt;/span&gt;&lt;/span&gt;</target>
+        <target>&lt;span class="nav-label" data-label="هل إجابتي صحيحة؟"&gt;&lt;span&gt;هل إجابتي صحيحة؟&lt;/span&gt;&lt;/span&gt;</target>
         <note from="screen-id">01-02-14</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-02/index.html:134</note>
@@ -3237,7 +3237,7 @@
       </trans-unit>
       <trans-unit id="01-02-15-010">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>هل أصبت؟</target>
+        <target>هل إجابتي صحيحة؟</target>
         <note from="screen-id">01-02-15</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-02/index.html:165</note>
@@ -3333,7 +3333,7 @@
       </trans-unit>
       <trans-unit id="01-02-16-011">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;هل أصبت؟&lt;/span&gt;&lt;/span&gt;</target>
+        <target>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;هل إجابتي صحيحة؟&lt;/span&gt;&lt;/span&gt;</target>
         <note from="screen-id">01-02-16</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-02/index.html:196</note>
@@ -3371,7 +3371,7 @@
       </trans-unit>
       <trans-unit id="01-02-17-003">
         <source>א. עצבו זר שמחירו 56 ש"ח.&lt;br&gt; &lt;span class="qs-qsub"&gt;כשתגיעו למארז המתאים, לחצו על כפתור "צדקתי?".&lt;/span&gt;</source>
-        <target>أ. صمّموا باقة زهور سعرها 56 شيكل.&lt;br&gt; &lt;span class="qs-qsub"&gt;عندما تصلون إلى الباقة المناسبة، اضغطوا على زر  "هل أصبت؟".&lt;/span&gt;</target>
+        <target>أ. صمّموا باقة زهور سعرها 56 شيكل.&lt;br&gt; &lt;span class="qs-qsub"&gt;عندما تصلون إلى الباقة المناسبة، اضغطوا على زر  "هل إجابتي صحيحة؟".&lt;/span&gt;</target>
         <note from="screen-id">01-02-17</note>
         <note from="element-role">body-text</note>
         <note from="source-location">methodica-math-ratio-01-02/index.html:214</note>
@@ -3442,7 +3442,7 @@
       </trans-unit>
       <trans-unit id="01-02-17-013">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;هل أصبت؟&lt;/span&gt;&lt;/span&gt;</target>
+        <target>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;هل إجابتي صحيحة؟&lt;/span&gt;&lt;/span&gt;</target>
         <note from="screen-id">01-02-17</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-02/index.html:215</note>
@@ -3512,7 +3512,7 @@
       </trans-unit>
       <trans-unit id="01-02-18-003">
         <source>ב. עצבו זר שמחירו 84 ש"ח.&lt;br&gt; &lt;span class="qs-qsub"&gt;כשתגיעו למארז המתאים, לחצו על כפתור "צדקתי?".&lt;/span&gt;</source>
-        <target>ب. صمّموا باقة زهور يبلغ سعرها 84 شيكل.&lt;br&gt; &lt;span class="qs-qsub"&gt;عندما تصلوا إلى الباقة المناسبة، اضغطوا على زر "هل أصبت؟".&lt;/span&gt;</target>
+        <target>ب. صمّموا باقة زهور يبلغ سعرها 84 شيكل.&lt;br&gt; &lt;span class="qs-qsub"&gt;عندما تصلوا إلى الباقة المناسبة، اضغطوا على زر "هل إجابتي صحيحة؟".&lt;/span&gt;</target>
         <note from="screen-id">01-02-18</note>
         <note from="element-role">body-text</note>
         <note from="source-location">methodica-math-ratio-01-02/index.html:250</note>
@@ -3583,7 +3583,7 @@
       </trans-unit>
       <trans-unit id="01-02-18-013">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;هل أصبت؟&lt;/span&gt;&lt;/span&gt;</target>
+        <target>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;هل إجابتي صحيحة؟&lt;/span&gt;&lt;/span&gt;</target>
         <note from="screen-id">01-02-18</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-02/index.html:232</note>
@@ -3687,7 +3687,7 @@
       </trans-unit>
       <trans-unit id="01-02-19-008">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>هل أصبت؟</target>
+        <target>هل إجابتي صحيحة؟</target>
         <note from="screen-id">01-02-19</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-02/index.html:251</note>
@@ -4352,7 +4352,7 @@
       </trans-unit>
       <trans-unit id="01-02-99-065">
         <source>צדקתי?</source>
-        <target>هل أصبت؟</target>
+        <target>هل إجابتي صحيحة؟</target>
         <note from="screen-id">01-02-99</note>
         <note from="element-role">body-text</note>
         <note from="source-location">methodica-math-ratio-01-02/script.js:924</note>
@@ -5108,7 +5108,7 @@
       </trans-unit>
       <trans-unit id="01-03-21-011">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>&lt;span class="nav-label" data-label="هل كنت محقاً؟"&gt;&lt;span&gt;هل كنت محقاً؟&lt;/span&gt;&lt;/span&gt;</target>
+        <target>&lt;span class="nav-label" data-label="هل إجابتي صحيحة؟"&gt;&lt;span&gt;هل إجابتي صحيحة؟&lt;/span&gt;&lt;/span&gt;</target>
         <note from="screen-id">01-03-21</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-03/index.html:130</note>
@@ -5219,7 +5219,7 @@
       </trans-unit>
       <trans-unit id="01-03-22-010">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>&lt;span class="nav-label" data-label="هل أصبت؟"&gt;&lt;span&gt;هل أصبت؟&lt;/span&gt;&lt;/span&gt;</target>
+        <target>&lt;span class="nav-label" data-label="هل إجابتي صحيحة؟"&gt;&lt;span&gt;هل إجابتي صحيحة؟&lt;/span&gt;&lt;/span&gt;</target>
         <note from="screen-id">01-03-22</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-03/index.html:153</note>
@@ -5327,7 +5327,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-03-23-009">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>&lt;span class="nav-label" data-label="هل أصبت؟"&gt;&lt;span&gt;هل أصبت؟&lt;/span&gt;&lt;/span&gt;</target>
+        <target>&lt;span class="nav-label" data-label="هل إجابتي صحيحة؟"&gt;&lt;span&gt;هل إجابتي صحيحة؟&lt;/span&gt;&lt;/span&gt;</target>
         <note from="screen-id">01-03-23</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-03/index.html:174</note>
@@ -5397,7 +5397,7 @@ Wait, let me correct that.
       <trans-unit id="01-03-24-003">
         <source>א. בנו מארז שמחירו 6 ש"ח, שבו נשמר היחס בין מספר החטיפים למספר הסוכריות.&lt;br&gt; &lt;span class="qs-qsub"&gt;כשתגיעו למארז המתאים, לחצו על כפתור "צדקתי?".&lt;/span&gt;</source>
         <target>أ. ابنوا رزمةً سعرها 6 شيكل، بحيث يُحافظ فيها على النسبة بين عدد ألواح شوكولاتة وعدد  الحلوى.&lt;br&gt; &lt;span class="qs-qsub"&gt;
-عندما تصلون إلى الرزمة الملائمة، اضغطوا على زر "هل أصبتُ؟"</target>
+عندما تصلون إلى الرزمة الملائمة، اضغطوا على زر "هل إجابتي صحيحة؟"</target>
         <note from="screen-id">01-03-24</note>
         <note from="element-role">body-text</note>
         <note from="source-location">methodica-math-ratio-01-03/index.html:187</note>
@@ -5468,7 +5468,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-03-24-013">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>هل صدقت؟</target>
+        <target>هل إجابتي صحيحة؟</target>
         <note from="screen-id">01-03-24</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-03/index.html:188</note>
@@ -5506,7 +5506,7 @@ Wait, let me correct that.
       <trans-unit id="01-03-25-003">
         <source>ב. בנו מארז שמחירו 24 ש"ח, שבו נשמר היחס בין מספר החטיפים למספר הסוכריות.&lt;br&gt; &lt;span class="qs-qsub"&gt;כשתגיעו למארז המתאים, לחצו על כפתור "צדקתי?".&lt;/span&gt;</source>
         <target>ب. ابنوا رزمةً سعرها 24 شيكلاً، بحيث يُحافظ فيها على النسبة بين عدد الألواح وعدد الحلوى.
-عندما تصلون إلى الرزمة الملائمة، اضغطوا على زر "هل أصبتُ؟"</target>
+عندما تصلون إلى الرزمة الملائمة، اضغطوا على زر "هل إجابتي صحيحة؟"</target>
         <note from="screen-id">01-03-25</note>
         <note from="element-role">body-text</note>
         <note from="source-location">methodica-math-ratio-01-03/index.html:218</note>
@@ -5577,7 +5577,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-03-25-013">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;هل أصبت؟&lt;/span&gt;&lt;/span&gt;</target>
+        <target>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;هل إجابتي صحيحة؟&lt;/span&gt;&lt;/span&gt;</target>
         <note from="screen-id">01-03-25</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-03/index.html:205</note>
@@ -5679,7 +5679,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-03-27-006">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>هل أصبت؟</target>
+        <target>هل إجابتي صحيحة؟</target>
         <note from="screen-id">01-03-27</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-03/index.html:219</note>
@@ -5874,7 +5874,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-03-28-020">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;هل أصبت؟&lt;/span&gt;&lt;/span&gt;</target>
+        <target>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;هل إجابتي صحيحة؟&lt;/span&gt;&lt;/span&gt;</target>
         <note from="screen-id">01-03-28</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-03/index.html:236</note>
@@ -6026,7 +6026,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-03-29-016">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>&lt;span class="nav-label" data-label="هل أصبت؟"&gt;&lt;span&gt;هل أصبت؟&lt;/span&gt;&lt;/span&gt;</target>
+        <target>&lt;span class="nav-label" data-label="هل إجابتي صحيحة؟"&gt;&lt;span&gt;هل إجابتي صحيحة؟&lt;/span&gt;&lt;/span&gt;</target>
         <note from="screen-id">01-03-29</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-03/index.html:272</note>
@@ -6555,7 +6555,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-03-99-065">
         <source>צדקתי?</source>
-        <target>هل صدقت؟</target>
+        <target>هل إجابتي صحيحة؟</target>
         <note from="screen-id">01-03-99</note>
         <note from="element-role">body-text</note>
         <note from="source-location">methodica-math-ratio-01-03/script.js:929</note>
@@ -8019,7 +8019,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-04-99-065">
         <source>צדקתי?</source>
-        <target>هل أصبت؟</target>
+        <target>هل إجابتي صحيحة؟</target>
         <note from="screen-id">01-04-99</note>
         <note from="element-role">body-text</note>
         <note from="source-location">methodica-math-ratio-01-04/script.js:919</note>
@@ -8881,7 +8881,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-05-34-009">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;هل أجبت صحيحًا؟&lt;/span&gt;&lt;/span&gt;</target>
+        <target>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;هل إجابتي صحيحة؟&lt;/span&gt;&lt;/span&gt;</target>
         <note from="screen-id">01-05-34</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-05/index.html:132</note>
@@ -8932,7 +8932,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-05-35-005">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>&lt;span class="nav-label" data-label="هل أصبت؟"&gt;&lt;span&gt;هل أصبت؟&lt;/span&gt;&lt;/span&gt;</target>
+        <target>&lt;span class="nav-label" data-label="هل إجابتي صحيحة؟"&gt;&lt;span&gt;هل إجابتي صحيحة؟&lt;/span&gt;&lt;/span&gt;</target>
         <note from="screen-id">01-05-35</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-05/index.html:153</note>
@@ -9126,7 +9126,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-05-36-022">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>&lt;span class="nav-label" data-label="هل أصبت؟"&gt;&lt;span&gt;هل أصبت؟&lt;/span&gt;&lt;/span&gt;</target>
+        <target>&lt;span class="nav-label" data-label="هل إجابتي صحيحة؟"&gt;&lt;span&gt;هل إجابتي صحيحة؟&lt;/span&gt;&lt;/span&gt;</target>
         <note from="screen-id">01-05-36</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-05/index.html:175</note>
@@ -9631,7 +9631,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-05-99-065">
         <source>צדקתי?</source>
-        <target>هل كنت محقًّا؟</target>
+        <target>هل إجابتي صحيحة؟</target>
         <note from="screen-id">01-05-99</note>
         <note from="element-role">body-text</note>
         <note from="source-location">methodica-math-ratio-01-05/script.js:921</note>
@@ -10577,7 +10577,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-06-39-009">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;هل أصبت؟&lt;/span&gt;&lt;/span&gt;</target>
+        <target>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;هل إجابتي صحيحة؟&lt;/span&gt;&lt;/span&gt;</target>
         <note from="screen-id">01-06-39</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-06/index.html:142</note>
@@ -10694,7 +10694,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-06-40-011">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;هل أصبت؟&lt;/span&gt;&lt;/span&gt;</target>
+        <target>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;هل إجابتي صحيحة؟&lt;/span&gt;&lt;/span&gt;</target>
         <note from="screen-id">01-06-40</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-06/index.html:163</note>
@@ -10849,7 +10849,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-06-42-013">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;هل أصبت؟&lt;/span&gt;&lt;/span&gt;</target>
+        <target>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;هل إجابتي صحيحة؟&lt;/span&gt;&lt;/span&gt;</target>
         <note from="screen-id">01-06-42</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-06/index.html:187</note>
@@ -10949,7 +10949,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-06-43-012">
         <source>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;צדקתי?&lt;/span&gt;&lt;/span&gt;</source>
-        <target>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;هل كنت محقًا؟&lt;/span&gt;&lt;/span&gt;</target>
+        <target>&lt;span class="nav-label" data-label="צדקתי?"&gt;&lt;span&gt;هل إجابتي صحيحة؟&lt;/span&gt;&lt;/span&gt;</target>
         <note from="screen-id">01-06-43</note>
         <note from="element-role">button-label</note>
         <note from="source-location">methodica-math-ratio-01-06/index.html:209</note>
@@ -11502,7 +11502,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-06-99-065">
         <source>צדקתי?</source>
-        <target>هل أصبت؟</target>
+        <target>هل إجابتي صحيحة؟</target>
         <note from="screen-id">01-06-99</note>
         <note from="element-role">body-text</note>
         <note from="source-location">methodica-math-ratio-01-06/script.js:926</note>
