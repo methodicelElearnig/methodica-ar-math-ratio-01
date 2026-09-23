@@ -2355,7 +2355,7 @@
       </trans-unit>
       <trans-unit id="01-01-99-064">
         <source>שנמשיך?</source>
-        <target>هل نكمل؟</target>
+        <target>متابعة</target>
         <note from="screen-id">01-01-99</note>
         <note from="element-role">body-text</note>
         <note from="source-location">methodica-math-ratio-01-01/script.js:938</note>
@@ -4344,7 +4344,7 @@
       </trans-unit>
       <trans-unit id="01-02-99-064">
         <source>שנמשיך?</source>
-        <target>هل نكمل؟</target>
+        <target>متابعة</target>
         <note from="screen-id">01-02-99</note>
         <note from="element-role">body-text</note>
         <note from="source-location">methodica-math-ratio-01-02/script.js:902</note>
@@ -6547,7 +6547,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-03-99-064">
         <source>שנמשיך?</source>
-        <target>هل نكمل؟</target>
+        <target>متابعة</target>
         <note from="screen-id">01-03-99</note>
         <note from="element-role">body-text</note>
         <note from="source-location">methodica-math-ratio-01-03/script.js:907</note>
@@ -8011,7 +8011,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-04-99-064">
         <source>שנמשיך?</source>
-        <target>هل نكمل؟</target>
+        <target>متابعة</target>
         <note from="screen-id">01-04-99</note>
         <note from="element-role">body-text</note>
         <note from="source-location">methodica-math-ratio-01-04/script.js:897</note>
@@ -9623,7 +9623,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-05-99-064">
         <source>שנמשיך?</source>
-        <target>هل نكمل؟</target>
+        <target>متابعة</target>
         <note from="screen-id">01-05-99</note>
         <note from="element-role">body-text</note>
         <note from="source-location">methodica-math-ratio-01-05/script.js:899</note>
@@ -11494,7 +11494,7 @@ Wait, let me correct that.
       </trans-unit>
       <trans-unit id="01-06-99-064">
         <source>שנמשיך?</source>
-        <target>هل نكمل؟</target>
+        <target>متابعة</target>
         <note from="screen-id">01-06-99</note>
         <note from="element-role">body-text</note>
         <note from="source-location">methodica-math-ratio-01-06/script.js:904</note>

@@ -733,7 +733,7 @@ function makeClickHint(id) {
    Engine is percent-02's S25, behavior-identical, parameterized so the
    two screens share one implementation: toggle → هل إجابتي صحيحة؟ → first wrong
    marks ONLY the learner's wrong picks + retry popup; final wrong
-   reveals the full correct set; correct/final relabel to هل نكمل؟.
+   reveals the full correct set; correct/final relabel to متابعة.
    Popups are draggable (percent-02 drag/clamp machinery, vendored).
    ═══════════════════════════════════════════════════════════ */
 const CANVAS_W = 1280, CANVAS_H = 710, BOTTOM_BAR_H = 74;
@@ -855,7 +855,7 @@ function mcqMark(q, id, cls) {
 }
 
 function mcqCheck(q) {
-  if (q.answered) { advanceScreen(); return; }   // label is هل نكمل؟ → go next
+  if (q.answered) { advanceScreen(); return; }   // label is متابعة → go next
   if (q.selected.size < 1) return;
 
   q.attempts++;
@@ -897,7 +897,7 @@ function mcqFinish(q) {
   try { flushResumeSave(); } catch (e) {}
   document.querySelectorAll('#' + q.id + ' ' + (q.optSelector || '.scq-opt')).forEach(o => { o.disabled = true; });
   const chk = document.getElementById(q.id + '-check');
-  if (chk) { setNavLabel(chk, 'هل نكمل؟'); chk.disabled = false; }
+  if (chk) { setNavLabel(chk, 'متابعة'); chk.disabled = false; }
 }
 
 function mcqUpdateBar(q) {
@@ -1500,7 +1500,7 @@ function s14Check() {
     s14Done = true;
     document.querySelectorAll('#s14 .dq-select').forEach(el => { el.disabled = true; });
     const chk = document.getElementById('s14-check');
-    if (chk) { setNavLabel(chk, 'هل نكمل؟'); chk.disabled = false; }
+    if (chk) { setNavLabel(chk, 'متابعة'); chk.disabled = false; }
     hideHintButton('s14');
     setPracticeResult('s14', ok);
     try { flushResumeSave(); } catch (e) {}
@@ -1596,7 +1596,7 @@ function s16Check() {
     s16Done = true;
     document.querySelectorAll('#s16 .viq-input-box').forEach(el => { el.disabled = true; });
     const chk = document.getElementById('s16-check');
-    if (chk) { setNavLabel(chk, 'هل نكمل؟'); chk.disabled = false; }
+    if (chk) { setNavLabel(chk, 'متابعة'); chk.disabled = false; }
     hideHintButton('s16');
     setPracticeResult('s16', ok);
     try { flushResumeSave(); } catch (e) {}
@@ -1771,7 +1771,7 @@ function bqCheck(sid) {
     st.done = true;
     document.querySelectorAll('#' + sid + ' .bq-btn').forEach(b => { b.disabled = true; });
     const chk = document.getElementById(sid + '-check');
-    if (chk) { setNavLabel(chk, 'هل نكمل؟'); chk.disabled = false; }
+    if (chk) { setNavLabel(chk, 'متابعة'); chk.disabled = false; }
     hideHintButton(sid);
     // part-01 bouquet screens use the part-01 strip; later applets use set strips
     if (QPROG_INDEX[sid] !== undefined) setPracticeResult(sid, wasOk);
@@ -1892,7 +1892,7 @@ function s19qCheck() {
     s19qDone = true;
     document.querySelectorAll('#s19 .scq-opt').forEach(o => { o.disabled = true; });
     const chk = document.getElementById('s19-check');
-    if (chk) { setNavLabel(chk, 'هل نكمل؟'); chk.disabled = false; }
+    if (chk) { setNavLabel(chk, 'متابعة'); chk.disabled = false; }
     hideHintButton('s19');
     setPracticeResult('s19', ok);
     try { flushResumeSave(); } catch (e) {}
@@ -2017,7 +2017,7 @@ function s21Check() {
     s21Done = true;
     document.querySelectorAll('#s21 .viq-input-box').forEach(el => { el.disabled = true; });
     const chk = document.getElementById('s21-check');
-    if (chk) { setNavLabel(chk, 'هل نكمل؟'); chk.disabled = false; }
+    if (chk) { setNavLabel(chk, 'متابعة'); chk.disabled = false; }
     hideHintButton('s21');
     setPracticeResult2('s21', ok);
     try { flushResumeSave(); } catch (e) {}
@@ -2086,7 +2086,7 @@ function s22Check() {
     s22Done = true;
     document.querySelectorAll('#s22 .viq-input-box').forEach(el => { el.disabled = true; });
     const chk = document.getElementById('s22-check');
-    if (chk) { setNavLabel(chk, 'هل نكمل؟'); chk.disabled = false; }
+    if (chk) { setNavLabel(chk, 'متابعة'); chk.disabled = false; }
     hideHintButton('s22');
     setPracticeResult2('s22', ok);
     try { flushResumeSave(); } catch (e) {}
@@ -2181,7 +2181,7 @@ function scqCheck(sid) {
     q.done = true;
     document.querySelectorAll('#' + sid + ' .scq-opt').forEach(o => { o.disabled = true; });
     const chk = document.getElementById(sid + '-check');
-    if (chk) { setNavLabel(chk, 'هل نكمل؟'); chk.disabled = false; }
+    if (chk) { setNavLabel(chk, 'متابعة'); chk.disabled = false; }
     hideHintButton(sid);
     if (q.practice) setPracticeResult2(sid, ok);
     try { flushResumeSave(); } catch (e) {}
@@ -2270,7 +2270,7 @@ function s28Check() {
     s28Done = true;
     document.querySelectorAll('#s28 .viq-input-box').forEach(el => { el.disabled = true; });
     const chk = document.getElementById('s28-check');
-    if (chk) { setNavLabel(chk, 'هل نكمل؟'); chk.disabled = false; }
+    if (chk) { setNavLabel(chk, 'متابعة'); chk.disabled = false; }
     hideHintButton('s28');
     setPracticeResult2('s28', ok);
     try { flushResumeSave(); } catch (e) {}
@@ -2411,7 +2411,7 @@ function s39Check() {
     s39Done = true;
     input.disabled = true;
     const chk = document.getElementById('s39-check');
-    if (chk) { setNavLabel(chk, 'هل نكمل؟'); chk.disabled = false; }
+    if (chk) { setNavLabel(chk, 'متابعة'); chk.disabled = false; }
     hideHintButton('s39');
     try { flushResumeSave(); } catch (e) {}
   };
@@ -2697,7 +2697,7 @@ function screenWasCorrect(sid) {
 
 function paintDoneButton(sid) {
   var chk = document.getElementById(sid + '-check');
-  if (chk) { setNavLabel(chk, 'هل نكمل؟'); chk.disabled = false; }
+  if (chk) { setNavLabel(chk, 'متابعة'); chk.disabled = false; }
   hideHintButton(sid);
 }
 
