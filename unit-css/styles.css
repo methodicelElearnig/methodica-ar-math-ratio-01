@@ -1096,7 +1096,7 @@ html, body {
    ═══════════════════════════════════════════════════════ */
 .scq-hint {
   position: absolute;
-  bottom: 17px; left: 180px;
+  bottom: 17px; left: 280px;
   z-index: 12;
   height: 40px; box-sizing: border-box;   /* Figma 1731:45026 — same pill as continue */
   min-width: 140px;
@@ -1144,7 +1144,7 @@ html, body {
 .scq-hint-body p { margin: 0 0 12px; }
 .scq-hint-body p:last-child { margin-bottom: 0; }
 .scq-hint-close {
-  width: 196px; padding: 16px 40px;
+  min-width: 196px; width: auto; padding: 16px 40px;
   border: none; border-radius: 1000px; background: #fff;
   color: #303030;
   font-family: 'Assistant', sans-serif; font-size: 24px; font-weight: 400;
