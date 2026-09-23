@@ -779,7 +779,7 @@
       </trans-unit>
       <trans-unit id="01-01-04-013">
         <source>אם היחס בכתיב המילולי כתוב כך: &lt;strong&gt;בשורת המדבקות יש 4 מדבקות שחורות ו-8 מדבקות אדומות&lt;/strong&gt;,&lt;br&gt; הכתיב המתמטי יהיה &lt;span dir="ltr"&gt;&lt;strong&gt;4 : 8&lt;/strong&gt;&lt;/span&gt; או &lt;span class="frac" dir="ltr"&gt;&lt;span class="frac-num"&gt;4&lt;/span&gt;&lt;span class="frac-den"&gt;8&lt;/span&gt;&lt;/span&gt;</source>
-        <target>ذ</target>
+        <target>إذا كانت النسبة مكتوبة بالكتابة اللفظية هكذا: &lt;strong&gt;في صف الملصقات توجد 4 ملصقات سوداء و8 ملصقات حمراء&lt;/strong&gt;،&lt;br&gt; فإن الكتابة الرياضية ستكون &lt;span dir="ltr"&gt;&lt;strong&gt;4 : 8&lt;/strong&gt;&lt;/span&gt; أو &lt;span class="frac" dir="ltr"&gt;&lt;span class="frac-num"&gt;4&lt;/span&gt;&lt;span class="frac-den"&gt;8&lt;/span&gt;&lt;/span&gt;</target>
         <note from="screen-id">01-01-04</note>
         <note from="element-role">body-text</note>
         <note from="source-location">methodica-math-ratio-01-01/index.html:396</note>

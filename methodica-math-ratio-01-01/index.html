@@ -134,7 +134,7 @@
 
           <!-- §1 — story (slide 4) -->
           <div class="rs-block">
-            <p class="rs-text">أنتم تحضرون لحفل بركة سباحة على مستوى الطبقة الصفية، ولهذه الغاية ترغبون في تحضير محلول لفقاعات صابون ضخمة جداً</p>
+            <p class="rs-text">أنتم تحضرون لحفل بركة سباحة على مستوى الطبقة الصفية، ولهذه الغاية ترغبون في تحضير محلول لفقاعات صابون ضخمة جداً.</p>
             <img class="rs-story-img" src="../unit-assets/img/s1-story-placeholder.jpg"
                  alt="أطفال في ساحة مع فقاعات صابون عملاقة" loading="lazy" decoding="async">
           </div>
@@ -167,7 +167,7 @@
                 <div class="scq-answers" role="radiogroup" aria-label="ما الذي تعتقدون أنه قد يكون السبب؟">
                   <button class="scq-opt" type="button" role="radio" aria-checked="false" data-id="a" onclick="s1qSelect('a')">
                     <span class="scq-radio" aria-hidden="true"></span>
-                    لقد ضاعفنا بعض مكونات الوصفة فقط وليس جميعها
+                    <span class="scq-opt-text">لقد ضاعفنا بعض مكونات الوصفة فقط وليس جميعها</span>
                   </button>
                   <button class="scq-opt" type="button" role="radio" aria-checked="false" data-id="b" onclick="s1qSelect('b')">
                     <span class="scq-radio" aria-hidden="true"></span>
@@ -175,10 +175,10 @@
                   </button>
                   <button class="scq-opt" type="button" role="radio" aria-checked="false" data-id="c" onclick="s1qSelect('c')">
                     <span class="scq-radio" aria-hidden="true"></span>
-                    لقد حضّرنا المحلول قبل أكثر من نصف ساعة من الحفل
+                    <span class="scq-opt-text">لقد حضّرنا المحلول قبل أكثر من نصف ساعة من الحفل</span>
                   </button>
                 </div>
-                <button class="btn-continue rs-check" id="s1q-check" disabled onclick="s1qCheck()">هل إجابتي صحيحة؟</button>
+                <button class="btn-continue rs-check" id="s1q-check" disabled onclick="s1qCheck()"><span class="nav-label" data-label="هل إجابتي صحيحة؟"><span>هل إجابتي صحيحة؟</span></span></button>
                 <div class="rs-feedback" id="s1q-feedback"></div>
               </div>
               <!-- companion character, detective pose (asset pair pending) -->
@@ -257,7 +257,7 @@
                 <div class="frc-card-inner">
                   <div class="frc-card-front">
                     <img src="../unit-assets/img/s1-flip-density-placeholder.jpg" alt="جدول التجمعات السكانية الأكثر اكتظاظاً في إسرائيل" loading="lazy" decoding="async">
-                    الكثافة السكانية
+                    <span class="frc-card-title">الكثافة السكانية</span>
                   </div>
                   <div class="frc-card-back" aria-hidden="true">
                     <div class="frc-card-back-content"><strong>الكثافة السكانية:</strong> النسبة بين عدد السكان ومساحة المنطقة.</div>
@@ -269,7 +269,7 @@
                 <div class="frc-card-inner">
                   <div class="frc-card-front">
                     <img src="../unit-assets/img/s1-flip-pool-placeholder.jpg" alt="ملء البركة بواسطة  خرطوم مياه (أنبوب)" loading="lazy" decoding="async">
-                    ملء البركة
+                    <span class="frc-card-title">ملء البركة</span>
                   </div>
                   <div class="frc-card-back" aria-hidden="true">
                     <div class="frc-card-back-content"><strong>ملء البركة<br>(معدل/وتيرة الملء):</strong>نسبة بين كمية الماء وزمن الملء</div>
@@ -305,17 +305,16 @@
         </ul>
         <img class="qs-stickers" src="../unit-assets/img/s2-stickers-12.svg"
              alt="صف من 12 ملصقًا دائريًا: 4 سوداء و8 حمراء" loading="lazy" decoding="async">
-        <p class="scq-qtext qs-qtext">ماذا يمكن القول عن العلاقة بين الملصقات السوداء والحمراء؟
-
-حددوا جميع الإجابات المناسبة.</p>
+        <p class="scq-qtext qs-qtext">ماذا يمكن القول عن العلاقة بين الملصقات السوداء والحمراء؟<br>
+          <span class="qs-qsub">حددوا جميع الإجابات المناسبة.</span></p>
         <div class="scq-answers qs-answers" role="group" aria-label="حددوا جميع الإجابات المناسبة">
           <button class="scq-opt" type="button" role="checkbox" aria-checked="false" data-id="a" onclick="s2Toggle('a')">
             <span class="mcq-check" aria-hidden="true"></span>
-            مقابل كل ملصقين أحمرين، يوجد ملصق أسود واحد
+            <span class="scq-opt-text">مقابل كل ملصقين أحمرين، يوجد ملصق أسود واحد</span>
           </button>
           <button class="scq-opt" type="button" role="checkbox" aria-checked="false" data-id="b" onclick="s2Toggle('b')">
             <span class="mcq-check" aria-hidden="true"></span>
-            مقابل كل ملصق أسود، يوجد ملصقان أحمران
+            <span class="scq-opt-text">مقابل كل ملصق أسود، يوجد ملصقان أحمران</span>
           </button>
           <button class="scq-opt" type="button" role="checkbox" aria-checked="false" data-id="c" onclick="s2Toggle('c')">
             <span class="mcq-check" aria-hidden="true"></span>
@@ -327,7 +326,7 @@
           </button>
         </div>
       </div>
-      <button class="btn-continue" id="s2-check" disabled onclick="s2Check()">هل إجابتي صحيحة؟</button>
+      <button class="btn-continue" id="s2-check" disabled onclick="s2Check()"><span class="nav-label" data-label="هل إجابتي صحيحة؟"><span>هل إجابتي صحيحة؟</span></span></button>
       <button class="scq-back" type="button" onclick="goBack()"><span class="nav-label" data-label="رجوع"><span>رجوع</span></span></button>
     </section>
 <section class="screen" data-screen="3" id="s3">
@@ -360,7 +359,7 @@
           </button>
         </div>
       </div>
-      <button class="btn-continue" id="s3-check" disabled onclick="s3Check()">هل إجابتي صحيحة؟</button>
+      <button class="btn-continue" id="s3-check" disabled onclick="s3Check()"><span class="nav-label" data-label="هل إجابتي صحيحة؟"><span>هل إجابتي صحيحة؟</span></span></button>
       <button class="scq-back" type="button" onclick="goBack()"><span class="nav-label" data-label="رجوع"><span>رجوع</span></span></button>
     </section>
 <section class="screen" data-screen="4" id="s4">
@@ -371,10 +370,9 @@
           <div class="rs-block">
             <h2 class="rs-title">ولماذا نطرح كل هذه الأسئلة؟</h2>
             <p class="rs-text"><strong>لأننا أردنا أن تتعرفوا على مصطلح جديد: نسبة.</strong></p>
-            <p class="rs-text">ما هي النسبة؟
-النسبة هي حاصل قسمة عددين موجبين (أعداد، مقادير، كميات وغيرها).
-
-وهي تتيح لنا فهم أيّهما أكبر / أصغر / مساوٍ للآخر، وكيف يرتبط العددان ببعضهما البعض.</p>
+            <p class="rs-text"><strong>ما هي النسبة؟</strong><br>
+              <strong>النسبة هي حاصل قسمة عددين موجبين (أعداد، مقادير، كميات وغيرها).</strong><br>
+              وهي تتيح لنا فهم أيّهما أكبر / أصغر / مساوٍ للآخر، وكيف يرتبط العددان ببعضهما البعض.</p>
             <p class="rs-text">إذا عدنا إلى ملصقاتنا، لدينا 4 ملصقات سوداء و8 ملصقات حمراء.</p>
             <p class="rs-text">النسبة بين الملصقات السوداء والملصقات الحمراء هي <span dir="ltr">4: 8</span>.</p>
             <img class="qs-stickers" src="../unit-assets/img/s2-stickers-12.svg"
@@ -384,10 +382,10 @@
           <!-- §2 — notation (slide 13, bolds per the reference render) -->
           <div class="rs-block">
             <p class="rs-text"><strong>يمكن تمثيل نسبة بالكتابة اللفظية، والكتابة الرياضية، وكسر بسيط / العشري، ونسبة مئوية.</strong></p>
-            <p class="rs-text">بالكتابة اللفظية: نكتب النسبة من اليمين إلى اليسار - في صف الملصقات توجد 4 ملصقات سوداء و8 ملصقات حمراء.</p>
+            <p class="rs-text"><strong>بالكتابة اللفظية:</strong> نكتب النسبة <strong>من اليمين إلى اليسار</strong> - في صف الملصقات توجد 4 ملصقات سوداء و8 ملصقات حمراء.</p>
             <p class="rs-text"><strong>بالكتابة الرياضية:</strong> نكتب نسبة <strong>من اليسار إلى اليمين</strong> – <span dir="ltr">4: 8</span> أو بصورة كسر <span class="frac" dir="ltr"><span class="frac-num">4</span><span class="frac-den">8</span></span> (خارج القسمة).</p>
             <p class="rs-text">بما أن النسبة تصف حاصل قسمة (ناتج عملية القسمة)، فهناك أهمية لترتيب الكتابة.</p>
-            <p class="rs-text">الرقم المذكور أولاً في الكتابة اللفظية يُكتب على اليسار في الكتابة الرياضية، وفي بسط في حالة القسمة.</p>
+            <p class="rs-text">الرقم المذكور <strong>أولاً</strong> في الكتابة اللفظية يُكتب على <strong>اليسار</strong> في الكتابة الرياضية، وفي <strong>بسط</strong> في حالة القسمة.</p>
           </div>
 
           <!-- §3 — example beside the companion character (slide 14) -->
@@ -395,7 +393,9 @@
             <div class="rs-question-row">
               <div class="rs-question-main">
                 <p class="rs-text"><strong>نوضح بمثال:</strong></p>
-                <p class="rs-text">ذ</p>
+                <p class="rs-text">إذا كانت النسبة مكتوبة بالكتابة اللفظية هكذا: <strong>في صف الملصقات توجد 4 ملصقات سوداء و8 ملصقات حمراء</strong>،<br>
+                  فإن الكتابة الرياضية ستكون <span dir="ltr"><strong>4 : 8</strong></span> أو
+                  <span class="frac" dir="ltr"><span class="frac-num">4</span><span class="frac-den">8</span></span></p>
               </div>
               <!-- pptx slide 14: bubble sits to the character's RIGHT
                    (wedgeRectCallout) — first child renders rightmost in RTL -->
@@ -432,7 +432,7 @@
                 <span class="scq-opt-text">درجة الحرارة الآن هي 32°C</span>
               </button>
             </div>
-            <button class="btn-continue rs-check" id="s4q1-check" disabled onclick="s4q1Check()">هل إجابتي صحيحة؟</button>
+            <button class="btn-continue rs-check" id="s4q1-check" disabled onclick="s4q1Check()"><span class="nav-label" data-label="هل إجابتي صحيحة؟"><span>هل إجابتي صحيحة؟</span></span></button>
             <div class="rs-feedback" id="s4q1-feedback"></div>
           </div>
 
@@ -451,7 +451,7 @@
               <input id="s4q2-right" class="viq-input-box" type="number" inputmode="numeric" min="0"
                      aria-label="الحد الأيمن في نسبة" oninput="s4q2OnInput()">
             </div>
-            <button class="btn-continue rs-check" id="s4q2-check" disabled onclick="s4q2Check()">هل إجابتي صحيحة؟</button>
+            <button class="btn-continue rs-check" id="s4q2-check" disabled onclick="s4q2Check()"><span class="nav-label" data-label="هل إجابتي صحيحة؟"><span>هل إجابتي صحيحة؟</span></span></button>
             <div class="rs-feedback" id="s4q2-feedback"></div>
 
             <!-- ב — value input (slide 17) -->
@@ -1013,7 +1013,7 @@
       <div class="report-modal-box">
         <button class="report-close-btn" onclick="tryCloseReportModal()" aria-label="إغلاق">&#10005;</button>
         <h2 class="report-modal-title" id="report-modal-title">الإبلاغ عن مشكلة</h2>
-        <p class="report-modal-body">هل هناك شيء غير واضح أو لا يعمل كما يجب؟ أخبرونا بما حدث لنقوم بمعالجته.</p>
+        <p class="report-modal-body">هل هناك شيء غير واضح أو لا يعمل كما يجب؟<br>أخبرونا بما حدث لنقوم بمعالجته.</p>
 
         <div class="report-field">
           <label class="report-label" for="report-type"><span class="required-star">*</span> ما نوع المشكلة</label>
