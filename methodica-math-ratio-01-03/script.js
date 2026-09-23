@@ -1379,7 +1379,7 @@ function renderQprog(sid) {
     const st = r === true ? 'is-correct' : r === false ? 'is-wrong' : i === cur ? 'is-current' : '';
     html += '<div class="qprog-station ' + st + '">' +
             '<span class="qprog-dot">' + QP_TICK + QP_X + '</span>' +
-            '<span class="qprog-label">سؤال</span></div>';
+            '<span class="qprog-label">سؤال ' + (i + 1) + '</span></div>';
     if (i < count - 1) {
       html += '<span class="qprog-line' + (r !== null ? ' is-done' : '') + '"></span>';
     }
