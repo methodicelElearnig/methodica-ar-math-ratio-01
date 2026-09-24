@@ -5,7 +5,7 @@
 
    Per-part seams read at CALL time (each component's own script.js declares them):
      SCREEN_TO_SUBCONTENT   screen -> [item suffix, page-in-item]; null = no catalog item
-     XAPI_COMP_SLUG         e.g. 'methodica-math-ratio-01-02'
+     XAPI_COMP_SLUG         e.g. 'methodica-ar-math-ratio-01-02'
      XAPI_COMP_ID           XAPI_ID_PREFIX + XAPI_COMP_SLUG + '/'
      XAPI_EVAL_ITEMS        items that carry a graded question IN CODE
      XAPI_ITEM_RESULT       optional; item suffix -> function returning an explicit result

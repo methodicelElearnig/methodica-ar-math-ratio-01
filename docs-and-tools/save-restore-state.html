@@ -22,7 +22,7 @@
   ב-localStorage, ואז תמונת מצב הייתה חלקית מעצם הגדרתה. ראו RESUME.md §3.
 
   שני דברים שנשארו ב-localStorage/sessionStorage הם **קאש נגזר**, לא מקור אמת:
-    • methodica_math_ratio_01_selectedCharacter / ratio01_c0N_scaled —
+    • methodica_ar_math_ratio_01_selectedCharacter / ratio01_c0N_scaled —
       applyUnitProfile מיישר אותם מהמסמך בכל טעינה, ולכן הזרקת המסמך לבדה
       מספיקה.
     • lomda_nav_edges::… — כפילות של doc.prev, וגם per-tab ולכן לא נגיש
@@ -277,8 +277,8 @@
 /* ═══════════════════ קבועים שנגזרים מהיחידה ═══════════════════
    מסונכרנים ידנית מול הקוד. אי-התאמה כאן = ולידציה שמאשרת מסמך שהיחידה תזרוק. */
 var RESUME_STATE_VERSION = 5;                       // unit-js/40-resume.js
-var UNIT_SLUG   = 'methodica-math-ratio-01';
-var SLUG_RE     = /^methodica-math-ratio-01-0[1-6]$/;
+var UNIT_SLUG   = 'methodica-ar-math-ratio-01';
+var SLUG_RE     = /^methodica-ar-math-ratio-01-0[1-6]$/;
 
 /* ⚠️ RANGES, not counts — this unit numbers screens UNIT-WIDE 0..45 and each part
    owns a slice, instead of every part restarting at 0. So the legal value of
@@ -286,12 +286,12 @@ var SLUG_RE     = /^methodica-math-ratio-01-0[1-6]$/;
    are the script's six רכיבים; mirrored from each script.js's PART_FIRST/PART_LAST
    (README.md → "Component boundaries come from the script"). */
 var SCREEN_RANGE = {
-  'methodica-math-ratio-01-01': [0, 12],
-  'methodica-math-ratio-01-02': [13, 19],
-  'methodica-math-ratio-01-03': [20, 29],
-  'methodica-math-ratio-01-04': [30, 32],
-  'methodica-math-ratio-01-05': [33, 36],
-  'methodica-math-ratio-01-06': [37, 45]
+  'methodica-ar-math-ratio-01-01': [0, 12],
+  'methodica-ar-math-ratio-01-02': [13, 19],
+  'methodica-ar-math-ratio-01-03': [20, 29],
+  'methodica-ar-math-ratio-01-04': [30, 32],
+  'methodica-ar-math-ratio-01-05': [33, 36],
+  'methodica-ar-math-ratio-01-06': [37, 45]
 };
 
 /* CACHE_KEYS[0] MUST be the character key and the rest MUST be the score keys —
@@ -299,7 +299,7 @@ var SCREEN_RANGE = {
    RESULT_KEYS in unit-js/40-resume.js. Component 04 is the off-computer class
    task and carries no score, which is why c04 is absent. */
 var CACHE_KEYS = [                                   // unit-js/40-resume.js
-  'methodica_math_ratio_01_selectedCharacter',
+  'methodica_ar_math_ratio_01_selectedCharacter',
   'ratio01_c01_scaled',
   'ratio01_c02_scaled',
   'ratio01_c03_scaled',

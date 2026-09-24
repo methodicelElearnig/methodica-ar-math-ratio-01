@@ -26,7 +26,7 @@ const path = require('path');
 const { JSDOM } = require('jsdom');
 
 const BASE = process.argv[2] || path.join(__dirname, '..');
-const UNIT = 'methodica-math-ratio-01';
+const UNIT = 'methodica-ar-math-ratio-01';
 const PART_DIR = c => UNIT + '-' + c;
 
 const failures = [];
@@ -360,7 +360,7 @@ function componentCompletedOnly() {
   ok('exit', 'production: the document (if written) is this part\'s, with no landing pointer (v6)',
     !st || (st.component === PART_DIR('01') && !('part' in st) && !('parts' in st) && !('prev' in st)), JSON.stringify(st));
   ok('exit', 'production: no back edge was recorded',
-    b.val("sessionStorage.getItem('lomda_nav_edges::methodica-math-ratio-01')") === null, String(b.val("sessionStorage.getItem('lomda_nav_edges::methodica-math-ratio-01')")));
+    b.val("sessionStorage.getItem('lomda_nav_edges::methodica-ar-math-ratio-01')") === null, String(b.val("sessionStorage.getItem('lomda_nav_edges::methodica-ar-math-ratio-01')")));
   ok('exit', 'production: the last screen\'s button is disabled after the report',
     b.val("document.getElementById('s12-check').disabled") === true &&
     b.val("document.getElementById('s12-check').getAttribute('aria-disabled')") === 'true');
@@ -380,8 +380,8 @@ function componentCompletedOnly() {
   eq('exit', 'dev: the component completed still goes out once',
     d.stmts().filter(s => s.verb === 'completed' && s.objectType === 'onlinelesson').length, 1);
   ok('exit', 'dev: the back edge into 02 records this part (sessionStorage edge map)',
-    (function () { try { return JSON.parse(d.val("sessionStorage.getItem('lomda_nav_edges::methodica-math-ratio-01')"))[PART_DIR('02')].from === PART_DIR('01'); } catch (e) { return false; } })(),
-    String(d.val("sessionStorage.getItem('lomda_nav_edges::methodica-math-ratio-01')")));
+    (function () { try { return JSON.parse(d.val("sessionStorage.getItem('lomda_nav_edges::methodica-ar-math-ratio-01')"))[PART_DIR('02')].from === PART_DIR('01'); } catch (e) { return false; } })(),
+    String(d.val("sessionStorage.getItem('lomda_nav_edges::methodica-ar-math-ratio-01')")));
   ok('exit', 'dev: this part\'s document was saved before the hop — its own payload, no pointer fields (v6)',
     d.state() && d.state().component === PART_DIR('01') && d.state().payload && !('part' in d.state()) && !('parts' in d.state()) && !('prev' in d.state()),
     JSON.stringify(d.state()));

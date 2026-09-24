@@ -1,4 +1,4 @@
-# methodica-math-ratio-01 — זיהוי מצבי יחס (יעד 1.1)
+# methodica-ar-math-ratio-01 — זיהוי מצבי יחס (יעד 1.1)
 
 The client-approved unit (QA closed 20.08.26), recreated 31.08.26 in the client's
 multi-component structure — the layout of `methodica-math-scale-01`, which is the
@@ -8,7 +8,7 @@ production script actually declares**.
 ## Component boundaries come from the script
 
 `storyboard/מתמטיקה_יחס_יעד 1.1_090826_מוכן להפקה.pptx` carries six divider slides
-(2, 30, 38, 49, 53, 58), each naming a רכיב and its `methodica-math-ratio-01-0N` id,
+(2, 30, 38, 49, 53, 58), each naming a רכיב and its `methodica-ar-math-ratio-01-0N` id,
 and every content slide carries the `מספר פריט` of the item it belongs to. Those
 dividers and those tags **are** the component and item ids used here — nothing in this
 repo re-derives them from the screen flow.
@@ -32,7 +32,7 @@ Screen 45 (the unit finale) has no slide of its own; it belongs to רכיב 6.
 ## Layout
 
 - `index.html` — redirects to component 01.
-- `methodica-math-ratio-01-01 … -06/` — six standalone component apps
+- `methodica-ar-math-ratio-01-01 … -06/` — six standalone component apps
   (`index.html` + `script.js` + `index_dev.html`). No stylesheet and no images of their
   own. Only component 01 still has an `assets/` folder at all, holding the two character
   selection clips that its own markup names.

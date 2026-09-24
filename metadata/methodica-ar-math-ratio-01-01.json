@@ -1,5 +1,5 @@
 {
-  "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/index.html",
+  "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/",
   "title": "لنتعلم شيئاً جديداً",
   "learningUnitId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01/",
   "componentPurpose": "both",
@@ -22,14 +22,14 @@
   "updatedAt": "2026-08-30T00:00:00.000Z",
   "subContent": [
     {
-      "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-001/index.html",
+      "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-001/",
       "title": "الاستهلال + التعليم: النسبة في محلول فقاعات الصابون",
       "informationToBot": "מטרת הפריט: פתיחה מוטיבציונית (בחירת דמות מלווה) ולאחריה הקנייה של המושג 'יחס' דרך תרחיש הכנת תמיסת בועות סבון למסיבה. כיווני חשיבה: הבנה שהכפלת חלק בלבד מהמרכיבים במתכון שוברת את היחס המקורי בין הכמויות, ושיחס הוא מנה בין שני גדלים השומרת על קשר קבוע. טעויות נפוצות: הנחה שאפשר להכפיל רק מרכיב אחד ולקבל תוצאה זהה. מידע נוסף: כולל גם 3 דוגמאות נוספות ליחס בחיי היומיום (מהירות, קצב מילוי בריכה, צפיפות אוכלוסין) כהעשרה לא מוערכת.",
       "contentType": "instruction",
       "mediaFormat": "text",
       "questions": [
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-001/index.html?q=q1",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-001/q1",
           "questionType": "choice",
           "questionText": "خرجت الفقاعات صغيرة جداً وانفجرت بسرعة كبيرة. برأيكم ما الذي قد يكون السبب؟",
           "answers": [
@@ -44,14 +44,14 @@
       ]
     },
     {
-      "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-002/index.html",
+      "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-002/",
       "title": "التعليم: كتابة النسبة، الاختزال والتوسيع (ملصقات)",
       "informationToBot": "מטרת הפריט: הקניית האופן לכתוב יחס בכתיב מילולי ובכתיב מתמטי (שבר/יחס), וזיהוי שניתן לצמצם ולהרחיב יחס כמו שבר, דרך תרחיש מדבקות שחורות/אדומות וכחולות/ירוקות. כיווני חשיבה: שמירה על סדר הכתיבה (המספר הראשון בכתיב המילולי נכתב משמאל/במונה), זיהוי היגדים המבטאים יחס לעומת מידע שאינו יחס, והבנה שיחס בין שתי כמויות שוות הוא תמיד 1:1. טעויות נפוצות: היפוך סדר המספרים ביחס; בלבול בין 'יחס בין שני גדלים' לבין נתון בודד (מחיר, טמפרטורה). מידע נוסף: כולל גם תרגול אינטראקטיבי לא-מוערך של צמצום יחסים (לחיצה על כל יחס להצגת הפתרון).",
       "contentType": "instruction",
       "mediaFormat": "text",
       "questions": [
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-002/index.html?q=q1",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-002/q1",
           "questionType": "choice",
           "questionText": "أمامكم 12 ملصقاً: 4 سوداء و8 حمراء. ماذا يمكن أن نقول عن العلاقة بين الملصقات السوداء والحمراء؟ (حددوا جميع الإجابات المناسبة)",
           "answers": [
@@ -68,7 +68,7 @@
           ]
         },
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-002/index.html?q=q2",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-002/q2",
           "questionType": "choice",
           "questionText": "من نفس الـ12 ملصقاً (4 سوداء، 8 حمراء) — ماذا يمكن أن نقول عن العلاقة بين الملصقات الحمراء وكل الملصقات؟ (حددوا جميع الإجابات المناسبة)",
           "answers": [
@@ -84,7 +84,7 @@
           ]
         },
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-002/index.html?q=q3",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-002/q3",
           "questionType": "choice",
           "questionText": "أي من الجمل التالية يمثّل نسبة بين مقدارين؟ (حددوا جميع الإجابات الصحيحة)",
           "answers": [
@@ -99,7 +99,7 @@
           ]
         },
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-002/index.html?q=q4",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-002/q4",
           "questionType": "fill-in",
           "questionText": "أمامكم 5 ملصقات. 4 ملصقات زرقاء وملصق واحد أخضر. أ. اكتبوا النسبة بين عدد الملصقات الخضراء وعدد الملصقات الزرقاء.",
           "answers": [],
@@ -109,7 +109,7 @@
           ]
         },
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-002/index.html?q=q5",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-002/q5",
           "questionType": "numeric",
           "questionText": "ب. وفق نفس النسبة (4:1): إذا كان لدينا 3 ملصقات خضراء، كم ملصقاً أزرق سيكون لدينا؟",
           "answers": [],
@@ -118,7 +118,7 @@
           ]
         },
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-002/index.html?q=q6",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-002/q6",
           "questionType": "matching",
           "questionText": "ج. وفق النسبة 4:1 (أزرق:أخضر)، حددوا ما إذا كانت كل حالة من الحالات التالية ممكنة:",
           "answers": {
@@ -155,14 +155,14 @@
       ]
     },
     {
-      "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-003/index.html",
+      "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-003/",
       "title": "تدريب موجّه: نسبة البلاطات في متجر",
       "informationToBot": "מטרת הפריט: פתרון שלב-שלב יחד עם הדמות של תרגיל יחס ראשון — יחס בין אריחים מקושטים לחלקים ברצועת אריחים בחנות, כולל צמצום. כיווני חשיבה: זיהוי סדר הכתיבה של היחס לפי סדר ההופעה בכתיב המילולי, ובדיקה האם ניתן לצמצם את היחס שהתקבל. טעויות נפוצות: היפוך סדר המספרים ביחס. מידע נוסף: מהלך מודרך לחלוטין (אין החלטה עצמאית של הלומד על הפתרון הסופי, רק אישור צעדי ביניים).",
       "contentType": "solved-exercise",
       "mediaFormat": "text",
       "questions": [
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-003/index.html?q=q1",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-003/q1",
           "questionType": "choice",
           "questionText": "عدد البلاطات المزخرفة مكتوب أولاً في الكتابة اللفظية. أين سيكون موقع هذا العدد في الكتابة الرياضية للنسبة؟",
           "answers": [
@@ -174,7 +174,7 @@
           ]
         },
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-003/index.html?q=q2",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-003/q2",
           "questionType": "true-false",
           "questionText": "النسبة بين عدد البلاطات المزخرفة (3) وعدد البلاطات الملساء (9) هي 9:3. هل يمكن اختزال هذه النسبة؟",
           "answers": [
@@ -188,14 +188,14 @@
       ]
     },
     {
-      "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-004/index.html",
+      "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-004/",
       "title": "إحماء 1: الماسات في لعبة الحاسوب",
       "informationToBot": "מטרת הפריט: תרגיל חימום ראשון להטמעת המושג יחס וסדר כתיבתו, דרך תרחיש איסוף יהלומים שחורים ולבנים במשחק מחשב. כיווני חשיבה: קביעת סדר המספרים ביחס לפי סדר ההופעה בכתיב המילולי, וחישוב פי-כמה גדולה כמות אחת מהשנייה מתוך היחס המצומצם. טעויות נפוצות: כתיבת היחס בסדר ההפוך (25:100 במקום 4:1 המצומצם). מידע נוסף: אין.",
       "contentType": "practice",
       "mediaFormat": "interactive-content",
       "questions": [
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-004/index.html?q=q1",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-004/q1",
           "questionType": "choice",
           "questionText": "حصلت روتيم على 100 ماسة سوداء و25 ماسة بيضاء. حددوا جميع العبارات الصحيحة.",
           "answers": [

@@ -133,7 +133,7 @@ function emptyUnitState() {
    in the document, so they are listed here for ?resetState to clear their localStorage mirrors
    too: otherwise a reset document sits beside a stale cache and the scores come back from a
    previous attempt. */
-var UI_CHARACTER_KEY = 'methodica_math_ratio_01_selectedCharacter';
+var UI_CHARACTER_KEY = 'methodica_ar_math_ratio_01_selectedCharacter';
 var RESULT_KEYS      = ['ratio01_c01_scaled', 'ratio01_c02_scaled', 'ratio01_c03_scaled',
                         'ratio01_c05_scaled', 'ratio01_c06_scaled'];
 
@@ -448,7 +448,7 @@ function sendCompletedOnce(ledger, key, objectType, result, opts) {
 
    ⚠️ NAV_EDGE_KEY must carry the unit slug. Two units sharing this key share a ledger and
    silently suppress each other's reports. */
-var NAV_EDGE_KEY = 'lomda_nav_edges::methodica-math-ratio-01';
+var NAV_EDGE_KEY = 'lomda_nav_edges::methodica-ar-math-ratio-01';
 
 function _readEdges() {
   try {

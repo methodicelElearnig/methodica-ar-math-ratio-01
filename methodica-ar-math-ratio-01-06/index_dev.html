@@ -2,7 +2,7 @@
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>DEV — יחס 01 — רכיב 02</title>
+  <title>DEV — יחס 01 — רכיב 06</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { width: 100%; height: 100%; overflow: hidden; background: #1a1a2e; font-family: monospace; }
@@ -63,7 +63,7 @@
   <button onclick="nav(+1)" title="קדימה (RTL: שמאל = קדימה)">◀</button>
   <span id="dev-label">S 0 / ?</span>
   <button onclick="nav(-1)" title="אחורה (RTL: ימין = אחורה)">▶</button>
-  <input type="number" id="jump-input" min="0" value="13" onkeydown="if(event.key==='Enter')jumpTo()">
+  <input type="number" id="jump-input" min="0" value="37" onkeydown="if(event.key==='Enter')jumpTo()">
   <button onclick="jumpTo()">Go</button>
   <select id="screen-select" onchange="send(parseInt(this.value, 10))"></select>
   <span id="st-badge">—</span>
@@ -84,10 +84,10 @@
      harness they opened.
      One store is unambiguous because marks are keyed by SCREEN NUMBER and this unit
      numbers screens unit-wide 0-45, so no two components can claim the same number. */
-  const UNIT_ID = 'methodica-math-ratio-01';
-  let cur = 13;
+  const UNIT_ID = 'methodica-ar-math-ratio-01';
+  let cur = 37;
   let total = 46;
-  const PART_FIRST = 13, PART_LAST = 19;
+  const PART_FIRST = 37, PART_LAST = 45;
 
   const frame  = document.getElementById('lomda-frame');
   const label  = document.getElementById('dev-label');
@@ -96,18 +96,20 @@
 
   /* Named screens — extend as screens are added */
   const SCREEN_NAMES = [
-    'מעבר: תרגול סטנדרטי',
-    'תרגול 1: פיצות (רשימות)',
-    'תרגול 2: שוקולד (רב-בחירה)',
-    'תרגול 3: שוקולד (מחירים)',
-    'תרגול 4: זר 56 ש"ח (יישומון)',
-    'תרגול 5: זר 84 ש"ח (יישומון)',
-    'תרגול 6: זר 70 ש"ח (בחירה)'
+    'מעבר: שאלת השיא',
+    'תרחיש: חורף בירושלים',
+    'שיא א: היחס בגרף (קלט)',
+    'שיא ב: משמעות היחס (בחירה)',
+    'תרחיש: בדיקת ימים נוספים',
+    'שיא ג: בחירת גרפים',
+    'שיא ד: מתי ייווצר קרח (בחירה)',
+    'תרחיש: עזרתם לעירייה!',
+    'סיום: השלמת את היחידה!'
   ];
   SCREEN_NAMES.forEach((name, i) => {
     const opt = document.createElement('option');
-    opt.value = i + 13;
-    opt.textContent = (i + 13) + ' — ' + name;
+    opt.value = i + 37;
+    opt.textContent = (i + 37) + ' — ' + name;
     select.appendChild(opt);
   });
 
@@ -159,8 +161,8 @@
      store is merged last and therefore wins a disagreement, because that is the
      harness a screen is actually reviewed in. */
   const LEGACY_REVIEW_KEYS = [
-    'dev_review_methodica-math-ratio-01-main',
-    'dev_review_methodica-math-ratio-01-01'
+    'dev_review_methodica-ar-math-ratio-01-main',
+    'dev_review_methodica-ar-math-ratio-01-01'
   ];
   (function mergeLegacyReview() {
     try {

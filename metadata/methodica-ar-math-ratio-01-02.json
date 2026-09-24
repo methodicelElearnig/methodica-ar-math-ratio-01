@@ -1,5 +1,5 @@
 {
-  "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/index.html",
+  "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/",
   "title": "وقت التدريب",
   "learningUnitId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01/",
   "componentPurpose": "practice",
@@ -22,14 +22,14 @@
   "updatedAt": "2026-08-30T00:00:00.000Z",
   "subContent": [
     {
-      "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-001/index.html",
+      "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-001/",
       "title": "قياسي 1: صواني البيتزا",
       "informationToBot": "מטרת הפריט: תרגול זיהוי וכתיבת יחס בין מנות זיתים למנות פטריות בשלושה מגשי פיצה. כיווני חשיבה: ספירת מנות מכל סוג בנפרד עבור כל פיצה, וכתיבת היחס לפי סדר ההופעה בכתיב המילולי. טעויות נפוצות: היפוך סדר המספרים ביחס; ערבוב בין המגשים. מידע נוסף: אין.",
       "contentType": "practice",
       "mediaFormat": "interactive-content",
       "questions": [
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-001/index.html?q=q1",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-001/q1",
           "questionType": "matching",
           "questionText": "أمامكم 3 صواني بيتزا بإضافات من الزيتون والفطر، مقسّمة إلى قطع بحجم متساوٍ. طابقوا كل بيتزا مع النسبة بين عدد قطع الفطر وعدد قطع الزيتون فيها.",
           "answers": {
@@ -62,14 +62,14 @@
       ]
     },
     {
-      "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-002/index.html",
+      "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-002/",
       "title": "قياسي 2: عبوات كرات الشوكولاتة",
       "informationToBot": "מטרת הפריט: תרגול שמירה על יחס קבוע (4:3 בין כדורי שוקולד חלב למריר) בעת שינוי גודל מארז ומחירו. כיווני חשיבה: זיהוי מארזים ששומרים על היחס המקורי, וחישוב מחיר מארז לפי גורם ההגדלה מהיחס הבסיסי. טעויות נפוצות: בחירת מארז שבו שני הסוגים גדלו במספר שונה של יחידות (לא באותו גורם הכפלה). מידע נוסף: אין.",
       "contentType": "practice",
       "mediaFormat": "interactive-content",
       "questions": [
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-002/index.html?q=q1",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-002/q1",
           "questionType": "choice",
           "questionText": "سعر 3 كرات شوكولاتة بالحليب كاملة و4 كرات شوكولاتة داكنة كاملة هو 20 شيكل. أ. أي عبوات إضافية يمكن حسابها وفق السعر أعلاه؟ (حددوا جميع الإجابات الصحيحة)",
           "answers": [
@@ -84,7 +84,7 @@
           ]
         },
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-002/index.html?q=q2",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-002/q2",
           "questionType": "matching",
           "questionText": "ب. في كل عبوة من العبوات التالية، النسبة بين عدد كرات الشوكولاتة بالحليب وعدد كرات الشوكولاتة الداكنة هي 4:3. أكملوا أسعار العبوات.",
           "answers": {
@@ -123,14 +123,14 @@
       ]
     },
     {
-      "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/index.html",
+      "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/",
       "title": "قياسي 3: باقات الزهور",
       "informationToBot": "מטרת הפריט: תרגול שמירה על יחס קבוע (9:5 בין פרחים לבנים לוורודים) בעת הגדלת זר לפי מחיר נתון, כולל זיהוי מקרה שבו לא ניתן לשמור על היחס עם מספר שלם של פרחים. כיווני חשיבה: חישוב גורם ההגדלה ממחיר הזר החדש למחיר המקורי, והכפלת מספרי הפרחים באותו גורם. טעויות נפוצות: הזנת מספר פרחים שאינו שלם כשגורם ההגדלה אינו מספר שלם. מידע נוסף: אין.",
       "contentType": "practice",
       "mediaFormat": "interactive-content",
       "questions": [
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/index.html?q=q1",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/q1",
           "questionType": "numeric",
           "questionText": "باقة أساسية تضم 5 زهور وردية و9 زهور بيضاء وسعرها 28 شيكل. أ. صمّموا باقة سعرها 56 شيكل، مع الحفاظ على النسبة — عدد الزهور الوردية.",
           "answers": [],
@@ -139,7 +139,7 @@
           ]
         },
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/index.html?q=q2",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/q2",
           "questionType": "numeric",
           "questionText": "أ. صمّموا باقة سعرها 56 شيكل، مع الحفاظ على النسبة — عدد الزهور البيضاء.",
           "answers": [],
@@ -148,7 +148,7 @@
           ]
         },
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/index.html?q=q3",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/q3",
           "questionType": "numeric",
           "questionText": "ب. صمّموا باقة سعرها 84 شيكل، مع الحفاظ على النسبة — عدد الزهور الوردية.",
           "answers": [],
@@ -157,7 +157,7 @@
           ]
         },
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/index.html?q=q4",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/q4",
           "questionType": "numeric",
           "questionText": "ب. صمّموا باقة سعرها 84 شيكل، مع الحفاظ على النسبة — عدد الزهور البيضاء.",
           "answers": [],
@@ -166,7 +166,7 @@
           ]
         },
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/index.html?q=q5",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/q5",
           "questionType": "choice",
           "questionText": "ج. تلقّت المصمّمة طلباً لتصميم باقة وفق نفس النسبة (9:5)، بحيث يكون سعرها 70 شيكل. هل يمكن تصميم باقة كهذه؟",
           "answers": [

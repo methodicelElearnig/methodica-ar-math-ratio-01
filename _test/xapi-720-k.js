@@ -225,14 +225,14 @@
         .forEach(function (k) { sessionStorage.removeItem(k); });
       sessionStorage.removeItem(LOG_KEY);
       sessionStorage.removeItem(FAIL_KEY);
-      sessionStorage.removeItem('lomda_nav_edges::methodica-math-ratio-01');
+      sessionStorage.removeItem('lomda_nav_edges::methodica-ar-math-ratio-01');
     } catch (e) {}
     /* v4: הדמות ותוצאות המועד עברו למסמך ה-state, ו-localStorage הוא קאש
        בלבד. מנקים גם אותו — אחרת __reset() משאיר את הדמות ואת שערי המועד
        מהריצה הקודמת בחיים בחלון שלפני קריאת המסמך, וזה בדיוק סוג המצב
        שהעוזר הזה קיים כדי לחסל. אותו ניקוי כמו ב-initResumeResetHatch. */
     try {
-      localStorage.removeItem('methodica_math_ratio_01_selectedCharacter');
+      localStorage.removeItem('methodica_ar_math_ratio_01_selectedCharacter');
       /* The same five as RESULT_KEYS in unit-js/40-resume.js. The list here used to read
          c01, c02, c04 — c04 has never existed (component 04 grades nothing) and c03, c05
          and c06 were never cleared, so __reset() left three live mirrors behind. */

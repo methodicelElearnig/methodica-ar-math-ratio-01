@@ -1,5 +1,5 @@
 {
-  "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-06/index.html",
+  "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-06/",
   "title": "سؤال الذروة",
   "learningUnitId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01/",
   "componentPurpose": "practice",
@@ -22,14 +22,14 @@
   "updatedAt": "2026-08-30T00:00:00.000Z",
   "subContent": [
     {
-      "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-06/methodica-ar-math-ratio-01-06-001/index.html",
+      "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-06/methodica-ar-math-ratio-01-06-001/",
       "title": "سؤال الذروة: انخفاض درجة الحرارة في الشتاء في القدس (4 أقسام)",
       "informationToBot": "מטרת הפריט: שאלת השיא של היחידה - תרחיש שלם שבו לומדים מסייעים לצוות עירוני להיערך לקרח על הכבישים בחורף, תוך שימוש ביחס שנגזר מגרף מדידת טמפרטורה. תתי-סעיפים: א) מציאת היחס המצומצם בין שעות המדידה להפרש הטמפרטורות מתוך הגרף. ב) פירוש משמעות היחס שנמצא. ג) זיהוי גרפים נוספים המתאימים לאותו יחס ירידה. ד) קביעת השעה שממנה עלולה להיווצר שכבת קרח, תוך הסקה מעבר לטווח הגרף המוצג. טעויות נפוצות: בניית היחס בסדר הפוך (טמפרטורה:זמן במקום זמן:טמפרטורה); פירוש שגוי של היחס כמכפלה ולא כהפרש קבוע לכל שעה. מידע נוסף: הגרף המקורי מתאר ירידה של 24°C במשך 8 שעות; שלושת הגרפים הנוספים בסעיף ג מוצגים ויזואלית, אך ההסבר בשקף קובע במפורש שגרפים א' ו-ב' מציגים ירידה של 3°C בכל שעה.",
       "contentType": "practice",
       "mediaFormat": "interactive-content",
       "questions": [
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-06/methodica-ar-math-ratio-01-06-001/index.html?q=q1",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-06/methodica-ar-math-ratio-01-06-001/q1",
           "questionType": "numeric",
           "questionText": "أ. يستخدم مركز التحكم رسماً بيانياً لقياس درجة الحرارة من الشتاء الماضي. ما هي النسبة المختزلة بين عدد ساعات القياس والفرق في درجات الحرارة؟ أكملوا: __ : 1",
           "answers": [],
@@ -38,7 +38,7 @@
           ]
         },
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-06/methodica-ar-math-ratio-01-06-001/index.html?q=q2",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-06/methodica-ar-math-ratio-01-06-001/q2",
           "questionType": "choice",
           "questionText": "ب. ما معنى النسبة التي وجدتموها (3 : 1)؟",
           "answers": [
@@ -51,7 +51,7 @@
           ]
         },
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-06/methodica-ar-math-ratio-01-06-001/index.html?q=q3",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-06/methodica-ar-math-ratio-01-06-001/q3",
           "questionType": "choice",
           "questionText": "أمامكم رسوم بيانية تمثّل انخفاض درجة الحرارة في أيام شتاء إضافية. ج. أي الرسوم البيانية يمكن أن تشير إلى انخفاض بمقدار 3°C في كل ساعة؟ (حددوا جميع الرسوم البيانية المناسبة)",
           "answers": [
@@ -65,7 +65,7 @@
           ]
         },
         {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-06/methodica-ar-math-ratio-01-06-001/index.html?q=q4",
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-06/methodica-ar-math-ratio-01-06-001/q4",
           "questionType": "choice",
           "questionText": "عندما تنخفض درجة الحرارة إلى ما دون 0°C قد تتشكّل طبقة جليد على الطرق. د. استناداً إلى رسم القياسات البياني، ابتداءً من أي ساعة من بداية القياس قد تتشكّل طبقة الجليد؟",
           "answers": [

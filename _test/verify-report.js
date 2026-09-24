@@ -38,7 +38,7 @@ const path = require('path');
 const { JSDOM } = require('jsdom');
 
 const BASE = process.argv[2] || path.join(__dirname, '..');
-const UNIT = 'methodica-math-ratio-01';
+const UNIT = 'methodica-ar-math-ratio-01';
 const COMPONENTS = ['01', '02', '03', '04', '05', '06'];
 const PART_DIR = c => UNIT + '-' + c;
 
@@ -962,7 +962,7 @@ function checkPerComponentState() {
     return { w, exec, val, seed, stored, slug: PART_DIR(c), close: () => dom.window.close() };
   };
   const q = (r, extra) => '?slxapi=1&registration=' + r + (extra || '');
-  const CK = 'methodica_math_ratio_01_selectedCharacter';
+  const CK = 'methodica_ar_math_ratio_01_selectedCharacter';
 
   // ── shape ──
   let b = bootS('01', q('r1'));

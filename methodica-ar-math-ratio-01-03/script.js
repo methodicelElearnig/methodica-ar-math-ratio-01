@@ -1,35 +1,34 @@
 'use strict';
-/* ═══════════ methodica-math-ratio-01-04 — component 4 of 6 of methodica-math-ratio-01 ═══════════
-   רכיב 4 — משימת כיתה  (script slides 50–52).
+/* ═══════════ methodica-ar-math-ratio-01-03 — component 3 of 6 of methodica-ar-math-ratio-01 ═══════════
+   רכיב 3 — תרגול בסיסי וסטנדרטי ב  (script slides 39–48).
 
    The six components ARE the script's six רכיבים: every boundary here is a divider
    slide of מתמטיקה_יחס_יעד 1.1 (slides 2, 30, 38, 49, 53, 58), and every item id
    below is the מספר פריט printed on the slide it covers.
 
-   Screens keep the unit's ORIGINAL global numbering (30–32); markup for other
+   Screens keep the unit's ORIGINAL global numbering (20–29); markup for other
    screens is absent and unit-js/30-nav's goTo() guard makes a stray number a no-op.
    Shared behaviour comes from ../unit-js (see its README); this file is this
    component's configuration + screen logic + the hook contract. */
 
 var TOTAL_SCREENS = 46;                    // unit-wide numbering (goTo bound)
-var PART_FIRST = 30;
-var PART_LAST  = 32;
+var PART_FIRST = 20;
+var PART_LAST  = 29;
 
 /* The components on either side of this one. Empty means an edge of the unit:
    PART_NEXT '' is the last component, PART_PREV '' the first. */
-var PART_NEXT = 'methodica-math-ratio-01-05';
-var PART_PREV = 'methodica-math-ratio-01-03';
+var PART_NEXT = 'methodica-ar-math-ratio-01-04';
+var PART_PREV = 'methodica-ar-math-ratio-01-02';
 
-var XAPI_COMP_SLUG = 'methodica-math-ratio-01-04';
+var XAPI_COMP_SLUG = 'methodica-ar-math-ratio-01-03';
 var XAPI_COMP_ID   = XAPI_ID_PREFIX + XAPI_COMP_SLUG + '/';
-var XAPI_METADATA_FILE = '../metadata/methodica-math-ratio-01-04.json';
+var XAPI_METADATA_FILE = '../metadata/methodica-ar-math-ratio-01-03.json';
 
 /* screen -> [subContent suffix, page-in-item] */
-var SCREEN_TO_SUBCONTENT = {30: ["001", 1], 31: ["001", 2], 32: ["001", 3]};
+var SCREEN_TO_SUBCONTENT = {20: ["001", 1], 21: ["001", 2], 22: ["002", 1], 23: ["003", 1], 24: ["004", 1], 25: ["004", 2], 26: ["005", 1], 27: ["005", 2], 28: ["005", 3], 29: ["006", 1]};
 
-/* No item here carries a graded question: the class task is open-ended with no answer
-   key ("משימה פתוחה ללא מפתח" in the item's own metadata). */
-var XAPI_EVAL_ITEMS = {};
+/* Items that carry a code-graded question. */
+var XAPI_EVAL_ITEMS = { '001': 1, '002': 1, '003': 1, '004': 1, '005': 1, '006': 1 };
 
 
 /* ═══════════════ xAPI — the per-component reporting seam ═══════════════
@@ -149,11 +148,11 @@ Object.keys(XAPI_EVAL_ITEMS).forEach(function (it) {
    Values are STRINGS: getUnitResult falls back to localStorage when there is no
    document, and that store holds strings only. */
 var UNIT_SCORE_KEYS = {
-  'methodica-math-ratio-01-01': 'ratio01_c01_scaled',
-  'methodica-math-ratio-01-02': 'ratio01_c02_scaled',
-  'methodica-math-ratio-01-03': 'ratio01_c03_scaled',
-  'methodica-math-ratio-01-05': 'ratio01_c05_scaled',
-  'methodica-math-ratio-01-06': 'ratio01_c06_scaled',
+  'methodica-ar-math-ratio-01-01': 'ratio01_c01_scaled',
+  'methodica-ar-math-ratio-01-02': 'ratio01_c02_scaled',
+  'methodica-ar-math-ratio-01-03': 'ratio01_c03_scaled',
+  'methodica-ar-math-ratio-01-05': 'ratio01_c05_scaled',
+  'methodica-ar-math-ratio-01-06': 'ratio01_c06_scaled',
 };
 
 function recordPartResult(res) {
@@ -167,13 +166,24 @@ function recordPartResult(res) {
    clear still has to be reported, or their whole attempt goes unrecorded. Routing a
    failing learner is the platform's job, via the component's recommendedAfterFail.
 
-   An off-computer class task with no answer key ("משימה פתוחה ללא מפתח" in the item's
-   own metadata), so success with NO score: there is nothing to grade, and inventing a
-   denominator would report a number that means nothing. A resultless success is valid
-   under MOE v2.4, which requires score only where the item carries answered
-   interactions. */
+   Denominator: STATIONS, not screens. Set B is the four stations the learner is
+   promised on screen 20 ("מיד יוצגו 4 תרגילים"), and its station 3 spans two screens
+   (s24 + s25), which qprogStationState already ANDs into one outcome. Set C is the
+   two stations promised on screen 26 ("נחזור ל-2 תרגילים"), station 0 spanning
+   s27 + s28. Six stations in total.
+
+   success is set B's own stated gate — screen 20: "ענו נכון על 3 תרגילים ומעלה כדי
+   להתקדם". Set C carries no stated threshold, so it scores but does not gate. */
 function partResult() {
-  return { success: true };
+  var setOk = function (key, n) {
+    var c = 0;
+    for (var i = 0; i < n; i++) { if (qprogStationState(key, i) === true) c++; }
+    return c;
+  };
+  var b = setOk('B', QSET_SIZE.B);
+  var c = setOk('C', QSET_SIZE.C);
+  var total = QSET_SIZE.B + QSET_SIZE.C;
+  return { success: b >= 3, score: { scaled: total ? (b + c) / total : 0 } };
 }
 
 /* ═══════════════ resume — the payload contract ═══════════════
@@ -238,7 +248,7 @@ var RESUME_TEXT_IDS = [];
 'use strict';
 
 /* =====================================================================
-   js/main.js — methodica-math-ratio-01-01 (part 01)
+   js/main.js — methodica-ar-math-ratio-01-01 (part 01)
    Engine vendored verbatim from the approved methodica-math-percent-02
    part-01 (client-QA'd behavior: nav-label width mechanism, popup
    conventions, navigation, character system). Screens S0-S1 so far.
@@ -292,7 +302,7 @@ function freezeVideoOnEnd(vid) {
       source of truth and a resumed learner's earlier choice is real. Worth confirming
       with the producer; in normal use a returning learner lands where they stopped
       rather than on screen 0, so this is only visible on a deliberate walk back. */
-const CHARACTER_STORAGE_KEY = 'methodica_math_ratio_01_selectedCharacter';
+const CHARACTER_STORAGE_KEY = 'methodica_ar_math_ratio_01_selectedCharacter';
 
 /* ─── Companion character asset map ─────────────────────────
    Logical IDs only — never hardcode a character file on a screen.
@@ -795,7 +805,7 @@ function mcqPopupCfg() {
   return {
     retry:   { bg: '#ffdbdc', title: 'هذا غير دقيق.', body: ['هل نحاول مجدداً؟'] },
     correct: { bg: '#edf8ed', title: 'كلّ الاحترام!', body: [] },
-    wrong2:  { bg: '#ffdbdc', title: 'هذا غير دقيق، الإجابة الصحيحة معروضة.<br>هيا نفهم لماذا:', body: ['الإجابات الصحيحة محدَّدة.'] },
+    wrong2:  { bg: '#ffdbdc', title: 'هذا غير دقيق، تمّ تحديد الإجابة الصحيحة.<br>هيا نفهم لماذا:', body: ['الإجابات الصحيحة محددة.'] },
   };
 }
 
@@ -960,8 +970,8 @@ function s4Feedback(id, ok, html) {
 
 /* §4 — embedded multi-select MCQ (slide 15). Correct: a + c. */
 const S4Q1_CORRECT = new Set(['a', 'c']);
-const S4Q1_EXPLAIN = 'العبارات حول عدد المتاجر في المركز التجاري وعدد الأسماك في الحوض تمثل نسبة بين كميتين.<br>' +
-                     'العبارات الأخرى تمثل معلومات لا تمثل نسبة بين كميتين.';
+const S4Q1_EXPLAIN = 'العبارات المتعلقة بعدد المحلات في المركز التجاري وعدد الأسماك في الحوض تمثل نسبة بين كميتين.<br>' +
+                     'الادعاءات الأخرى تمثل معلومات لا تمثل نسبة بين كميتين.';
 let s4q1Selected = new Set(), s4q1Attempts = 0, s4q1LastWrong = null;
 
 function s4q1Toggle(id) {
@@ -1003,7 +1013,7 @@ function s4q1Check() {
   };
   if (isCorrect) {
     opts.forEach(o => { if (S4Q1_CORRECT.has(o.dataset.id)) { o.classList.remove('selected'); o.classList.add('correct'); } });
-    s4Feedback('s4q1-feedback', true, '<strong>أحسنتم!</strong><br>' + S4Q1_EXPLAIN);
+    s4Feedback('s4q1-feedback', true, '<strong>كل الاحترام!</strong><br>' + S4Q1_EXPLAIN);
     finish();
   } else if (s4q1Attempts >= 2) {
     opts.forEach(o => {
@@ -1029,8 +1039,8 @@ function s4q1Check() {
 
 /* §5א — ratio input (slide 16). Verbal order: green first → LEFT in the
    mathematical notation. Correct: 1 : 4. */
-const S4Q2_EXPLAIN = 'سنكتب النسبة في الكتابة الرياضية حسب الترتيب الذي تظهر به الكميات في الكتابة اللفظية – ' +
-                     'عدد الملصقات الخضراء (1) يظهر أولاً في الكتابة اللفظية، ولذلك سيُكتب من اليسار ' +
+const S4Q2_EXPLAIN = 'سنكتب نسبة بالرمز الرياضي وفق الترتيب الذي تظهر فيه الكميات في الصياغة اللفظية – ' +
+                     'عدد الملصقات الخضراء (1) يظهر أولاً في الكتابة اللفظية، لذلك سيُكتب على اليسار ' +
                      'بالكتابة الرياضية: <span dir="ltr"><strong>1: 4</strong></span>';
 let s4q2Attempts = 0;
 
@@ -1068,7 +1078,7 @@ function s4q2Check() {
   };
   if (isCorrect) {
     left.classList.add('correct'); right.classList.add('correct');
-    s4Feedback('s4q2-feedback', true, '<strong>صحيح!\u200b</strong><br>' + S4Q2_EXPLAIN);
+    s4Feedback('s4q2-feedback', true, '<strong>صحيح!</strong><br>' + S4Q2_EXPLAIN);
     finish();
   } else if (s4q2Attempts >= 2) {
     left.value = 1; right.value = 4;
@@ -1086,8 +1096,8 @@ function s4q2Check() {
 }
 
 /* §5ב — value input (slide 17). Correct: 12. */
-const S4Q3_EXPLAIN = 'إذا كانت النسبة بين عدد الملصقات الخضراء وعدد الملصقات الزرقاء هي ' +
-                     '<span dir="ltr">1: 4</span>، إذن مقابل كل ملصق أخضر يوجد 4 ملصقات زرقاء. ' +
+const S4Q3_EXPLAIN = 'إذا كان النسبة بين عدد الملصقات الخضراء وعدد الملصقات الزرقاء هي ' +
+                     '<span dir="ltr">1: 4</span>، إذن لكل ملصق أخضر يوجد 4 ملصقات زرقاء. ' +
                      'لذلك، إذا كان لدينا 3 ملصقات خضراء، سيكون لدينا 12 ملصقاً أزرق.';
 let s4q3Attempts = 0;
 
@@ -1142,9 +1152,9 @@ function s4q3Check() {
 /* §5ג — statement assessment (slide 18). The ratio holds only where
    blue = 4 × green: a(2,4)=לא, b(6,24)=כן, c(20,80)=כן, d(3,7)=לא. */
 const S4Q4_CORRECT = { a: 'no', b: 'yes', c: 'yes', d: 'no' };
-const S4Q4_EXPLAIN = 'النسبة بين عدد الملصقات الخضراء وعدد الملصقات الزرقاء هي ' +
-                     '<span dir="ltr">1: 4</span>، ولذلك فإن الإجابة "نعم" ستُقبل فقط في الحالات التي يُوصف فيها ' +
-                     'كمية الملصقات الزرقاء أكبر بـ 4 مرات من كمية الملصقات الخضراء، بحيث يُحافظ على النسبة.';
+const S4Q4_EXPLAIN = 'النسبة بين عدد الملصقات الخضراء وعدد الملصقات الزرقاء هو ' +
+                     '1 : 4، ولذلك ستُقبل الإجابة "نعم" فقط في الحالات التي تُوصف فيها ' +
+                     'كمية الملصقات الزرقاء أكبر بـ 4 أضعاف من كمية الملصقات الخضراء، وبذلك يُحافظ على نسبة.';
 let s4q4Picks = {}, s4q4Attempts = 0, s4q4LastWrong = null;
 
 function s4q4Pick(rowId, val, btn) {
@@ -1387,9 +1397,9 @@ MCQ.s12 = {
   popups: {
     retry:   { bg: '#ffdbdc', title: 'هذا غير دقيق، هل نحاول مجدداً؟', body: [] },
     correct: { bg: '#edf8ed', title: 'إجابة صحيحة!', body: [
-      'النسبة بين عدد الماسات السوداء وعدد الماسات البيضاء هي <span dir="ltr">100: 25</span>، نظرًا لأن عدد الماسات السوداء مكتوب أولًا في الكتابة اللفظية.',
-      'النسبة المختزلة هي <span dir="ltr">4:1</span>.',
-      'معنى النسبة هو أن عددالماسات السوداء أكبر بـ 4 أضعاف من عدد الماسات البيضاء.',
+      'النسبة بين عدد الماسات السوداء وعدد الماسات البيضاء هي <span dir="ltr">100: 25</span>، إذ إن عدد الماسات السوداء مكتوب أولاً في الصياغة اللفظية.',
+      'نسبة المختزلة هي <span dir="ltr">4:1</span>.',
+      'معنى نسبة هو أن عدد الماسات السوداء أكبر بـ 4 أضعاف من عدد الماسات البيضاء.',
     ] },
     wrong2:  { bg: '#ffdbdc', title: 'هذا غير دقيق، تم عرض الإجابة الصحيحة.<br>هيا نفهم لماذا:', body: [
       'النسبة بين عدد الماسات السوداء وعدد الماسات البيضاء هي <span dir="ltr">100: 25</span>، نظرًا لأن عدد الماسات السوداء مكتوب أولًا في الكتابة اللفظية.',
@@ -1404,9 +1414,9 @@ MCQ.s15 = {
   popups: {
     retry:   { bg: '#ffdbdc', title: 'هذا غير دقيق، هل نحاول مجدداً؟', body: [] },
     correct: { bg: '#edf8ed', title: 'ممتاز!', body: [
-      'يمكن تسعير الرزم التي تحافظ على النسبة الأصلية <span dir="ltr">3: 4</span> بين نوعي كرات الشوكولاتة فقط.',
-      'في الرزمة الأولى، نوعا الكرات تضاعفا بمقدار ضعفين، ولذلك يحافظان على النسبة 4 : 3.',
-      'في الرزمة الثانية، نوعا الكرات تضاعفا بمقدار 1.5 مرة، ولذلك يحافظان على النسبة 4 : 3.',
+      'يمكن تسعير الرزم فقط التي تحافظ على النسبة الأصلية  <span dir="ltr">3: 4</span>  بين نوعي كرات الشوكولاطة.',
+      'في الرزمة الأولى، نوعا الكرات كلاهما تضاعفا (×2)، وبالتالي يحافظان على نسبة <span dir="ltr">3: 4</span>.',
+      'في الرزمة الثانية، نوعا الكرات كلاهما تضاعفا بمقدار 1.5، ولذلك يحافظان على نسبة <span dir="ltr">3: 4</span>.',
     ] },
     wrong2:  { bg: '#ffdbdc', title: 'هذا غير دقيق، تم عرض الإجابة الصحيحة.<br>هيا نفهم لماذا:', body: [
       'يمكن تسعير الرزم فقط التي تحافظ على النسبة الأصلية <span dir="ltr">3: 4</span> بين نوعي كرات الشوكولاتة.',
@@ -1444,9 +1454,9 @@ function s15Check() {
    ═══════════════════════════════════════════════════════════ */
 const S14_CORRECT = ['b', 'a', 'c', 'c'];
 const S14_EXPLAIN = [
-  'في البيتزا أ يوجد 2 حصة فطر و6 حصص زيتون،<br>لذلك نسبة هي <span dir="ltr">2: 6</span>، ويمكن اختزالها إلى <span dir="ltr">1: 3</span>.',
-  'في بيتزا ب يوجد 3 حصص فطر و5 حصص زيتون،<br>لذلك نسبة هي <span dir="ltr">3: 5</span>.',
-  'في بيتزا ج يوجد 6 حصص فطر و2 حصص زيتون،<br>لذلك نسبة هي <span dir="ltr">6: 2</span>، ويمكن اختزالها إلى <span dir="ltr">3:1</span>.',
+  'في بيتزا أ يوجد 2 حصة فطر و6 حصص زيتون،<br>لذلك النسبة هي <span dir="ltr">2: 6</span>، ويمكن اختزالها إلى <span dir="ltr">1: 3</span>.',
+  'في البيتزا ب يوجد 3 حصص فطر و5 حصص زيتون،<br>لذلك النسبة هي <span dir="ltr">3: 5</span>.',
+  'في بيتزا ج يوجد 6 حصص فطر و-2 حصص زيتون،<br>لذلك النسبة هي <span dir="ltr">6: 2</span>، ويمكن اختزالها إلى <span dir="ltr">3:1</span>.',
 ];
 let s14Attempts = 0, s14Done = false, s14LastWrong = null;
 
@@ -1542,9 +1552,9 @@ function s14Reset() {
    ═══════════════════════════════════════════════════════════ */
 const S16_CORRECT = [40, 30, 10, 100];
 const S16_EXPLAIN = [
-  'في جميع الرزم، يتم الحفاظ على النسبة  <span dir="ltr">3: 4</span>.',
-  'سعر الرزمة بـالنسبة <span dir="ltr">3: 4</span> هو 20 شيكل.',
-  'لحساب أسعار الرزم، سنفهم بكم ضعف كبرت كل رزمة ونضرب السعر بهذا العدد.',
+  'في جميع الرزم، يتم الحفاظ على نسبة البالغة <span dir="ltr">3: 4</span>.',
+  'سعر الرزمة بـنسبة من <span dir="ltr">3: 4</span> هو 20 شيكل.',
+  'لحساب أسعار الرزم، سنفهم بكم ضعفاً كبرت كل رزمة، ونضرب السعر بهذا العدد.',
 ];
 let s16Attempts = 0, s16Done = false, s16LastWrong = null;
 
@@ -1650,14 +1660,14 @@ function spriteSrc(name) { return SPRITE[name] || ('../unit-assets/img/' + name)
 const BQ = {
   s17: { pink: 5, white: 9, target: { pink: 10, white: 18 }, attempts: 0, done: false, lastWrong: null,
          explain: [
-           'السعر 56 شيكل أكبر بضعفين من السعر الأصلي للباقة.',
-           'لذلك، سنضرب أيضًا عدد الزهور في 2 ونحصل على 10 زهور وردية و18 زهرة بيضاء.',
+           'السعر 56 شيكلاً أكبر بـ 2 ضعف من السعر الأصلي للباقة.',
+           'لذلك، سنضرب أيضاً أعداد الأزهار في 2 ونحصل على 10 أزهار وردية و18 زهرة بيضاء.',
          ],
          correctTitle: 'هذه إجابة دقيقة!', wrongTitle: 'هذا خطأ، الإجابة الصحيحة معروضة.<br>هيا نفهم لماذا:' },
   s18: { pink: 5, white: 9, target: { pink: 15, white: 27 }, attempts: 0, done: false, lastWrong: null,
          explain: [
-           'المبلغ 84 شيكل أكبر بـ 3 مرات من السعر الأصلي للباقة.',
-           'لذلك، سنضرب أيضًا عدد الزهور في 3 ونحصل على 15 زهرة وردية و27 زهرة بيضاء.',
+           'السعر 84 شيكلاً أكبر بـ 3 أضعاف من السعر الأصلي للباقة.',
+           'لذلك، سنضرب أيضًا عدد الأزهار في 3 ونحصل على 15 زهرة وردية و27 زهرة بيضاء.',
          ],
          correctTitle: 'صحيح!​', wrongTitle: 'هذا خطأ، الإجابة الصحيحة معروضة.<br>هيا نفهم لماذا:' },
 };
@@ -1853,7 +1863,7 @@ function s19qSelect(id) {
   const chk = document.getElementById('s19-check');
   if (chk) chk.disabled = s19qSelected === s19qLastWrong;
 }
-const S19Q_EXPLAIN = ['الباقة الأصلية تكلف 28 شيكل، وتتضمن 5 زهور وردية و9 زهور بيضاء. للوصول إلى 70 شيكل، يجب تكبير الباقة بـ 2.5 ضعف، وحينها سنحصل على أنصاف زهور، لذلك لا يمكن تصميم باقة كهذه.'];
+const S19Q_EXPLAIN = ['الباقة الأصلية تكلف 28 شيكل، وتضم 5 زهور وردية و9 زهور بيضاء. للوصول إلى 70 شيكل، يجب تكبير الباقة بـ 2.5 ضعف، وحينئذ سنحصل على أنصاف زهور، بحيث لا يمكن تصميم باقة كهذه.'];
 function s19qShowPopup(type) {
   const cfg = {
     retry:   { bg: '#ffdbdc', title: 'هذا غير دقيق، هل نحاول مجدداً؟', body: [] },
@@ -1960,7 +1970,7 @@ function qprogStationState(setKey, idx) {
    must equal the fully-reduced form.
    ═══════════════════════════════════════════════════════════ */
 const S21_ANS = [[1, 2], [3, 4], [5, 3], [2, 5], [5, 16]];
-const S21_BODY = ['لكي نختزل نسبة، نقسم العددين بأكبر عدد ممكن.'];
+const S21_BODY = ['لاختزال نسبة، نقسم العددين على أكبر عدد ممكن.'];
 let s21Attempts = 0, s21Done = false, s21LastWrong = null;
 
 function s21Values() {
@@ -2050,7 +2060,7 @@ function s21Check() {
    mid-exercise — the character's "עכשיו הפוך!" callout).
    ═══════════════════════════════════════════════════════════ */
 const S22_ANS = [12, 3, 20, 80];
-const S22_BODY = ['لكي نوسع نسبة، نضرب العددين بنفس العدد. هكذا نحصل على نسبة مكافئة.'];
+const S22_BODY = ['لتوسيع نسبة، نضرب العددين في نفس العدد. وبهذا نحصل على نسبة متكافئة.'];
 let s22Attempts = 0, s22Done = false, s22LastWrong = null;
 
 function s22Values() {
@@ -2115,15 +2125,15 @@ function s22Check() {
 const SCQ = {
   s23: { correctId: 'a', selected: null, attempts: 0, done: false, lastWrong: null, practice: true,
          correctTitle: 'هذا صحيح!', wrongTitle: 'هذا خطأ، تعالوا نتعلّم منه:',
-         body: ['النسبة هي <span dir="ltr">4: 3</span>.',
+         body: ['نسبة هي <span dir="ltr">4: 3</span>.',
                 'الكمية التي تظهر أولاً في الكتابة اللفظية تُكتب على اليسار في الكتابة الرياضية.'] },
   s27: { correctId: 'b', selected: null, attempts: 0, done: false, lastWrong: null, practice: true,
-         correctTitle: 'صحيح جداً!', wrongTitle: 'هذا خطأ، تعالوا نتعلّم منه:',
+         correctTitle: 'هذا صحيح جداً!', wrongTitle: 'هذا خطأ، تعالوا نتعلّم منه:',
          body: ['لبناء نسبة علينا استخدام وحدات قياس متطابقة، لذلك سنحوّل كوب الحليب إلى 16 ملعقة كبيرة.',
-                'في الوصفة يوجد 4 ملاعق زيت و16 ملعقة حليب، لذلك النسبة هي 4:16. النسبة المختزلة هي 1: 4.'] },
+                'في الوصفة 4 ملاعق زيت و16 ملعقة حليب، لذا فإن نسبة هي 4:16. النسبة المختزلة هي 1: 4.'] },
   s35: { correctId: 'd', selected: null, attempts: 0, done: false, lastWrong: null, practice: true,
-         correctTitle: 'أحسنتم، لقد أصبتم!', wrongTitle: 'هذا خطأ – هيا نفهم لماذا:‌',
-         body: ['مجموع طولَي الساقين هو 12 سم وطول القاعدة هو 4 سم. لذلك، نسبة هي <span dir="ltr">12: 4</span>، وبعد الاختزال <span dir="ltr">3:1</span>.'] },
+         correctTitle: 'كل الاحترام، أصبتم!', wrongTitle: 'هذا خطأ – هيا نفهم لماذا:‌',
+         body: ['مجموع طولَي الساقين هو 12 سم وطول القاعدة هو 4 سم. لذلك، النسبة هي <span dir="ltr">12: 4</span>، وبعد الاختزال <span dir="ltr">3:1</span>.'] },
 };
 function scqSelect(sid, id) {
   const q = SCQ[sid];
@@ -2212,23 +2222,23 @@ function s35Check()    { scqCheck('s35'); }
 BQ.s24 = {
   kinds: { a: { key: 'snack', img: 'candy-bar.svg' }, b: { key: 'candy', img: 'candy-piece.svg' } },
   snack: 2, candy: 4, target: { snack: 1, candy: 2 }, attempts: 0, done: false, lastWrong: null,
-  explain: ['النسبة في الرزمة الأصلية هي <span dir="ltr">2: 4</span>، وسعرها 12 شيكل.',
-            'لكي نحصل على رزمة سعرها 6 ش.ج، سنقسم السعر على 2. لذلك سنقسم أيضاً عدد الواح الشوكولاتة والحلوى على 2، وسنحصل على لوح شوكولاتة واحد و-2 من الحلوى.'],
+  explain: ['النسبة في الرزمة الأصلية هي  <span dir="ltr">2: 4</span>، وسعرها 12 شيكل',
+            'للحصول على رزمة سعرها 6 ش.ج، نقسم السعر على 2. لذلك نقسم أيضاً عدد  ألواح الشوكولاطة والحلوى على 2، فنحصل على لوح شوكولاطة واحد و2 حلوى.'],
   correctTitle: 'ممتاز!', wrongTitle: 'هذا خطأ، لكنه أيضًا فرصة للتعلم:',
 };
 BQ.s25 = {
   kinds: { a: { key: 'snack', img: 'candy-bar.svg' }, b: { key: 'candy', img: 'candy-piece.svg' } },
   snack: 2, candy: 4, target: { snack: 4, candy: 8 }, attempts: 0, done: false, lastWrong: null,
-  explain: ['النسبة بين عدد ألواح الشوكولاتة وعدد الحلوى في الرزمة الأصلية هي 2: 4، وسعرها 12 شيكل.',
-            'لكي نحصل على رزمة سعرها 24 شيكل، سنضرب السعر في 2. لذلك سنضرب عدد ألواح الشوكولاتة وعدد الحلوى في 2، وسنحصل على 4 ألواح شوكولاتة و-8 حلوى.'],
-  correctTitle: 'ممتاز!', wrongTitle: 'غير دقيق، هيا نفهم لماذا:',
+  explain: ['نسبة بين عدد ألواح الشوكولاتة وعدد الحلوى في الرزمة الأصلية هو <span dir="ltr">2: 4</span>، وسعرها 12 شيكل.',
+            'للحصول على رزمة سعرها 24 شيكل، نضرب السعر بـ 2. لذلك نضرب عدد  ألواح الشوكولاطة والحلوى بـ 2، فنحصل على 4  ألواح الشوكولاطة و8 قطع لحلوى.'],
+  correctTitle: 'ممتاز', wrongTitle: 'غير دقيق، هيا نفهم لماذا:',
 };
 
 /* ═══════════════════════════════════════════════════════════
    S28 (slide 46) — the ×3 recipe. Salt accepts "3/4" or 0.75.
    ═══════════════════════════════════════════════════════════ */
 const S28_ANS = ['6', '3', '12', '1', '6', '3/4'];
-const S28_BODY = ['زادت سحر كمية أكواب الدقيق (الطحين) بـ 3 أضعاف. للحفاظ على النسبة في الوصفة، يجب عليها زيادة جميع الكميات بـ 3 أضعاف.)'];
+const S28_BODY = ['كبرت سحر كمية أكواب الدقيق بـ 3 أضعاف. لكي تحافظ على النسبة في الوصفة، عليها تكبير جميع الكميات بـ 3 أضعاف.'];
 let s28Attempts = 0, s28Done = false, s28LastWrong = null;
 
 function s28RowOk(i, raw) {
@@ -2272,7 +2282,7 @@ function s28Check() {
   };
   if (allOk) {
     document.querySelectorAll('#s28 .viq-input-box').forEach(el => el.classList.add('correct'));
-    genericVIQPopup('s28', 'correct', 'صحيح تمامًا!', '', S28_BODY);
+    genericVIQPopup('s28', 'correct', 'صحيح جداً!', '', S28_BODY);
     finish(true);
   } else if (s28Attempts >= 2) {
     S28_ANS.forEach((ans, i) => {
@@ -2306,23 +2316,23 @@ function mcq2Popups(correctTitle, wrongTitle, body) {
 const S29_BODY = [
   'الجمل الصحيحة هي أ، د، هـ.',
   'أ: النسبة بين كعكات الجبن وكعكات موس الشوكولاتة هي 5:10، وبعد الاختزال 1: 2.',
-  'د: النسبة بين كيك الجبن وآيس كريم الفانيليا هي <span dir="ltr">5:17</span>.',
-  'النسبة بين مثلجات الفانيليا وكعكات موس الشوكولاتة هي 17:10، ولذلك فإن كمية المثلجات أكبر بـ 1.7 مرة من كمية الكعكات.',
+  'د: النسبة بين كعكات الجبن وآيس كريم الفانيليا هي 5:17.',
+  'النسبة بين آيس كريم الفانيليا وكعك موس الشوكولاتة هي <span dir="ltr">17:10</span>، ولذلك كمية آيس كريم الفانيليا أكبر بـ 1.7 مرة من كمية الكعك',
 ];
 MCQ.s29 = { id: 's29', correctIds: new Set(['a', 'd', 'e']), maxAttempts: 2,
   selected: new Set(), attempts: 0, answered: false, done: false, lastWrong: null,
   popups: mcq2Popups('هذا صحيح جداً!', 'غير دقيق، هيا نفهم لماذا:', S29_BODY) };
 const S34_BODY = [
   'الجملتان الصحيحتان هما ب، ج.',
-  "الجملة ب' - مساحة مربَّع أ' هو 16 سم², ومساحة مربَّع ب' هو 64 سم². لذلك نسبة بينهما هي <span dir=\"ltr\">16: 64</span> = <span dir=\"ltr\">1: 4</span>.",
-  "جملة ج' - محيط مربَّع أ' هو 16 سم ومحيط مربَّع ب' هو 32 سم. لذلك النسبة بين محيط مربَّع أ' ومحيط مربَّع ب' هي <span dir=\"ltr\">16: 32</span> وبعد الاختزال بـ16 هي <span dir=\"ltr\">1: 2</span>.",
+  "الجملة ب' - مساحة مربَّع أ' هي 16 سم², ومساحة مربَّع ب' هي 64 سم². لذلك النسبة بينهما هي <span dir=\"ltr\">16: 64</span> = <span dir=\"ltr\">1: 4</span>.",
+  "الجملة ج' - محيط مربَّع أ هو 16 سم ومحيط مربَّع ب هو 32 سم. لذلك النسبة بين محيط مربَّع أ ومحيط مربَّع ب هي <span dir=\"ltr\">16: 32</span> وبعد الاختزال بـ16 هي <span dir=\"ltr\">1: 2</span>.",
 ];
 MCQ.s34 = { id: 's34', correctIds: new Set(['b', 'c']), maxAttempts: 2,
   selected: new Set(), attempts: 0, answered: false, done: false, lastWrong: null,
   popups: mcq2Popups('رائع جداً', 'غير دقيق، هيا نفهم لماذا:', S34_BODY) };
 const S36_BODY = [
-  'الكمية الموصى بها من السوائل للذكور فوق سن 18 هي 2.8 لتر، وللإناث فوق سن 18 هي 2 لتر، أي – بمقدار 1.4 مرة.',
-  'في أعمار 1–3 سنوات، الكمية الموصى بها من الشرب للأولاد والبنات متساوية، لذلك نسبة بين الكميتين هي 1:1.',
+  'الكمية الموصى بها من السوائل للشرب للذكور الأولاد فوق سن 18 هي 2.8 لتر، وللإناث البنات فوق سن 18 هي 2 لتر، أي بمعدل 1.4 مرة.',
+  'في الأعمار 1-3 سنوات، الكمية الموصى بها من الشرب للأولاد والبنات متساوية، لذلك نسبة بين الكميتين هي 1:1.',
 ];
 MCQ.s36 = { id: 's36', correctIds: new Set(['a', 'b']), maxAttempts: 2,
   selected: new Set(), attempts: 0, answered: false, done: false, lastWrong: null,
@@ -2376,7 +2386,7 @@ function s32OnInput() { s32Sync(); }
    S39 (slide 59) — peak question part א: complete 1 : ▯ (answer 3).
    ═══════════════════════════════════════════════════════════ */
 const S39_BODY = [
-  'انخفضت درجة الحرارة بمقدار 24°C، خلال 8 ساعات. لذلك، النسبة هي <span dir="ltr">8: 24</span>.',
+  'انخفضت درجة الحرارة بمقدار 24°C، خلال 8 ساعات. لذلك، فإن النسبة هي <span dir="ltr">8: 24</span>.',
   'سنقسّم العددين على 8 وسنحصل على نسبة مختزلة <span dir="ltr">1: 3</span>.',
 ];
 let s39Attempts = 0, s39Done = false, s39LastWrong = null;
@@ -2432,10 +2442,10 @@ function s39Check() {
 /* S40/S43 — peak question SCQ parts ב/ד on the shared engine */
 SCQ.s40 = { correctId: 'b', selected: null, attempts: 0, done: false, lastWrong: null, practice: false,
   correctTitle: 'صحيح!', wrongTitle: 'هذا خطأ – هيا نفهم لماذا:',
-  body: ['النسبة  <span dir="ltr">1: 3</span> تعني أنه مقابل كل ساعة قياس واحدة، انخفضت درجة الحرارة بمقدار 3°C.'] };
+  body: ['النسبة <span dir="ltr">1: 3</span> تعني أنه مقابل كل ساعة قياس واحدة، انخفضت درجة الحرارة بمقدار 3°C.'] };
 SCQ.s43 = { correctId: 'b', selected: null, attempts: 0, done: false, lastWrong: null, practice: false,
   correctTitle: 'إجابة رائعة!', wrongTitle: 'هذا خطأ – هيا نفهم لماذا:',
-  body: ['بعد 8 ساعات من بداية القياس، تصل درجة الحرارة إلى 0°C. صحيح أن الرسم البياني لا يظهر استمرار انخفاض درجة الحرارة، ولكن يمكن ملاحظة اتجاه واضح للانخفاض، ولذلك هناك احتمال كبير أن درجة الحرارة استمرت في الانخفاض وأنه بعد 8 ساعات من بداية القياس قد تتشكل طبقة من الجليد.'] };
+  body: ['بعد 8 ساعات من بدء القياس، تصل درجة الحرارة إلى 0°C. على الرغم من أن الرسم البياني لا يظهر استمرار انخفاض درجة الحرارة، إلا أنه يمكن رؤية اتجاه واضح للانخفاض، ولذلك هناك احتمال كبير بأن درجة الحرارة استمرت في الانخفاض وأنه بعد 8 ساعات من بدء القياس قد تتكون طبقة من الجليد.'] };
 function s40Select(id) { scqSelect('s40', id); }
 function s40Check()    { scqCheck('s40'); }
 function s43Select(id) { scqSelect('s43', id); }
@@ -2443,7 +2453,7 @@ function s43Check()    { scqCheck('s43'); }
 
 /* S42 (slide 62) — pick the graphs (multi-select cards) on the mcq engine.
    Correct per the slide's own feedback: graphs א and ב (-3°C per hour). */
-const S42_BODY = ['في الرسمين البيانيين أ و ب، النسبة بين الزمن وانخفاض درجة الحرارة هي  <span dir="ltr">1: 3</span>، أي أن درجة الحرارة تنخفض بمقدار 3°C في كل ساعة.'];
+const S42_BODY = ['في الرسمين البيانيين أ وب، النسبة بين الزمن والانخفاض في درجة الحرارة هي  <span dir="ltr">1: 3</span>، أي أن درجة الحرارة تنخفض بمقدار 3°C في كل ساعة.'];
 MCQ.s42 = { id: 's42', correctIds: new Set(['a', 'b']), maxAttempts: 2,
   selected: new Set(), attempts: 0, answered: false, done: false, lastWrong: null,
   optSelector: '.graph-card',
@@ -2830,7 +2840,7 @@ var VIQ = {
          sync: function () { s28OnInput(); },
          popup: function (t) {
            if (t === 'retry') { genericVIQPopup('s28', 'retry'); return; }
-           if (t === 'correct') { genericVIQPopup('s28', 'correct', 'صحيح جداً!', '', S28_BODY); return; }
+           if (t === 'correct') { genericVIQPopup('s28', 'correct', 'هذا صحيح جداً!', '', S28_BODY); return; }
            genericVIQPopup('s28', 'wrong2', '', 'هذا غير دقيق، هيا نفهم لماذا:', S28_BODY, 'الإجابات الصحيحة معروضة.');
          } },
   s39: { ids: ['s39-input'], sel: '.viq-input-box',
@@ -2839,7 +2849,7 @@ var VIQ = {
          sync: function () { s39OnInput(); },
          popup: function (t) {
            if (t === 'retry') { genericVIQPopup('s39', 'retry'); return; }
-           if (t === 'correct') { genericVIQPopup('s39', 'correct', 'صحيح!‏', '', S39_BODY); return; }
+           if (t === 'correct') { genericVIQPopup('s39', 'correct', 'صحيح!‎', '', S39_BODY); return; }
            genericVIQPopup('s39', 'wrong2', '', 'هذا خطأ – هيا نفهم لماذا:', S39_BODY, 'الإجابة الصحيحة هي 3.');
          } }
 };

@@ -1,7 +1,7 @@
 # `unit-js/` — the shared layer
 
 One copy of every behaviour that is the same in all **six** components of this unit. Each
-`methodica-math-ratio-01-0N/script.js` keeps only that component's configuration and screen logic,
+`methodica-ar-math-ratio-01-0N/script.js` keeps only that component's configuration and screen logic,
 and fills in the hook contract below.
 
 The layer implements three features: **xAPI (720) reporting**, **learner problem reporting**
@@ -152,7 +152,7 @@ Four, all deliberate. Anything else differing from `methodica-math-scale-01/unit
 2. **`scaleApp()` uses a 1280×710 grid with fluid width and `left = 0`** (`15-ui.js`), not the
    reference's 1280×720 centred canvas. This unit's chrome is anchored to the canvas edges and must
    reach the real screen edges.
-3. **`NAV_EDGE_KEY = 'lomda_nav_edges::methodica-math-ratio-01'`** — it must carry the unit slug.
+3. **`NAV_EDGE_KEY = 'lomda_nav_edges::methodica-ar-math-ratio-01'`** — it must carry the unit slug.
    Two units sharing this key share a ledger and silently suppress each other's reports.
 4. **`XAPI_ID_PREFIX`** and `window.XAPI_UNIT_ID` in `10-identity.js`. Ids carry **trailing
    slashes** at unit, component and item level (question ids do not), matching `metadata/*.json`
@@ -176,7 +176,7 @@ copy wins and the extraction looks successful while shipping the old code. Check
 root:
 
 ```bash
-node -e "const fs=require('fs');const s=new Map();fs.readdirSync('unit-js').filter(f=>f.endsWith('.js')).forEach(f=>fs.readFileSync('unit-js/'+f,'utf8').split('\n').forEach(l=>{const m=l.match(/^(?:function|var|let|const)\s+([A-Za-z0-9_$]+)/);if(m)s.set(m[1],f)}));['01','02','03','04'].forEach(p=>{const h=[];fs.readFileSync('methodica-math-ratio-01-'+p+'/script.js','utf8').split('\n').forEach((l,i)=>{const m=l.match(/^(?:function|var|let|const)\s+([A-Za-z0-9_$]+)/);if(m&&s.has(m[1]))h.push(m[1]+'@'+(i+1))});console.log(p+': '+(h.length?h.join(', '):'clean'))})"
+node -e "const fs=require('fs');const s=new Map();fs.readdirSync('unit-js').filter(f=>f.endsWith('.js')).forEach(f=>fs.readFileSync('unit-js/'+f,'utf8').split('\n').forEach(l=>{const m=l.match(/^(?:function|var|let|const)\s+([A-Za-z0-9_$]+)/);if(m)s.set(m[1],f)}));['01','02','03','04'].forEach(p=>{const h=[];fs.readFileSync('methodica-ar-math-ratio-01-'+p+'/script.js','utf8').split('\n').forEach((l,i)=>{const m=l.match(/^(?:function|var|let|const)\s+([A-Za-z0-9_$]+)/);if(m&&s.has(m[1]))h.push(m[1]+'@'+(i+1))});console.log(p+': '+(h.length?h.join(', '):'clean'))})"
 ```
 
 Hook names are the expected exceptions.
