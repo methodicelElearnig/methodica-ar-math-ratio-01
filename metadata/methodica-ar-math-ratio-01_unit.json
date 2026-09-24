@@ -1,9 +1,12 @@
 {
-  "id": "https://lomdot.education.gov.il/metodica/720active/math/ratio/01/methodica-math-ratio-01/",
+  "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01/",
   "title": "التعرف على حالات النسبة",
   "subTopic": "MOE.MATH.G8.NUM.RATIO-PROP-SCL.RATIO",
   "learningObjective": "MOE.MATH.G8.NUM.RATIO-PROP-SCL.RATIO.RECOG",
-  "targetSectors": ["state-general", "state-religious"],
+  "targetSectors": [
+    "state-general",
+    "state-religious"
+  ],
   "targetAudience": "general",
-  "manufacturer": 310
+  "manufacturer": "310"
 }

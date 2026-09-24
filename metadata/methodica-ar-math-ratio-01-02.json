@@ -1,0 +1,184 @@
+{
+  "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/index.html",
+  "title": "وقت التدريب",
+  "learningUnitId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01/",
+  "componentPurpose": "practice",
+  "isAssessment": false,
+  "recommendedAfterFail": [],
+  "isRequired": true,
+  "relativeDifficulty": 3,
+  "masteryLevel": null,
+  "order": 2,
+  "depthLevel": "core-curriculum-basic",
+  "cognitiveLevels": [
+    "process-thinking"
+  ],
+  "languages": [
+    "Arabic"
+  ],
+  "skills": [],
+  "estimatedTimeInMinutes": 16,
+  "createdAt": "2026-08-30T00:00:00.000Z",
+  "updatedAt": "2026-08-30T00:00:00.000Z",
+  "subContent": [
+    {
+      "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-001/index.html",
+      "title": "قياسي 1: صواني البيتزا",
+      "informationToBot": "מטרת הפריט: תרגול זיהוי וכתיבת יחס בין מנות זיתים למנות פטריות בשלושה מגשי פיצה. כיווני חשיבה: ספירת מנות מכל סוג בנפרד עבור כל פיצה, וכתיבת היחס לפי סדר ההופעה בכתיב המילולי. טעויות נפוצות: היפוך סדר המספרים ביחס; ערבוב בין המגשים. מידע נוסף: אין.",
+      "contentType": "practice",
+      "mediaFormat": "interactive-content",
+      "questions": [
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-001/index.html?q=q1",
+          "questionType": "matching",
+          "questionText": "أمامكم 3 صواني بيتزا بإضافات من الزيتون والفطر، مقسّمة إلى قطع بحجم متساوٍ. طابقوا كل بيتزا مع النسبة بين عدد قطع الفطر وعدد قطع الزيتون فيها.",
+          "answers": {
+            "source": [
+              "بيتزا أ",
+              "بيتزا ب",
+              "بيتزا ج"
+            ],
+            "target": [
+              "3 : 1",
+              "5 : 3",
+              "1 : 3"
+            ]
+          },
+          "correctAnswers": [
+            {
+              "source": "بيتزا أ",
+              "target": "3 : 1"
+            },
+            {
+              "source": "بيتزا ب",
+              "target": "5 : 3"
+            },
+            {
+              "source": "بيتزا ج",
+              "target": "1 : 3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-002/index.html",
+      "title": "قياسي 2: عبوات كرات الشوكولاتة",
+      "informationToBot": "מטרת הפריט: תרגול שמירה על יחס קבוע (4:3 בין כדורי שוקולד חלב למריר) בעת שינוי גודל מארז ומחירו. כיווני חשיבה: זיהוי מארזים ששומרים על היחס המקורי, וחישוב מחיר מארז לפי גורם ההגדלה מהיחס הבסיסי. טעויות נפוצות: בחירת מארז שבו שני הסוגים גדלו במספר שונה של יחידות (לא באותו גורם הכפלה). מידע נוסף: אין.",
+      "contentType": "practice",
+      "mediaFormat": "interactive-content",
+      "questions": [
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-002/index.html?q=q1",
+          "questionType": "choice",
+          "questionText": "سعر 3 كرات شوكولاتة بالحليب كاملة و4 كرات شوكولاتة داكنة كاملة هو 20 شيكل. أ. أي عبوات إضافية يمكن حسابها وفق السعر أعلاه؟ (حددوا جميع الإجابات الصحيحة)",
+          "answers": [
+            "6 كرات شوكولاتة بالحليب و8 كرات شوكولاتة داكنة",
+            "4.5 كرات شوكولاتة بالحليب و6 كرات شوكولاتة داكنة",
+            "4 كرات شوكولاتة بالحليب و5 كرات شوكولاتة داكنة",
+            "8 كرات شوكولاتة بالحليب و6 كرات شوكولاتة داكنة"
+          ],
+          "correctAnswers": [
+            "6 كرات شوكولاتة بالحليب و8 كرات شوكولاتة داكنة",
+            "4.5 كرات شوكولاتة بالحليب و6 كرات شوكولاتة داكنة"
+          ]
+        },
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-002/index.html?q=q2",
+          "questionType": "matching",
+          "questionText": "ب. في كل عبوة من العبوات التالية، النسبة بين عدد كرات الشوكولاتة بالحليب وعدد كرات الشوكولاتة الداكنة هي 4:3. أكملوا أسعار العبوات.",
+          "answers": {
+            "source": [
+              "6 شوكولاتة بالحليب و8 شوكولاتة داكنة",
+              "4.5 شوكولاتة بالحليب و6 شوكولاتة داكنة",
+              "1.5 شوكولاتة بالحليب و2 شوكولاتة داكنة",
+              "15 شوكولاتة بالحليب و20 شوكولاتة داكنة"
+            ],
+            "target": [
+              "40 شيكل",
+              "30 شيكل",
+              "10 شيكل",
+              "100 شيكل"
+            ]
+          },
+          "correctAnswers": [
+            {
+              "source": "6 شوكولاتة بالحليب و8 شوكولاتة داكنة",
+              "target": "40 شيكل"
+            },
+            {
+              "source": "4.5 شوكولاتة بالحليب و6 شوكولاتة داكنة",
+              "target": "30 شيكل"
+            },
+            {
+              "source": "1.5 شوكولاتة بالحليب و2 شوكولاتة داكنة",
+              "target": "10 شيكل"
+            },
+            {
+              "source": "15 شوكولاتة بالحليب و20 شوكولاتة داكنة",
+              "target": "100 شيكل"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/index.html",
+      "title": "قياسي 3: باقات الزهور",
+      "informationToBot": "מטרת הפריט: תרגול שמירה על יחס קבוע (9:5 בין פרחים לבנים לוורודים) בעת הגדלת זר לפי מחיר נתון, כולל זיהוי מקרה שבו לא ניתן לשמור על היחס עם מספר שלם של פרחים. כיווני חשיבה: חישוב גורם ההגדלה ממחיר הזר החדש למחיר המקורי, והכפלת מספרי הפרחים באותו גורם. טעויות נפוצות: הזנת מספר פרחים שאינו שלם כשגורם ההגדלה אינו מספר שלם. מידע נוסף: אין.",
+      "contentType": "practice",
+      "mediaFormat": "interactive-content",
+      "questions": [
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/index.html?q=q1",
+          "questionType": "numeric",
+          "questionText": "باقة أساسية تضم 5 زهور وردية و9 زهور بيضاء وسعرها 28 شيكل. أ. صمّموا باقة سعرها 56 شيكل، مع الحفاظ على النسبة — عدد الزهور الوردية.",
+          "answers": [],
+          "correctAnswers": [
+            10
+          ]
+        },
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/index.html?q=q2",
+          "questionType": "numeric",
+          "questionText": "أ. صمّموا باقة سعرها 56 شيكل، مع الحفاظ على النسبة — عدد الزهور البيضاء.",
+          "answers": [],
+          "correctAnswers": [
+            18
+          ]
+        },
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/index.html?q=q3",
+          "questionType": "numeric",
+          "questionText": "ب. صمّموا باقة سعرها 84 شيكل، مع الحفاظ على النسبة — عدد الزهور الوردية.",
+          "answers": [],
+          "correctAnswers": [
+            15
+          ]
+        },
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/index.html?q=q4",
+          "questionType": "numeric",
+          "questionText": "ب. صمّموا باقة سعرها 84 شيكل، مع الحفاظ على النسبة — عدد الزهور البيضاء.",
+          "answers": [],
+          "correctAnswers": [
+            27
+          ]
+        },
+        {
+          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/index.html?q=q5",
+          "questionType": "choice",
+          "questionText": "ج. تلقّت المصمّمة طلباً لتصميم باقة وفق نفس النسبة (9:5)، بحيث يكون سعرها 70 شيكل. هل يمكن تصميم باقة كهذه؟",
+          "answers": [
+            "نعم",
+            "لا",
+            "لا يمكن معرفة ذلك"
+          ],
+          "correctAnswers": [
+            "لا"
+          ]
+        }
+      ]
+    }
+  ]
+}
