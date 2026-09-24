@@ -2508,8 +2508,12 @@ function applyResumeDom(st) {
       live code uses — by calling that code, not by restating it. A resumed learner
       must never land on a screen they can neither answer nor leave.
    3. DOM writes only. No state mutation, no reporting call, no announce().
-   4. Idempotent, and a no-op on a screen nothing has touched: an untouched screen has
-      attempts 0 and every painter returns before writing anything.
+   4. Idempotent, and harmless on a screen nothing has touched. But attempts 0 does NOT
+      mean untouched: picks made before the first צדקתי? have attempts 0 as well, and
+      must be drawn, with the button re-derived. Until 2026-09-23 every painter
+      returned early on attempts 0, so a learner who picked, stepped back and returned
+      (or reloaded) found the picks missing from the screen but still in memory, or
+      the fields filled and the button dead.
    5. Never reset. resetScreenState(n) owns that and has already run.
    6. Exception-safe: 30-nav.js wraps the call, but a painter that throws would still
       abort the rest of the repaint for that screen. */
@@ -2549,15 +2553,17 @@ function paintMCQ(sid) {
     mcqShowPopup(q, screenWasCorrect(sid) ? 'correct' : 'wrong2');
     return;
   }
-  if (!q.attempts) return;
+  /* Not solved: draw the picks whether or not they were submitted (rule 4). A pick
+     made before any צדקתי? has attempts 0 too, and returning early here is what showed
+     an empty screen over picks still in memory — QA 2026-09, screens 2/3/12/15. */
   document.querySelectorAll(sel).forEach(function (o) {
     var on = q.selected.has(o.dataset.id);
     o.classList.toggle('selected', on);
     o.setAttribute('aria-checked', on ? 'true' : 'false');
-    if (on && !q.correctIds.has(o.dataset.id)) o.classList.add('wrong');
+    if (q.attempts && on && !q.correctIds.has(o.dataset.id)) o.classList.add('wrong');
   });
-  mcqShowPopup(q, 'retry');
-  mcqUpdateBar(q);            /* rule 2: the live retry-lock predicate */
+  if (q.attempts) mcqShowPopup(q, 'retry');
+  mcqUpdateBar(q);            /* rule 2: the live button predicate, retry lock included */
 }
 
 /* Single choice — screens 23, 27, 35, 40, 43. */
@@ -2577,7 +2583,12 @@ function paintSCQ(sid) {
     scqShowPopup2(sid, ok ? 'correct' : 'wrong2');
     return;
   }
-  if (!q.attempts) return;
+  if (!q.attempts) {
+    /* A pick not yet submitted (rule 4): scqSelect IS the live repaint and button
+       predicate (rule 2), and re-selecting the id already held changes no state. */
+    if (q.selected) scqSelect(sid, q.selected);
+    return;
+  }
   if (q.selected) {
     document.querySelectorAll('#' + sid + ' .scq-opt').forEach(function (o) {
       var on = o.dataset.id === q.selected;
@@ -2697,8 +2708,11 @@ function paintVIQ(sid) {
     cfg.popup(screenWasCorrect(sid) ? 'correct' : 'wrong2');
     return;
   }
-  if (!cfg.attempts()) return;
   cfg.sync();                                            /* rule 2, before any mark */
+  /* Values typed or chosen but not yet submitted are already back in the fields
+     (applyResumeDom, or a DOM nothing wiped); sync() above re-derives the button for
+     them, which is all they need (rule 4) — QA 2026-09, the dropdowns of screen 14. */
+  if (!cfg.attempts()) return;
   els.forEach(function (el, i) {
     if (!cfg.ok(el.value.trim(), i)) el.classList.add('error');
   });

@@ -86,7 +86,7 @@ load time, which is why both may load after the shared files.
 | Name | Notes |
 |---|---|
 | `resetScreenState(n)` | dispatches to the screen's `sNEnter()`; runs **before** the screen is shown |
-| `restoreScreenUI(n)` | repaints an answered screen; **must be exception-safe** and must never mutate state or send a statement |
+| `restoreScreenUI(n)` | repaints a screen the learner has touched — answered, mid-retry, **or picked but not yet submitted** (attempts 0 is not "untouched"; see the painter rules in `70-screens.js`); **must be exception-safe** and must never mutate state or send a statement |
 | `capturePartPayload()` | returns this part's payload, including `currentScreen` |
 | `applyResumeVars(st)` | **the parameter must be named `st`** — see the warning below |
 | `applyResumeDom(st)` | restores answers that live only in the DOM |

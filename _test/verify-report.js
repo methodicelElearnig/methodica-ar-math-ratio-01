@@ -625,6 +625,121 @@ function checkPainterDispatch() {
 }
 
 
+/* ══════════════ 9b. A pending answer survives leaving the screen ══════════════
+   QA 2026-09 (components 01/02): pick answers WITHOUT pressing צדקתי?, go back one
+   screen, return. The multi-selects came back with nothing shown while the picks were
+   still in memory — the next click brought them all back — and the dropdowns / inputs
+   came back filled with the button disabled.
+
+   The cause was every painter returning early while nothing had been submitted
+   (`if (!attempts) return;`). goTo() snapshots the state, lets resetScreenState wipe
+   the screen, re-applies the snapshot and calls the painter — which then drew nothing.
+   A reload goes through the same painter from pristine markup, so it lost pending
+   answers on every screen of these types, not only on the six that reset themselves.
+
+   Swept over EVERY registry screen of every component, through the real handlers, on
+   both paths. The reference is the state the live handlers left behind: after the
+   round trip, memory, screen and button must all be exactly that again. */
+
+const PENDING_PROBE = `
+window.__pendKind = function (sid) {
+  return MCQ[sid] ? 'MCQ' : SCQ[sid] ? 'SCQ' : BQ[sid] ? 'BQ' : VIQ[sid] ? 'VIQ' : null;
+};
+window.__pendPick = function (sid) {
+  var k = __pendKind(sid), root = document.getElementById(sid);
+  if (k === 'MCQ' || k === 'SCQ') {
+    var o = root.querySelectorAll((k === 'MCQ' && MCQ[sid].optSelector) || '.scq-opt');
+    o[0].click(); if (k === 'MCQ') o[1].click();
+  } else if (k === 'BQ') {
+    Array.from(root.querySelectorAll('.bq-btn')).filter(function (b) { return !b.disabled; })[0].click();
+  } else {
+    VIQ[sid].ids.forEach(function (id) {
+      var e = document.getElementById(id);
+      if (e.tagName === 'SELECT') e.selectedIndex = 1; else e.value = '1';
+      e.dispatchEvent(new Event('input', { bubbles: true }));
+      e.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+  }
+};
+window.__pendState = function (sid) {
+  var k = __pendKind(sid), chk = document.getElementById(sid + '-check'), r = { btn: chk ? chk.disabled : null };
+  var ids = function (sel) {
+    return Array.from(document.querySelectorAll(sel)).map(function (o) { return o.dataset.id; }).sort().join(',');
+  };
+  if (k === 'MCQ' || k === 'SCQ') {
+    var opt = '#' + sid + ' ' + ((k === 'MCQ' && MCQ[sid].optSelector) || '.scq-opt');
+    r.mem = k === 'MCQ' ? Array.from(MCQ[sid].selected).sort().join(',') : (SCQ[sid].selected || '');
+    r.shown = ids(opt + '.selected');
+    r.aria = ids(opt + '[aria-checked="true"]');
+  } else if (k === 'BQ') {
+    var kinds = bqKinds(BQ[sid]);
+    r.mem = BQ[sid][kinds.a.key] + ':' + BQ[sid][kinds.b.key];
+    r.shown = document.getElementById(sid + '-count-' + kinds.a.key).textContent.trim() + ':' +
+              document.getElementById(sid + '-count-' + kinds.b.key).textContent.trim();
+  } else {
+    r.shown = VIQ[sid].ids.map(function (id) { return document.getElementById(id).value; }).join(',');
+  }
+  return JSON.stringify(r);
+};`;
+
+function checkPendingAnswers() {
+  let screens = 0;
+  for (const c of COMPONENTS) {
+    const [first, last] = RANGE[c];
+    const probe = loadComponent(c);
+    probe.exec(PENDING_PROBE);
+    const sids = [];
+    for (let n = first; n <= last; n++) {
+      if (probe.val('!!document.getElementById("s' + n + '") && __pendKind("s' + n + '")')) sids.push(n);
+    }
+    probe.dom.window.close();
+
+    for (const n of sids) {
+      const sid = 's' + n;
+      screens++;
+      const { dom, val, exec } = loadComponent(c);
+      exec(PENDING_PROBE);
+      exec('goTo(' + n + '); __pendPick("' + sid + '");');
+      const live = JSON.parse(val('__pendState("' + sid + '")'));
+      const kind = val('__pendKind("' + sid + '")');
+      const tag = c + ' ' + sid + ' (' + kind + ')';
+      ok('pending', tag + ': the pick registered and the button is live', live.btn === false,
+        JSON.stringify(live));
+
+      /* path 1: back one screen, forward again */
+      exec('goTo(' + (n - 1) + '); goTo(' + n + ');');
+      const nav = JSON.parse(val('__pendState("' + sid + '")'));
+      if (live.mem !== undefined) {
+        ok('pending', tag + ': after back and forward, memory still matches the screen',
+          nav.mem === nav.shown && (nav.aria === undefined || nav.aria === nav.shown),
+          JSON.stringify(nav));
+      }
+      ok('pending', tag + ': after back and forward, the pick is still shown',
+        nav.shown === live.shown, 'was ' + live.shown + ', now ' + nav.shown);
+      ok('pending', tag + ': after back and forward, צדקתי? is as it was',
+        nav.btn === live.btn, 'disabled=' + nav.btn);
+
+      /* path 2: a reload — capture, fresh page, the real restore */
+      exec('window.__blob = JSON.parse(JSON.stringify(capturePartPayload()));');
+      const blob = val('JSON.stringify(__blob)');
+      dom.window.close();
+      const r = loadComponent(c);
+      r.exec(PENDING_PROBE);
+      r.exec('applyExecutionState(' + blob + ');');
+      const back = JSON.parse(r.val('__pendState("' + sid + '")'));
+      ok('pending', tag + ': after a reload, the pick is shown and in memory',
+        back.shown === live.shown && back.mem === live.mem, JSON.stringify(back));
+      ok('pending', tag + ': after a reload, צדקתי? is as it was',
+        back.btn === live.btn, 'disabled=' + back.btn);
+      r.dom.window.close();
+    }
+  }
+  /* 3 + 5 + 8 + 0 + 3 + 4 by component (01..06) — a sweep that finds nothing proves nothing. */
+  ok('pending', 'the sweep covered every question screen (' + screens + ')', screens === 23,
+    String(screens));
+}
+
+
 /* ══════════════ 9. Resume round-trips ══════════════ */
 
 function checkResumeRoundTrip() {
@@ -1552,6 +1667,7 @@ const suites = [
   ['flush on commit', checkFlushOnCommit],
   ['painters', checkPainters],
   ['painter dispatch', checkPainterDispatch],
+  ['pending answers survive leaving', checkPendingAnswers],
   ['resume round-trips', checkResumeRoundTrip],
   ['cross-part seam', checkCrossPartSeam],
   ['one document per component', checkPerComponentState],
