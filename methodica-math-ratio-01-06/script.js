@@ -2383,7 +2383,7 @@ function s32OnInput() { s32Sync(); }
    S39 (slide 59) — peak question part א: complete 1 : ▯ (answer 3).
    ═══════════════════════════════════════════════════════════ */
 const S39_BODY = [
-  'انخفضت درجة الحرارة بمقدار 24°C، خلال 8 ساعات. لذلك، النسبة هي <span dir="ltr">8: 24</span>.',
+  'انخفضت درجة الحرارة بمقدار <span dir="ltr">24°C</span>، خلال 8 ساعات. لذلك، النسبة هي <span dir="ltr">8: 24</span>.',
   'نختزل العددين على 8 ونحصل على نسبة مختزلة  <span dir="ltr">1: 3</span>.',
 ];
 let s39Attempts = 0, s39Done = false, s39LastWrong = null;
@@ -2439,10 +2439,10 @@ function s39Check() {
 /* S40/S43 — peak question SCQ parts ב/ד on the shared engine */
 SCQ.s40 = { correctId: 'b', selected: null, attempts: 0, done: false, lastWrong: null, practice: false,
   correctTitle: 'صحيح!', wrongTitle: 'هذا خطأ – هيا نفهم لماذا:',
-  body: ['النسبة  <span dir="ltr">1: 3</span> تعني أنه مقابل كل ساعة قياس واحدة، انخفضت درجة الحرارة بمقدار 3°C.'] };
+  body: ['النسبة  <span dir="ltr">1: 3</span> تعني أنه مقابل كل ساعة قياس واحدة، انخفضت درجة الحرارة بمقدار <span dir="ltr">3°C</span>.'] };
 SCQ.s43 = { correctId: 'b', selected: null, attempts: 0, done: false, lastWrong: null, practice: false,
   correctTitle: 'إجابة رائعة!', wrongTitle: 'هذا خطأ – هيا نفهم لماذا:',
-  body: ['بعد 8 ساعات من بداية القياس تصل درجة الحرارة إلى 0°C. الرسم البياني وإن كان لا يُظهر استمرار انخفاض درجة الحرارة، إلا أنه يمكن رؤية اتجاه واضح للانخفاض، ولذلك هناك احتمال معقول بأن درجة الحرارة استمرت في الانخفاض وأنه بعد 8 ساعات من بداية القياس قد تتشكل طبقة جليد.'] };
+  body: ['بعد 8 ساعات من بداية القياس تصل درجة الحرارة إلى <span dir="ltr">0°C</span>. الرسم البياني وإن كان لا يُظهر استمرار انخفاض درجة الحرارة، إلا أنه يمكن رؤية اتجاه واضح للانخفاض، ولذلك هناك احتمال معقول بأن درجة الحرارة استمرت في الانخفاض وأنه بعد 8 ساعات من بداية القياس قد تتشكل طبقة جليد.'] };
 function s40Select(id) { scqSelect('s40', id); }
 function s40Check()    { scqCheck('s40'); }
 function s43Select(id) { scqSelect('s43', id); }
@@ -2450,7 +2450,7 @@ function s43Check()    { scqCheck('s43'); }
 
 /* S42 (slide 62) — pick the graphs (multi-select cards) on the mcq engine.
    Correct per the slide's own feedback: graphs א and ב (-3°C per hour). */
-const S42_BODY = ['في الرسمين البيانيين أ وب، النسبة بين الزمن والانخفاض في درجة الحرارة هي <span dir="ltr">1: 3</span>، أي أن درجة الحرارة تنخفض بمقدار 3°C في كل ساعة.'];
+const S42_BODY = ['في الرسمين البيانيين أ وب، النسبة بين الزمن والانخفاض في درجة الحرارة هي <span dir="ltr">1: 3</span>، أي أن درجة الحرارة تنخفض بمقدار <span dir="ltr">3°C</span> في كل ساعة.'];
 MCQ.s42 = { id: 's42', correctIds: new Set(['a', 'b']), maxAttempts: 2,
   selected: new Set(), attempts: 0, answered: false, done: false, lastWrong: null,
   optSelector: '.graph-card',
