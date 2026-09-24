@@ -35,7 +35,7 @@ Every part's `index.html` ends with exactly this, in this order:
 <script src="../unit-js/50-loader.js?v=3"></script>
 <script src="../unit-js/60-devbridge.js?v=3"></script>
 <script src="script.js?v=N"></script>              <!-- per-part: CONFIGURATION ONLY -->
-<script src="../unit-js/70-screens.js?v=10"></script> <!-- the screen logic of all six parts -->
+<script src="../unit-js/70-screens.js?v=11"></script> <!-- the screen logic of all six parts -->
 <script src="../unit-js/90-boot.js?v=3"></script>  <!-- the ONLY side effects -->
 ```
 
@@ -197,7 +197,7 @@ drifted copies.
 |---|---|
 | `10-identity.js` | The unit's canonical id prefix, unit id, `shortId()`, `RESUME_ENABLED`, `DEV_NAV` (`?dev=1` and no `?registration` — the only state in which the unit navigates between parts). The main per-unit seam. |
 | `15-ui.js` | `announce()`, `scaleApp()`, image zoom, `initA11yWiring()`, small shared helpers. |
-| `20-xapi.js` | Item scope, question-id resolution from metadata, every statement-building call-site helper — including `xapiEndComponent` (report, then disable the button), which replaced `xapiCompleteUnit` on 2026-09-16. |
+| `20-xapi.js` | Item scope, question-id resolution from metadata, every statement-building call-site helper — including `xapiEndComponent` (report, then disable the button), which replaced `xapiCompleteUnit` on 2026-09-16, and `restoreEndedButton` (re-disable it after every repaint once the `done` ledger holds this component — D-8, 2026-09-23). |
 | `25-report.js` | The whole "מצאתם בעיה?" layer: three dialogs, validation, custom select, Google-Forms transport. |
 | `28-feedback-drag.js` | `initFeedbackDrag()` — scale-aware draggable feedback popups. Wraps `goTo`; must stay last. |
 | `30-nav.js` | `currentScreen`, `goTo()` (navigation + item scope + repaint + resume save), `applyExecutionState()`. |

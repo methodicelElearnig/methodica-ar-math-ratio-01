@@ -63,7 +63,7 @@ const RANGE = {
 const SHARED_FNS = [
   'shortId', 'scaleApp', 'announce', 'initReportModal', 'bootXAPI', 'goTo',
   'xapiItemId', 'xapiQ', 'xapiOnScreen', 'xapiFinishItems', 'xapiAnswered',
-  'xapiRequestedHint', 'xapiCompleteComponent', 'xapiEndComponent',
+  'xapiRequestedHint', 'xapiCompleteComponent', 'xapiEndComponent', 'restoreEndedButton',
   'xapiAnswerText', 'xapiFieldsAnswer', 'xapiMultiAnswer', 'xapiItemResult',
   'sendStatementOnce', 'sendCompletedOnce', 'itemLedgerKey', 'currentPartSlug',
   'readUnitState', 'captureUnitState', 'persistUnitState', 'emptyUnitState',

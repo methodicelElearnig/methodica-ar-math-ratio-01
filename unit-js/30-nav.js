@@ -13,6 +13,8 @@
      applyResumeVars(st)    assigns the payload's answer variables — parameter MUST be named `st`
      applyResumeDom(st)     restores DOM-only answers, taking the WHOLE payload
      restoreScreenUI(n)     repaints the answered look
+   After every repaint: restoreEndedButton() (20-xapi.js) re-disables the last screen's button once
+   this component's 'completed' is in the done ledger (D-8).
 */
 
 var currentScreen = 0;
@@ -55,6 +57,7 @@ function goTo(n) {
       applyResumeVars(_keep);
       applyResumeDom(_keep);
       restoreScreenUI(n);
+      restoreEndedButton();   // D-8: the painter just re-enabled a finished component's button
     } catch (e) { console.error('[resume] repaint on nav', e); }
     finally { endRepaint(); }
   }
@@ -101,6 +104,7 @@ function applyExecutionState(st, screenOverride) {
     applyResumeVars(st);   // undo the reset that this screen's sNNEnter() just did
     applyResumeDom(st);    // before the painter, which locks/disables the inputs
     restoreScreenUI(currentScreen);
+    restoreEndedButton();  // D-8: after the painter, which relabels and enables the last button
   } catch (e) {
     console.error('[resume] apply', e);
   } finally {

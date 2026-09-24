@@ -419,6 +419,79 @@ function componentCompletedOnly() {
 }
 
 
+/* ══════════════ 5b. D-8: a finished component stays finished after a resume ══════════════
+   QA/2026-09-20 D-8. xapiEndComponent disables the finish button when the component
+   'completed' goes out — and nothing re-applied that on a reload, or when the learner
+   stepped back and forward onto the last screen: the painters relabel it שנמשיך? and
+   ENABLE it. The click was harmless (the done ledger swallows the duplicate) but the
+   screen said the work was not recorded.
+
+   For every component: finish it through the real exit (goTo(PART_LAST + 1) — the
+   wrapper that calls leaveToPart / finishUnit), then (1) reload from the saved document
+   and (2) step back one screen and forward again. The finish button must be disabled,
+   with aria-disabled, both times, and a click on it must send nothing. The control: a
+   component NOT yet completed keeps its button live on the same screen. */
+
+function endedButtonAfterResume() {
+  const disabled = (x) => x.val('(function(){ var b = lastScreenButton(); return !!b && b.disabled === true && b.getAttribute("aria-disabled") === "true"; })()');
+  for (const c of ['01', '02', '03', '04', '05', '06']) {
+    const b = boot(c);
+    b.finishBoot();
+    b.exec(MARK_ANSWERED);
+    /* A multi-select last screen (01 s12, 03 s29, 05 s36) is answered correctly and left
+       through its own שנמשיך? — the QA walk exactly. The others leave through the exit. */
+    b.exec('_goToCore(PART_LAST);');
+    const mcqLast = b.val('!!MCQ["s" + PART_LAST]');
+    if (mcqLast) {
+      b.exec('(function(){ var q = MCQ["s" + PART_LAST]; q.correctIds.forEach(function(id){ mcqToggle(q, id); });' +
+        ' var k = lastScreenButton(); k.click(); k.click(); })();');
+    } else {
+      b.exec('goTo(PART_LAST + 1);');
+    }
+    ok('ended', c + ': finishing reports the component and disables its finish button',
+      b.val('alreadySent("done", currentPartSlug())') === true && disabled(b) === true,
+      'done=' + b.val('alreadySent("done", currentPartSlug())') + ' disabled=' + disabled(b));
+    const payload = JSON.parse(b.val('JSON.stringify(capturePartPayload())'));
+    const dumped = b.state();
+    b.dom.window.close();
+
+    const r = boot(c, { keepState: true });
+    r.exec('window.__reset(); window.__setState(' + JSON.stringify(dumped) + ');');
+    r.finishBoot(payload);
+    ok('ended', c + ': after a reload onto the last screen, the finish button is still disabled',
+      r.val('currentScreen') === r.val('PART_LAST') && disabled(r) === true,
+      'screen=' + r.val('currentScreen') + ' ' + r.val('(function(){ var b = lastScreenButton(); return b ? b.id + " disabled=" + b.disabled + " aria=" + b.getAttribute("aria-disabled") : "none"; })()'));
+
+    r.exec('goTo(PART_LAST - 1); goTo(PART_LAST);');
+    ok('ended', c + ': after back and forward onto it, still disabled', disabled(r) === true,
+      r.val('(function(){ var b = lastScreenButton(); return b.id + " disabled=" + b.disabled; })()'));
+
+    r.exec('window.__reset(); lastScreenButton().click();');
+    eq('ended', c + ': and a click on it sends nothing', r.stmts().length, 0);
+    r.dom.window.close();
+  }
+
+  /* The control: screen 12 answered, component 01 NOT left — the ledger has no done, so
+     the painter's live שנמשיך? must survive a reload untouched. */
+  const n = boot('01');
+  n.finishBoot();
+  n.exec('goTo(12); s12Toggle("a"); s12Toggle("b"); s12Toggle("d"); s12Check();');
+  ok('ended', 'control: 01 s12 answered, component not yet completed',
+    n.val('MCQ.s12.done') === true && n.val('alreadySent("done", currentPartSlug())') === false);
+  const np = JSON.parse(n.val('JSON.stringify(capturePartPayload())'));
+  const nd = n.state();
+  n.dom.window.close();
+  const n2 = boot('01', { keepState: true });
+  n2.exec('window.__reset(); window.__setState(' + JSON.stringify(nd) + ');');
+  n2.finishBoot(np);
+  ok('ended', 'control: after a reload its שנמשיך? is still live',
+    n2.val('document.getElementById("s12-check").disabled') === false &&
+    n2.val('document.getElementById("s12-check").getAttribute("aria-disabled")') !== 'true',
+    'disabled=' + n2.val('document.getElementById("s12-check").disabled'));
+  n2.dom.window.close();
+}
+
+
 /* ══════════════ 6. Resuming onto an answered screen ══════════════ */
 
 function resumeEmitsNothingExtra() {
@@ -542,6 +615,7 @@ const suites = [
   ['hints', hints],
   ['no duplicate completed', noDuplicateCompleted],
   ['component completed, nothing unit-level', componentCompletedOnly],
+  ['D-8: a finished component stays finished after a resume', endedButtonAfterResume],
   ['resume emits nothing extra', resumeEmitsNothingExtra],
   ['off-platform gate', offPlatformSendsNothing],
 ];

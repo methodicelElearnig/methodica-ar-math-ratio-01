@@ -15,8 +15,8 @@ Neither guard replaces the rule; they just stop it depending on memory.
 
 | File | What it does |
 |---|---|
-| `verify-report.js` | **Structure.** 2111 assertions. Loads the real `index.html`, `script.js` and every `unit-js/*.js` (including `70-screens.js`, the screen logic) of all six components into jsdom, runs the script tags in document order from disk, and asserts against what actually ran. It does not call the code in isolation — it runs it. |
-| `statement-flow.js` | **Behaviour.** 63 assertions. Which statements actually leave when a learner does something, in what order, carrying what result — and, more importantly, which ones do **not** leave when the same screen is reached again by a reload or the back button. |
+| `verify-report.js` | **Structure.** 2117 assertions. Loads the real `index.html`, `script.js` and every `unit-js/*.js` (including `70-screens.js`, the screen logic) of all six components into jsdom, runs the script tags in document order from disk, and asserts against what actually ran. It does not call the code in isolation — it runs it. |
+| `statement-flow.js` | **Behaviour.** 89 assertions. Which statements actually leave when a learner does something, in what order, carrying what result — and, more importantly, which ones do **not** leave when the same screen is reached again by a reload or the back button. |
 | `xapi-720-k.js` | A local stand-in for the CDN library, backed by `sessionStorage`. Loaded in the browser through `?xapiLib=`, and executed directly by both harnesses. It also models the real library's **deferral guard** — an item's `completed` is dropped, with no queue and no retry, unless an `answered` for that item passed through in the same page load. Keep it: without the guard the suite is blind to a whole class of permanently lost statements, which is how one survived every assertion here until it was found live against Kata. |
 
 ## Running
@@ -103,7 +103,7 @@ what a package is meant to contain and exits 0 on a good one.
 
 `statement-flow.js`: a fresh load; answering (verb, result, `student_answer`, and the
 v2.4-mandatory `parent`); a non-final wrong attempt vs. the resolving one; hint
-dedupe including across a reload; **no duplicate `completed`** across a forward walk,
+dedupe including across a reload; **D-8** — for every component, finished through its real exit, the finish button stays disabled (with `aria-disabled`) after a reload and after stepping back and forward onto the last screen, and a click on it sends nothing, while a last screen answered but not yet completed keeps its button live; **no duplicate `completed`** across a forward walk,
 a backward walk and a reload; the component `completed` with an explicit result — and
 nothing unit-level: the production `leaveToPart` reports once, moves no pointer and
 disables the button, the `?dev=1` twin still hands over, and part 06's finale sends item

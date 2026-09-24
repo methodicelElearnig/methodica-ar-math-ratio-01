@@ -283,6 +283,20 @@ function xapiEndComponent(result, btn){
   if (btn) { btn.disabled = true; btn.setAttribute('aria-disabled', 'true'); }
 }
 
+/* The ended look, re-applied (QA/2026-09-20 D-8). xapiEndComponent disables the button once, at
+   the click; a reload, or stepping back and forward onto the last screen, repaints it, and the
+   painters relabel it שנמשיך? and ENABLE it. The done ledger already swallowed the duplicate
+   'completed' such a click would send, so this was never a data problem, but the screen said the
+   work was not recorded. The ledger is the authority here too: disabled only once this
+   component's 'completed' is recorded in the state document, never merely because the learner
+   is on the last screen. 30-nav.js calls it after every repaint. */
+function restoreEndedButton() {
+  if (currentScreen !== PART_LAST) return;
+  if (!alreadySent('done', currentPartSlug())) return;
+  var btn = typeof lastScreenButton === 'function' ? lastScreenButton() : null;
+  if (btn) { btn.disabled = true; btn.setAttribute('aria-disabled', 'true'); }
+}
+
 /* played/paused for HTML5 <video> — CONTENT VIDEO ONLY, by explicit opt-in.
    ── Why an allowlist rather than every <video> ──
    The previous version selected querySelectorAll('video') with no filter, and in the reference
