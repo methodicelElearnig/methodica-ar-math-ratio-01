@@ -1,8 +1,8 @@
 # `unit-js/` — the shared layer
 
 One copy of every behaviour that is the same in all **six** components of this unit. Each
-`methodica-ar-math-ratio-01-0N/script.js` keeps only that component's configuration and screen logic,
-and fills in the hook contract below.
+`methodica-ar-math-ratio-01-0N/script.js` keeps only that component's **configuration**; the screen
+logic of all six, which fills in the hook contract below, is `70-screens.js`.
 
 The layer implements three features: **xAPI (720) reporting**, **learner problem reporting**
 ("מצאתם בעיה?") and **resume** (the xAPI State API). It is vendored from
@@ -34,7 +34,8 @@ Every part's `index.html` ends with exactly this, in this order:
 <script src="../unit-js/40-resume.js?v=3"></script>
 <script src="../unit-js/50-loader.js?v=3"></script>
 <script src="../unit-js/60-devbridge.js?v=3"></script>
-<script src="script.js?v=N"></script>              <!-- per-part: DEFINITIONS + CONFIG ONLY -->
+<script src="script.js?v=N"></script>              <!-- per-part: CONFIGURATION ONLY -->
+<script src="../unit-js/70-screens.js?v=9"></script> <!-- the screen logic of all six parts -->
 <script src="../unit-js/90-boot.js?v=3"></script>  <!-- the ONLY side effects -->
 ```
 
@@ -43,8 +44,9 @@ in document order, and without the prefix the only record of that order would be
 `index.html` files. The number puts it next to the code, and counting by 5s and 10s leaves room to
 insert a file without renumbering. **What they do not mean:** nothing reads them, and because every
 file except `90-boot.js` is definition-only, the order among `10-`–`60-` is nearly arbitrary in
-practice. Only two positions carry real weight — `script.js` before `90-boot.js`, and `90-boot.js`
-last.
+practice. Three positions carry real weight — `script.js` before `70-screens.js` (the screen logic
+always ran right after the configuration: it was the foot of the same file), both before
+`90-boot.js`, and `90-boot.js` last.
 
 > **`?v=` invariant.** All six `index.html` reference the same shared URLs, so a given shared
 > file's `?v=` **must be identical in all six**. A mismatch means one part fetches a second copy
@@ -60,8 +62,9 @@ never ship a copy, and treat any library change as affecting every 720 lomda tha
 
 ## The hook contract
 
-Every `script.js` must define these. The shared layer reads them **at call time**, never at load
-time, which is why `script.js` may load after the shared files.
+The configuration comes from each part's `script.js`; the functions and the `RESUME_*` lists
+from `70-screens.js`, once for all six. The shared layer reads them **at call time**, never at
+load time, which is why both may load after the shared files.
 
 ### Configuration
 
@@ -176,10 +179,11 @@ copy wins and the extraction looks successful while shipping the old code. Check
 root:
 
 ```bash
-node -e "const fs=require('fs');const s=new Map();fs.readdirSync('unit-js').filter(f=>f.endsWith('.js')).forEach(f=>fs.readFileSync('unit-js/'+f,'utf8').split('\n').forEach(l=>{const m=l.match(/^(?:function|var|let|const)\s+([A-Za-z0-9_$]+)/);if(m)s.set(m[1],f)}));['01','02','03','04'].forEach(p=>{const h=[];fs.readFileSync('methodica-ar-math-ratio-01-'+p+'/script.js','utf8').split('\n').forEach((l,i)=>{const m=l.match(/^(?:function|var|let|const)\s+([A-Za-z0-9_$]+)/);if(m&&s.has(m[1]))h.push(m[1]+'@'+(i+1))});console.log(p+': '+(h.length?h.join(', '):'clean'))})"
+node -e "const fs=require('fs');const s=new Map();fs.readdirSync('unit-js').filter(f=>f.endsWith('.js')).forEach(f=>fs.readFileSync('unit-js/'+f,'utf8').split('\n').forEach(l=>{const m=l.match(/^(?:function|var|let|const)\s+([A-Za-z0-9_$]+)/);if(m)s.set(m[1],f)}));['01','02','03','04','05','06'].forEach(p=>{const h=[];fs.readFileSync('methodica-ar-math-ratio-01-'+p+'/script.js','utf8').split('\n').forEach((l,i)=>{const m=l.match(/^(?:function|var|let|const)\s+([A-Za-z0-9_$]+)/);if(m&&s.has(m[1]))h.push(m[1]+'@'+(i+1))});console.log(p+': '+(h.length?h.join(', '):'clean'))})"
 ```
 
-Hook names are the expected exceptions.
+`_test/verify-report.js` asserts the same rule on every run (`checkConfigOnly`), so this
+one-liner is only for a quick look.
 
 **When components disagree, take the superset and prove it inert.** Adopt the newest version plus
 any guard another part added, then verify the difference cannot fire elsewhere. Do not average two
@@ -200,7 +204,8 @@ drifted copies.
 | `40-resume.js` | The v6 state document — one per part (`component` + `payload`, v5 migrated in place), the four ledgers, the part's own `ui`/`results` with `adoptUnitCharacter`, cross-part edges (`?dev=1` only) and `hideCrossPartBack`, boot cover, reset hatch. |
 | `50-loader.js` | `bootXAPI()` — CDN load, three gates, capped metadata poll, two-phase resume read (the cross-part hop was removed 2026-09-16), component `initialized`. |
 | `60-devbridge.js` | `initDevBridge()` — the `postMessage` bridge to `index_dev.html`. Not deployed-facing. |
-| `90-boot.js` | The only file with top-level side effects. Fixed startup order. |
+| `70-screens.js` | The screen logic of all 46 screens and the hook contract: every question engine, `resetScreenState`, the painters and `restoreScreenUI`, the resume capture/apply. Moved verbatim from the foot of the six `script.js` on 2026-09-23. Besides definitions it wires a few listeners at load (the scroll hints, the popup drag, `bqSweep`), exactly as it did inside `script.js`. |
+| `90-boot.js` | Starts everything. Fixed startup order. |
 
 Sibling unit-level folders: **`unit-css/styles.css`** is the one stylesheet for the unit,
 linked by every component as `../unit-css/styles.css?v=N`. **`unit-assets/`** holds

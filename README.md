@@ -33,17 +33,22 @@ Screen 45 (the unit finale) has no slide of its own; it belongs to רכיב 6.
 
 - `index.html` — redirects to component 01.
 - `methodica-ar-math-ratio-01-01 … -06/` — six standalone component apps
-  (`index.html` + `script.js` + `index_dev.html`). No stylesheet and no images of their
+  (`index.html` + `script.js` + `index_dev.html`). `script.js` is that component's
+  **configuration only** (about 180–200 lines: screen range, ids, maps, scoring); the screen
+  logic is `unit-js/70-screens.js`. No stylesheet and no images of their
   own. Only component 01 still has an `assets/` folder at all, holding the two character
   selection clips that its own markup names.
 - `unit-js/` — the shared layer, vendored from scale-01 at its **v4** generation. Four
   deliberate differences: the unit identity, the nav-edge key, the canvas height (710,
   fluid width) and `writeForwardState`'s third argument. See its README for the load
-  order, the hook contract and those deviations.
+  order, the hook contract and those deviations. It also holds **`70-screens.js`**, the
+  screen logic of all 46 screens: until 2026-09-23 that was six byte-identical copies at
+  the foot of every `script.js` (about 2,940 lines each), held together only by a
+  test. It is one file now, as in `methodica-math-ratio-02`.
 - `unit-css/styles.css` — **one** stylesheet for the whole unit, linked by every
   component as `../unit-css/styles.css?v=N`. It used to be six byte-identical copies that
   had to be edited in lockstep, with nothing asserting they matched — the same silent
-  divergence `checkPartsIdentical` guards for `script.js`, but unguarded.
+  divergence the six copies of the screen logic had, until they became one file too.
 - `unit-assets/` — everything shared by more than one component, **once for the unit**:
   - `fonts/` — the 7 Assistant faces. They used to be duplicated into every component
     while the CSS pointed one level too high, so no component ever loaded them and the
@@ -68,7 +73,7 @@ not from the component page that links it. That is why they are `../unit-assets/
 with **one** `../` — and it is why the string did not change when the stylesheet moved.
 
 `_test/verify-report.js` §14 enforces all of it: every `url()` resolved from the
-stylesheet's directory, every image reference in **both** `index.html` **and** `script.js`
+stylesheet's directory, every image reference in **both** `index.html` **and** the screen logic (`script.js` + `70-screens.js`)
 resolved from its component, no component re-growing a `styles.css` or an `assets/img/`,
 no bare `assets/img/` surviving, and lowercase directory segments. It is mutation-tested
 five ways.
@@ -84,7 +89,7 @@ five ways.
   index: `…RATIO.RECOG` resolves to *"התלמיד יזהה מצבים שבהם מופיע יחס (כגון: מתכון,
   מהירות נסיעה)"* — this unit's יעד 1.1 exactly. (The `…RATIO.IDENTIFY` this repo
   carried before the v2.5 migration is **not** a real code; the migration fixed it.)
-- `_test/` — the headless regression oracle (1882 + 63 assertions across two harnesses) plus the
+- `_test/` — the headless regression oracle (1951 + 63 assertions across two harnesses) plus the
   local stand-in for the CDN library. **Not deployed** — the allowlist excludes it twice over, by
   name and by the leading-underscore rule. See its README for what each suite covers, and
   [`Documentation/GITHUB-GH.md`](../../../Documentation/GITHUB-GH.md) for how to run them:

@@ -15,7 +15,7 @@ Neither guard replaces the rule; they just stop it depending on memory.
 
 | File | What it does |
 |---|---|
-| `verify-report.js` | **Structure.** 1882 assertions. Loads the real `index.html`, `script.js` and every `unit-js/*.js` of all six components into jsdom, runs the script tags in document order from disk, and asserts against what actually ran. It does not call the code in isolation — it runs it. |
+| `verify-report.js` | **Structure.** 1951 assertions. Loads the real `index.html`, `script.js` and every `unit-js/*.js` (including `70-screens.js`, the screen logic) of all six components into jsdom, runs the script tags in document order from disk, and asserts against what actually ran. It does not call the code in isolation — it runs it. |
 | `statement-flow.js` | **Behaviour.** 63 assertions. Which statements actually leave when a learner does something, in what order, carrying what result — and, more importantly, which ones do **not** leave when the same screen is reached again by a reload or the back button. |
 | `xapi-720-k.js` | A local stand-in for the CDN library, backed by `sessionStorage`. Loaded in the browser through `?xapiLib=`, and executed directly by both harnesses. It also models the real library's **deferral guard** — an item's `completed` is dropped, with no queue and no retry, unless an `answered` for that item passed through in the same page load. Keep it: without the guard the suite is blind to a whole class of permanently lost statements, which is how one survived every assertion here until it was found live against Kata. |
 
@@ -84,9 +84,9 @@ what a package is meant to contain and exits 0 on a good one.
 | Area | What is asserted |
 |---|---|
 | **The regression gate** | With no `?slxapi`: `sendStatement720` does not exist, and `xapiOnScreen`, `xapiCompleteComponent`, `xapiEndComponent` and `reportHint` are inert no-ops that do not throw — while `xapiAnswered` still records the score, so scoring and routing behave identically with reporting off. Note the guarantee is *not* that `XAPI_USING_G` is false: `bootXAPI` derives it from the library filename synchronously, so it is legitimately true while nothing has loaded. |
-| **The shared layer** | All 46 shared functions and all 16 per-component hooks exist in every component; `script.js` precedes `90-boot.js` and `90-boot.js` is the last tag. |
+| **The shared layer** | All 46 shared functions and all 16 per-component hooks exist in every component; `script.js` precedes `90-boot.js`, `70-screens.js` comes immediately after `script.js`, and `90-boot.js` is the last tag. |
 | **The deploy contract** | Every shared file carries an identical `?v=` in all six components; the library letter the loader names is one the `XAPI_USING_G` regex accepts; no library copy is shipped outside `_test/`. |
-| **The six `script.js` are twins** | Everything below `var RESUME_PLAIN_VARS = [` is **byte-identical** across all six. This is what makes the 6× duplication safe: an edit that lands in one component and not the others is otherwise silent, because each component only ever runs its own screens. |
+| **Each `script.js` is configuration only** | No `script.js` carries screen logic again (`RESUME_PLAIN_VARS`, `resetScreenState`, the painters); none declares a name a `unit-js` file also declares — a `var`/`function` collision is a silent last-wins overwrite; and each declares the configuration `70-screens.js` reads. Replaced the "twins" check on 2026-09-23, when the six byte-identical copies of the screen logic became `unit-js/70-screens.js`. Source scans that need "the code this component runs" read its `script.js` plus `70-screens.js`. |
 | **The screen map** | Each component's `SCREEN_TO_SUBCONTENT` covers exactly its own `[PART_FIRST..PART_LAST]` range, with **numeric** keys, no holes; the DOM holds exactly those screens; `_goToCore` on a screen the component does not have is a silent no-op. |
 | **Metadata agreement** | Trailing slashes at unit/component/item level; `XAPI_COMP_ID` equals the metadata component id; every mapped item exists in the catalogue and every catalogue item is reachable from a screen; every graded item supplies an explicit item result; and the **2.5** field names are intact — `targetSectors`, single-value `targetAudience`, `cognitiveLevels`, unit-level numeric `manufacturer`, no `prerequisiteLearningObjective` — with the 2.4 names asserted absent. |
 | **The question map** | All 29 graded questions resolve, each in exactly one component, with no key claimed twice, and **every reported key names a `questionId` the catalogue declares**. That last check replaced a `q1..qN with no gaps` rule, which was the right test only while `metadata/` had no `questions[]`: three screens legitimately resolve one id out of a run of two to five, because the code computes a single verdict over the whole screen. |
@@ -126,8 +126,8 @@ first eleven attempts did **not** fail, and each taught something:
   assignment, while the code is a call. It now checks every navigation whose target
   mentions `index.html`.
 
-A mutation applied to one component alone trips the twins assertion first and masks
-whatever was under test, so shared-layer mutations belong in all six.
+Screen-logic mutations go in `unit-js/70-screens.js`, once. (Until 2026-09-23 they had to go
+into all six `script.js`, or the twins assertion tripped first and masked what was under test.)
 
 ## What these suites cannot cover
 

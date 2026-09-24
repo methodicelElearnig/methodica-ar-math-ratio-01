@@ -13,9 +13,10 @@
      - screens are numbered UNIT-WIDE 0..45, so SCREEN_TO_SUBCONTENT covers each
        part's own [PART_FIRST..PART_LAST] range rather than 0..TOTAL_SCREENS-1, and
        the completeness check has to assert against that range instead;
-     - all six script.js are the same monolith, differing only in a config hunk, so
-       that invariant is itself asserted here. It is what makes the 6x duplication
-       safe: instrumentation added to one file must be byte-identical in the others.
+     - the screen logic of all six components is ONE file, unit-js/70-screens.js
+       (until 2026-09-23 it was six byte-identical copies at the foot of each
+       script.js); each script.js is configuration only, and that split is itself
+       asserted here (checkConfigOnly).
 
    Run (jsdom is not in the repo and there is no package.json — do NOT install it
    inside the project folder, which is OneDrive-synced):
@@ -41,6 +42,15 @@ const BASE = process.argv[2] || path.join(__dirname, '..');
 const UNIT = 'methodica-ar-math-ratio-01';
 const COMPONENTS = ['01', '02', '03', '04', '05', '06'];
 const PART_DIR = c => UNIT + '-' + c;
+
+/* The screen logic every component runs, one file for the unit since 2026-09-23. */
+const SCREENS_REL = 'unit-js/70-screens.js';
+const readScreens = () => fs.readFileSync(path.join(BASE, SCREENS_REL), 'utf8');
+/* Everything a component runs on top of the shared layer: its own configuration plus
+   the screen logic. The source scans that used to read one component's script.js read
+   this, so each still sees exactly the code that component executes. */
+const partCode = c =>
+  fs.readFileSync(path.join(BASE, PART_DIR(c), 'script.js'), 'utf8') + '\n' + readScreens();
 
 /* Each component's own slice of the unit-wide screen space. The six components are the
    script's six רכיבים; every boundary below is one of its divider slides. */
@@ -193,12 +203,16 @@ function checkLoadAndSharedLayer() {
     ok('gate', c + ': xapiAnswered still records the score with no library',
       val('(function(){ xapiAnswered("001","qZ",true,true,"x"); return XAPI_Q_RESULTS["001/qZ"]; })()') === true);
 
-    /* Order: script.js before 90-boot.js, and 90-boot.js last. A top-level throw in
-       script.js must not take the boot with it. */
+    /* Order: script.js, then 70-screens.js, then 90-boot.js, last. The screen logic
+       always ran right after the configuration (it was the foot of the same file), and
+       a top-level throw in either must not take the boot with it. */
     const iScript = tags.findIndex(t => /(^|\/)script\.js/.test(t));
+    const iScreens = tags.findIndex(t => /70-screens\.js/.test(t));
     const iBoot = tags.findIndex(t => /90-boot\.js/.test(t));
     ok('order', c + ': script.js precedes 90-boot.js',
       iScript > -1 && iBoot > iScript, tags.join(', '));
+    ok('order', c + ': 70-screens.js loads immediately after script.js',
+      iScript > -1 && iScreens === iScript + 1, tags.join(', '));
     ok('order', c + ': 90-boot.js is the last script tag',
       iBoot === tags.length - 1, tags.join(', '));
 
@@ -273,47 +287,46 @@ function checkDeployContract() {
 }
 
 
-/* ══════════════ 3. All six script.js differ only in the config hunk ══════════════ */
+/* ══════════════ 3. Each script.js is configuration only ══════════════ */
 
-function checkPartsIdentical() {
-  /* This is the invariant that makes the 6x duplication survivable: anything outside
-     the config head that differs means an edit landed in one component and not the
-     others — which is SILENT, because each component only ever runs its own screens.
+function checkConfigOnly() {
+  /* Replaces the old "twins" check. Until 2026-09-23 the screen logic was six
+     byte-identical copies below `var RESUME_PLAIN_VARS = [` in every script.js, held
+     together only by an assertion that they matched. It is one file now,
+     unit-js/70-screens.js, so the invariant becomes: no script.js carries screen logic
+     again, and nothing is declared twice. */
+  const declared = src => new Set([...src.matchAll(/^(?:function|var|let|const)\s+([A-Za-z0-9_$]+)/gm)]
+    .map(m => m[1]));
+  const shared = new Map();
+  for (const f of SHARED_FILES) {
+    for (const n of declared(fs.readFileSync(path.join(BASE, 'unit-js', f + '.js'), 'utf8'))) {
+      shared.set(n, f);
+    }
+  }
+  const scr = readScreens();
+  ok('config', '70-screens.js is strict, as script.js always was', /^'use strict';/.test(scr));
+  ok('config', '70-screens.js holds the resume payload contract',
+    /\nvar RESUME_PLAIN_VARS = \[/.test(scr));
 
-     The split point is exact rather than heuristic. Everything above
-     `var RESUME_PLAIN_VARS = [` is the config head: the header comment, PART_*, the
-     component slug and metadata path, SCREEN_TO_SUBCONTENT, XAPI_EVAL_ITEMS,
-     component 01's onXapiReady, and partResult. Each of those is asserted separately
-     (checkScreenMap, checkMetadata, checkCrossPartSeam). Everything BELOW it is
-     shared and must be byte-identical. */
-  const MARK = 'var RESUME_PLAIN_VARS = [';
-  const shared = {};
   for (const c of COMPONENTS) {
     const src = fs.readFileSync(path.join(BASE, PART_DIR(c), 'script.js'), 'utf8');
-    const i = src.indexOf(MARK);
-    ok('twins', c + ': the config head ends at the expected marker', i > 0);
-    shared[c] = i > 0 ? src.slice(i) : src;
-  }
-  for (const c of COMPONENTS.slice(1)) {
-    if (shared[c] === shared['01']) { passes++; continue; }
-    /* Report the first differing line — that is what a reader needs. */
-    const a = shared['01'].split('\n');
-    const b = shared[c].split('\n');
-    let i = 0;
-    while (i < a.length && i < b.length && a[i] === b[i]) i++;
-    ok('twins', '01 and ' + c + ' are byte-identical below the config head', false,
-      'first difference at shared line ' + (i + 1) + ' — 01: [' +
-      String(a[i]).trim().slice(0, 80) + '] ' + c + ': [' +
-      String(b[i]).trim().slice(0, 80) + ']');
-  }
-
-  /* And the config head must declare everything the shared region reads from it. */
-  const src01 = fs.readFileSync(path.join(BASE, PART_DIR('01'), 'script.js'), 'utf8');
-  const head01 = src01.slice(0, src01.indexOf(MARK));
-  for (const n of ['PART_FIRST', 'PART_LAST', 'PART_NEXT', 'PART_PREV',
-    'XAPI_COMP_SLUG', 'XAPI_COMP_ID', 'XAPI_METADATA_FILE', 'SCREEN_TO_SUBCONTENT',
-    'XAPI_EVAL_ITEMS', 'partResult']) {
-    ok('twins', 'the config head declares ' + n, head01.indexOf(n) !== -1);
+    ok('config', c + ': script.js carries no screen logic',
+      src.indexOf('RESUME_PLAIN_VARS') === -1 &&
+      !/^function (?:resetScreenState|restoreScreenUI|mcqToggle|paintMCQ)\b/m.test(src),
+      'screen logic belongs in ' + SCREENS_REL);
+    /* The collision rule of unit-js/README "Adding to the shared layer": a var/function
+       declared in both is a SILENT last-wins overwrite, so it is asserted rather than
+       left to a hand-run one-liner. */
+    const dup = [...declared(src)].filter(n => shared.has(n)).map(n => n + '@' + shared.get(n));
+    ok('config', c + ': script.js declares nothing a unit-js file also declares',
+      dup.length === 0, dup.join(', '));
+    /* And the configuration the screen logic reads is all there. */
+    const own = declared(src);
+    for (const n of ['PART_FIRST', 'PART_LAST', 'PART_NEXT', 'PART_PREV',
+      'XAPI_COMP_SLUG', 'XAPI_COMP_ID', 'XAPI_METADATA_FILE', 'SCREEN_TO_SUBCONTENT',
+      'XAPI_EVAL_ITEMS', 'partResult']) {
+      ok('config', c + ': script.js declares ' + n, own.has(n));
+    }
   }
 }
 
@@ -532,7 +545,7 @@ function checkFlushOnCommit() {
      Brace-matched per function rather than grepped, because the reference unit found
      13 of 25 committing functions with a correct-answer branch that returned before
      a tail flush — a grep for the call would have passed all 13. */
-  const src = fs.readFileSync(path.join(BASE, PART_DIR('01'), 'script.js'), 'utf8');
+  const src = readScreens();
   const COMMIT = /(?:\bdone\s*=\s*true|\banswered\s*=\s*true|setPracticeResult2?\()/;
 
   const re = /^function ([A-Za-z0-9_$]+)\s*\([^)]*\)\s*\{/gm;
@@ -600,11 +613,11 @@ function checkPainters() {
    nothing and is perfectly idempotent.
 
    So assert DISPATCH, not just safety. Source-level, the same way
-   methodica-math-scale-01 asserts its own painter dispatch, and over all six components
-   because the twins invariant requires the line in every copy. */
+   methodica-math-scale-01 asserts its own painter dispatch, per component over the code
+   that component runs. */
 function checkPainterDispatch() {
   for (const c of COMPONENTS) {
-    const src = fs.readFileSync(path.join(BASE, PART_DIR(c), 'script.js'), 'utf8');
+    const src = partCode(c);
     ok('paint', c + ': restoreScreenUI dispatches the class-task gate (screens 31/32)',
       /if\s*\(n\s*===\s*31\s*\|\|\s*n\s*===\s*32\)\s*\{\s*s32Sync\(\);\s*return;\s*\}/.test(src),
       'without it a resumed learner keeps their typed answers and loses the continue button');
@@ -711,7 +724,7 @@ function checkResumeRoundTrip() {
     ok('resume', '03 s23: the learner\'s wrong pick is shown too',
       val('document.querySelector("#s23 .scq-opt[data-id=\\"c\\"]").classList.contains("wrong")') === true);
     ok('resume', '03 s23: the wrong-answer feedback is reopened, not the correct one',
-      val('document.getElementById("s23-popup-title").textContent').indexOf('טעות') !== -1,
+      val('document.getElementById("s23-popup-title").textContent') === val('(function(){var d=document.createElement("div");d.innerHTML=SCQ.s23.wrongTitle;return d.textContent;})()'),
       val('document.getElementById("s23-popup-title").textContent'));
     ok('resume', '03 s23: continue is live so the learner is not stranded',
       val('document.getElementById("s23-check").disabled') === false);
@@ -732,11 +745,10 @@ function checkResumeRoundTrip() {
     exec('BQ.s17.done = false; BQ.s17.attempts = 0; BQ.s17.pink = 5; BQ.s17.white = 9;');
     exec('applyResumeVars(__blob); applyResumeDom(__blob); restoreScreenUI(17);');
     ok('resume', '02 s17: the counts come back', val('BQ.s17.pink') === val('BQ.s17.target.pink'));
-    /* The 08.09 client-QA round rewrote this title to say the correct answer is now
-       on screen. Its copy carries a <br>, which contributes no text of its own — so
-       textContent has no whitespace at the seam. */
+    /* The wrong-answer title, compared against the screen's own wrongTitle (tags stripped,
+       as textContent strips them) so the check holds in any language of the unit. */
     ok('resume', '02 s17: the wrong-answer feedback is reopened',
-      val('document.getElementById("s17-popup-title").textContent') === 'זו טעות, התשובה הנכונה מוצגת.בואו נבין למה:',
+      val('document.getElementById("s17-popup-title").textContent') === val('(function(){var d=document.createElement("div");d.innerHTML=BQ.s17.wrongTitle;return d.textContent;})()'),
       val('document.getElementById("s17-popup-title").textContent'));
     ok('resume', '02 s17: the applet buttons are locked',
       val('Array.from(document.querySelectorAll("#s17 .bq-btn")).every(function(b){return b.disabled;})') === true);
@@ -870,7 +882,7 @@ function checkCrossPartSeam() {
      must be what moves. A forward jump that does not move it leaves the destination's
      loader pointing back here, which bounced the learner to component 01 forever. */
   for (const c of COMPONENTS) {
-    const src = fs.readFileSync(path.join(BASE, PART_DIR(c), 'script.js'), 'utf8');
+    const src = partCode(c);
     ok('seam', c + ': the sessionStorage hopScreen seam is gone',
       !/hopScreen/.test(src));
     ok('seam', c + ': leaveToPart moves the landing pointer',
@@ -1407,13 +1419,13 @@ function checkCssAssets() {
 
     /* script.js builds markup as strings, so its references appear both as HTML
        attributes inside a quoted string and as bare JS literals. */
-    const js = fs.readFileSync(path.join(dir, 'script.js'), 'utf8');
+    const js = partCode(c);
     const jsSrcs = [
       ...[...js.matchAll(/src="((?:\.\.\/)?(?:unit-)?assets\/[^"]+)"/g)].map(m => m[1]),
       ...[...js.matchAll(/'((?:\.\.\/)?(?:unit-)?assets\/[^']+)'/g)].map(m => m[1]),
     ];
 
-    for (const [where, list] of [['index.html', htmlSrcs], ['script.js', jsSrcs]]) {
+    for (const [where, list] of [['index.html', htmlSrcs], ['screen logic', jsSrcs]]) {
       for (const u of [...new Set(list)].filter(u => u && !/^(?:data:|https?:|\/\/)/.test(u))) {
         ok('assets', c + ': ' + where + ' ' + u + ' resolves',
           fs.existsSync(path.resolve(dir, u.split(/[?#]/)[0])), 'looked for ' + u);
@@ -1432,8 +1444,7 @@ function checkCssAssets() {
      path that no longer exists. */
   for (const c of COMPONENTS) {
     const dir = path.join(BASE, PART_DIR(c));
-    const both = fs.readFileSync(path.join(dir, 'index.html'), 'utf8') +
-                 fs.readFileSync(path.join(dir, 'script.js'), 'utf8');
+    const both = fs.readFileSync(path.join(dir, 'index.html'), 'utf8') + partCode(c);
     const bare = [...both.matchAll(/['"]assets\/([a-z]+)\//g)].map(m => m[1]);
     ok('assets', c + ': no bare assets/img/ reference survives the hoist',
       !bare.includes('img'), bare.join(','));
@@ -1534,7 +1545,7 @@ function checkDocLinks() {
 const suites = [
   ['load + shared layer', checkLoadAndSharedLayer],
   ['deploy contract', checkDeployContract],
-  ['the six script.js are twins', checkPartsIdentical],
+  ['each script.js is configuration only', checkConfigOnly],
   ['screen map', checkScreenMap],
   ['metadata', checkMetadata],
   ['question map', checkQuestionMap],
