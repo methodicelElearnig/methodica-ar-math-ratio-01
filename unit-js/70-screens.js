@@ -2560,7 +2560,12 @@ function paintMCQ(sid) {
     var on = q.selected.has(o.dataset.id);
     o.classList.toggle('selected', on);
     o.setAttribute('aria-checked', on ? 'true' : 'false');
-    if (q.attempts && on && !q.correctIds.has(o.dataset.id)) o.classList.add('wrong');
+    /* After a rejected attempt a wrong pick is 'wrong' INSTEAD of 'selected', exactly as
+       mcqMark() left it live (aria-checked stays true: it is still picked). */
+    if (q.attempts && on && !q.correctIds.has(o.dataset.id)) {
+      o.classList.remove('selected');
+      o.classList.add('wrong');
+    }
   });
   if (q.attempts) mcqShowPopup(q, 'retry');
   mcqUpdateBar(q);            /* rule 2: the live button predicate, retry lock included */

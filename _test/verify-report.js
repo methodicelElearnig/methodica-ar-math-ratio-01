@@ -740,6 +740,99 @@ function checkPendingAnswers() {
 }
 
 
+/* ══════════════ 9c. A first wrong attempt looks the same after leaving ══════════════
+   After a first wrong attempt the live engine marks each wrong pick 'wrong' INSTEAD of
+   'selected' (mcqMark / scqCheck's mark), while the right picks stay 'selected'. Until
+   2026-09-23 paintMCQ redrew the wrong picks as 'selected' AND 'wrong', so the screen a
+   learner came back to did not look like the one they left. Swept over every multi-select
+   and single-choice screen: one right and one wrong pick (single choice: one wrong pick),
+   submit once, then compare every option's classes and aria-checked, plus the popup and
+   the button, after back-and-forward and after a reload. */
+
+const RETRY_PROBE = `
+window.__retryPick = function (sid) {
+  if (MCQ[sid]) {
+    var q = MCQ[sid], opts = Array.from(document.querySelectorAll('#' + sid + ' ' + (q.optSelector || '.scq-opt')));
+    var right = opts.filter(function (o) { return q.correctIds.has(o.dataset.id); })[0];
+    var wrong = opts.filter(function (o) { return !q.correctIds.has(o.dataset.id); })[0];
+    if (!right) return false;
+    right.click();
+    if (wrong) wrong.click();                 /* s2 keys every option correct: one alone is wrong */
+    else if (q.correctIds.size < 2) return false;
+  } else {
+    var w = Array.from(document.querySelectorAll('#' + sid + ' .scq-opt'))
+      .filter(function (o) { return o.dataset.id !== SCQ[sid].correctId; })[0];
+    if (!w) return false;
+    w.click();
+  }
+  document.getElementById(sid + '-check').click();
+  return true;
+};
+window.__retryLook = function (sid) {
+  var sel = '#' + sid + ' ' + ((MCQ[sid] && MCQ[sid].optSelector) || '.scq-opt');
+  var chk = document.getElementById(sid + '-check'), pop = document.getElementById(sid + '-popup');
+  return JSON.stringify({
+    opts: Array.from(document.querySelectorAll(sel)).map(function (o) {
+      return o.dataset.id + ':' + ['selected', 'wrong', 'correct'].filter(function (c) { return o.classList.contains(c); }).join('+') +
+        ':' + o.getAttribute('aria-checked') + ':' + (o.disabled ? 'off' : 'on');
+    }),
+    popup: pop ? !pop.classList.contains('hidden') : null,
+    btn: chk ? chk.disabled : null
+  });
+};`;
+
+function checkRetryLook() {
+  let screens = 0;
+  for (const c of COMPONENTS) {
+    const [first, last] = RANGE[c];
+    const probe = loadComponent(c);
+    const sids = [];
+    for (let n = first; n <= last; n++) {
+      if (probe.val('!!document.getElementById("s' + n + '") && !!(MCQ["s' + n + '"] || SCQ["s' + n + '"])')) sids.push(n);
+    }
+    probe.dom.window.close();
+
+    for (const n of sids) {
+      const sid = 's' + n;
+      const { dom, val, exec } = loadComponent(c);
+      exec(RETRY_PROBE);
+      exec('goTo(' + n + ');');
+      const picked = val('__retryPick("' + sid + '")');
+      const attempts = val('(MCQ["' + sid + '"] || SCQ["' + sid + '"]).attempts');
+      const done = val('(MCQ["' + sid + '"] || SCQ["' + sid + '"]).done');
+      if (!picked || attempts !== 1 || done) {
+        ok('retrylook', c + ' ' + sid + ': a first wrong attempt can be staged', false,
+          'picked=' + picked + ' attempts=' + attempts + ' done=' + done);
+        dom.window.close();
+        continue;
+      }
+      screens++;
+      const kind = val('MCQ["' + sid + '"] ? "MCQ" : "SCQ"');
+      const tag = c + ' ' + sid + ' (' + kind + ')';
+      const live = val('__retryLook("' + sid + '")');
+
+      exec('goTo(' + (n - 1) + '); goTo(' + n + ');');
+      const nav = val('__retryLook("' + sid + '")');
+      ok('retrylook', tag + ': after back and forward, the retry screen looks as it did',
+        nav === live, 'live ' + live + '\n      now  ' + nav);
+
+      exec('window.__blob = JSON.parse(JSON.stringify(capturePartPayload()));');
+      const blob = val('JSON.stringify(__blob)');
+      dom.window.close();
+      const r = loadComponent(c);
+      r.exec(RETRY_PROBE);
+      r.exec('applyExecutionState(' + blob + ');');
+      const back = r.val('__retryLook("' + sid + '")');
+      ok('retrylook', tag + ': after a reload, the retry screen looks as it did',
+        back === live, 'live ' + live + '\n      now  ' + back);
+      r.dom.window.close();
+    }
+  }
+  /* 3+1 multi-select + 0 single in 01/02, 1+2 in 03, 2+1 in 05, 1+2 in 06. */
+  ok('retrylook', 'the sweep covered every multi-select and single-choice screen (' + screens + ')',
+    screens === 13, String(screens));
+}
+
 /* ══════════════ 9. Resume round-trips ══════════════ */
 
 function checkResumeRoundTrip() {
@@ -1668,6 +1761,7 @@ const suites = [
   ['painters', checkPainters],
   ['painter dispatch', checkPainterDispatch],
   ['pending answers survive leaving', checkPendingAnswers],
+  ['a first wrong attempt looks the same after leaving', checkRetryLook],
   ['resume round-trips', checkResumeRoundTrip],
   ['cross-part seam', checkCrossPartSeam],
   ['one document per component', checkPerComponentState],

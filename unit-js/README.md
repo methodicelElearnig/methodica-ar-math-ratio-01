@@ -35,7 +35,7 @@ Every part's `index.html` ends with exactly this, in this order:
 <script src="../unit-js/50-loader.js?v=3"></script>
 <script src="../unit-js/60-devbridge.js?v=3"></script>
 <script src="script.js?v=N"></script>              <!-- per-part: CONFIGURATION ONLY -->
-<script src="../unit-js/70-screens.js?v=9"></script> <!-- the screen logic of all six parts -->
+<script src="../unit-js/70-screens.js?v=10"></script> <!-- the screen logic of all six parts -->
 <script src="../unit-js/90-boot.js?v=3"></script>  <!-- the ONLY side effects -->
 ```
 

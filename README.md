@@ -89,7 +89,7 @@ five ways.
   index: `…RATIO.RECOG` resolves to *"התלמיד יזהה מצבים שבהם מופיע יחס (כגון: מתכון,
   מהירות נסיעה)"* — this unit's יעד 1.1 exactly. (The `…RATIO.IDENTIFY` this repo
   carried before the v2.5 migration is **not** a real code; the migration fixed it.)
-- `_test/` — the headless regression oracle (2084 + 63 assertions across two harnesses) plus the
+- `_test/` — the headless regression oracle (2111 + 63 assertions across two harnesses) plus the
   local stand-in for the CDN library. **Not deployed** — the allowlist excludes it twice over, by
   name and by the leading-underscore rule. See its README for what each suite covers, and
   [`Documentation/GITHUB-GH.md`](../../../Documentation/GITHUB-GH.md) for how to run them:
