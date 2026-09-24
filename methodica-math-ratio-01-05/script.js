@@ -2125,7 +2125,7 @@ const SCQ = {
                 'في الوصفة يوجد 4 ملاعق زيت و-16 ملعقة حليب، لذلك النسبة هي <span dir="ltr">4:16</span>. النسبة المختزلة هي <span dir="ltr">1: 4</span>.'] },
   s35: { correctId: 'd', selected: null, attempts: 0, done: false, lastWrong: null, practice: true,
          correctTitle: 'كلّ الاحترام، لقد أصبتم!', wrongTitle: 'هذا خطأ – هيا نفهم لماذا:',
-         body: ['مجموع طولَي الساقين هو 12 سم وطول القاعدة هو 4 سم. لذلك، النسبة هي <span dir="ltr">12: 4</span>، وبعد الاختزال <span dir="ltr">3:1</span>.'] },
+         body: ['مجموع طولَي الساقين هو 12 سم وطول القاعدة هو 4 سم. لذلك، النسبة هي <span dir="ltr">12: 4</span>، وبعد الاختزال<br> <span dir="ltr">3:1</span>.'] },
 };
 function scqSelect(sid, id) {
   const q = SCQ[sid];
