@@ -8,6 +8,26 @@ already exists or `POST` if it doesn't — so it's safe to run more than once.
 The script lives in `docs-and-tools/` and resolves `../metadata` by default, so it is
 run from the repo root.
 
+## This unit: Arabic components inside the existing Hebrew unit
+
+`methodica-ar-math-ratio-01` has **no unit of its own in KATA**. KATA binds a learning
+objective to exactly one unit, so a separate Arabic unit was rejected
+(`409 "objective already bound to a unit (strict 1:1)"`, 2026-09-24), and the KATA team's
+instruction is to add the Arabic components to the existing unit.
+
+So the script runs in **parent-unit mode** by default: `$ParentUnitKey =
+'methodica-math-ratio-01'` (the Hebrew unit; override with `-ParentUnitKey`).
+
+- The parent unit is **read-only**: one `GET` confirms it exists, then the 6 components
+  and 18 items are created under `/api/v1/content-units/methodica-math-ratio-01/components`.
+  No `POST` / `PATCH` ever goes to the unit — a `PATCH` would overwrite the Hebrew unit's
+  title, sectors and audience.
+- `metadata/methodica-ar-math-ratio-01_unit.json` is **not read or sent**; it stays in the
+  repo as a record of the unit's own metadata.
+- A clean dry run reports `created=24 updated=1 failed=0` (6 components + 18 items, plus
+  the `LINKED` line for `-03`'s `recommendedAfterFail`).
+- `-ParentUnitKey ''` restores the original behaviour (upsert this repo's `*_unit.json`).
+
 ## Requirements
 
 - **PowerShell 7+** (`pwsh`). The script declares `#Requires -Version 7.0` and will
