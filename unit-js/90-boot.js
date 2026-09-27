@@ -40,6 +40,7 @@
   initFeedbackDrag();
   initDevBridge();
   initResumeLeaveHandlers();
+  initResumeFieldSaves();      // O-2: typing into a resumable field saves, not only a screen change
 
   /* Optional per-part hook: anything only one component needs (character preloads, keydown
      wiring for cards it alone has, a first resetScreenState). Defined in that script.js. */

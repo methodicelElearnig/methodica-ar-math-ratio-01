@@ -266,21 +266,26 @@ function noDuplicateCompleted() {
     items.length === 3, 'closed ' + items.length + ': ' + items.join(','));
 
   /* Now walk BACKWARDS over the same screens. Every item is re-entered, so
-     'initialized' fires again — v2.4 requires that — but no 'completed' may. */
+     'initialized' fires again — v2.4 requires that — but no 'completed' may: since O-1
+     (QA/2026-09-27) an item closes only when the learner leaves it FORWARD, so the last
+     item, which the forward walk entered but never left, stays open on the way back. */
   for (let n = 12; n >= 0; n--) b.exec('_goToCore(' + n + ');');
-  const all = b.stmts().filter(s => s.verb === 'completed').map(s => s.opts.objectId);
+  const afterBack = b.stmts().filter(s => s.verb === 'completed').map(s => s.opts.objectId);
+  eq('dupes', 'O-1: the backward walk closes nothing, not even the item it stepped back out of',
+    afterBack.length, items.length);
 
-  /* Not "zero completed on the way back": the forward walk stopped INSIDE the last
-     item without crossing out of it, so that one item is still open and the backward
-     walk closes it — once, legitimately. The invariant is that no item is EVER closed
-     twice, which is what the stub's __dupes() reports (as a list of duplicate keys).*/
-  eq('dupes', 'no item is ever closed twice, forward walk plus backward walk',
+  /* Forward again, then the component's end: the three closed items are not re-closed,
+     and the last one closes exactly once — at xapiFinishItems, where it belongs. */
+  for (let n = 0; n <= 12; n++) b.exec('_goToCore(' + n + ');');
+  b.exec('xapiFinishItems();');
+  const all = b.stmts().filter(s => s.verb === 'completed').map(s => s.opts.objectId);
+  /* The invariant is that no item is EVER closed twice, which is what the stub's
+     __dupes() reports (as a list of duplicate keys). */
+  eq('dupes', 'no item is ever closed twice, forward + backward + forward walk',
     b.val('JSON.stringify(window.__dupes())'), '[]');
-  eq('dupes', 'each item was closed exactly once across both walks',
+  eq('dupes', 'each item was closed exactly once across all three walks',
     all.length, new Set(all).size);
-  /* All four: the forward walk closed three and left the last open, and the backward
-     walk closed that one. Every item of the component is therefore reported exactly
-     once by the end, which is the property that matters to the LRS. */
+  /* All four by the end — which is the property that matters to the LRS. */
   ok('dupes', 'every one of the four items has been closed, exactly once',
     new Set(all).size === 4, 'closed ' + new Set(all).size);
 
@@ -706,6 +711,72 @@ function b1UnansweredItemKeepsCompleted() {
 }
 
 
+/* ══════════════ 9. O-1 and O-2 (QA/2026-09-27/REPORT.md) ══════════════
+   O-1: live, Back from s5 to s4 in component 01 reported item 003 (the ungraded worked
+   example, s5–s11) completed after one of its seven screens. An item now closes only when
+   the learner leaves it FORWARD, or at the component's end.
+   O-2: live, the three class-task boxes on 04 s31 were typed and the page reloaded a second
+   later; with no screen change nothing had been saved and the boxes came back empty. Typing
+   into a resumable field now schedules the same debounced save a screen change does. */
+
+function o1BackDoesNotCloseAndO2TypingSaves() {
+  /* ── O-1: the live replay on 01 ── */
+  const b = boot('01');
+  b.finishBoot();
+  b.exec(MARK_ANSWERED);
+  for (let n = 0; n <= 5; n++) b.exec('_goToCore(' + n + ');');
+  eq('O-1', '01: on s5 the open item is 003', b.val('xapiCurrentItem'), '003');
+  const before = ITEM_COMPLETED(b, '003').length;
+  b.exec('goTo(4);');
+  eq('O-1', '01: Back from s5 to s4 sends no completed for 003', ITEM_COMPLETED(b, '003').length - before, 0);
+  ok('O-1', '01: and leaves 003 unrecorded in the ledger',
+    b.val('alreadySent("doneItems", itemLedgerKey("003"))') === false);
+  ok('O-1', '01: Back into 002 re-opens it (initialized, as v2.4 requires)',
+    b.stmts().filter(s => s.verb === 'initialized' && s.opts && /-002\/$/.test(s.opts.objectId)).length >= 2);
+  eq('O-1', '01: and does not close 002 again', ITEM_COMPLETED(b, '002').length, 1);
+  for (let n = 4; n <= 12; n++) b.exec('_goToCore(' + n + ');');
+  eq('O-1', '01: walking forward past 003 closes it exactly once', ITEM_COMPLETED(b, '003').length, 1);
+  eq('O-1', '01: nothing is ever closed twice', b.val('JSON.stringify(window.__dupes())'), '[]');
+  b.dom.window.close();
+
+  /* A forward move that SKIPS an item (not possible for a learner, but goTo allows it) still
+     closes the item being left: only a lower-numbered destination counts as Back. */
+  const f = boot('01');
+  f.finishBoot();
+  f.exec(MARK_ANSWERED + ' _goToCore(2); _goToCore(12);');
+  eq('O-1', '01: a forward jump still closes the item left', ITEM_COMPLETED(f, '002').length, 1);
+  f.dom.window.close();
+
+  /* ── O-2: typing on 04 s31 saves, without a screen change ── */
+  const t = boot('04');
+  t.finishBoot();
+  t.exec('goTo(31);');
+  t.exec('window.__saves = []; var _orig = window.saveState720Debounced;' +
+    ' window.saveState720Debounced = function (id, doc) { window.__saves.push(JSON.parse(JSON.stringify(doc))); return _orig.apply(this, arguments); };');
+  t.exec('["2","3","5"].forEach(function (v, i) { var e = document.getElementById("s32-in-" + i); e.value = v; e.dispatchEvent(new Event("input", { bubbles: true })); });');
+  const saves = JSON.parse(t.val('JSON.stringify(window.__saves)'));
+  ok('O-2', '04: typing into the s31 boxes schedules a save without a screen change', saves.length >= 1, String(saves.length));
+  const last = saves[saves.length - 1];
+  const inputs = last && last.payload && last.payload.inputs;
+  ok('O-2', '04: the last scheduled save carries all three typed values',
+    !!inputs && inputs['s32-in-0'] === '2' && inputs['s32-in-1'] === '3' && inputs['s32-in-2'] === '5', JSON.stringify(inputs));
+  t.exec('window.__saves = []; var e = document.createElement("input"); e.id = "not-a-resume-field"; document.body.appendChild(e);' +
+    ' e.value = "x"; e.dispatchEvent(new Event("input", { bubbles: true }));');
+  eq('O-2', '04: typing into a field that is not resumable schedules nothing', t.val('window.__saves.length'), 0);
+  t.dom.window.close();
+
+  /* The reload, from exactly that saved document: the values come back and continue is live. */
+  const r = boot('04', { keepState: true });
+  r.exec('window.__reset(); window.__setState(' + JSON.stringify(last) + ');');
+  r.finishBoot(last.payload);
+  eq('O-2', '04: the reload lands on s31', r.val('currentScreen'), 31);
+  eq('O-2', '04: the three values are restored',
+    r.val('[0,1,2].map(function (i) { return document.getElementById("s32-in-" + i).value; }).join(",")'), '2,3,5');
+  eq('O-2', '04: and continue is enabled', r.val('document.getElementById("s31-continue").disabled'), false);
+  r.dom.window.close();
+}
+
+
 /* ══════════════ run ══════════════ */
 
 const suites = [
@@ -718,6 +789,7 @@ const suites = [
   ['resume emits nothing extra', resumeEmitsNothingExtra],
   ['off-platform gate', offPlatformSendsNothing],
   ['B-1: leaving an unanswered item keeps its completed', b1UnansweredItemKeepsCompleted],
+  ['O-1: Back closes nothing; O-2: typing saves', o1BackDoesNotCloseAndO2TypingSaves],
 ];
 
 for (const [name, fn] of suites) {

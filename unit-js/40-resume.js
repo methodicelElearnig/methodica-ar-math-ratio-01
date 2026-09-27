@@ -574,6 +574,27 @@ function flushResumeSaveOnLeave() {
   flushResumeSave();
 }
 
+/* ── O-2 (live Kata run 2026-09-27, QA/2026-09-27/REPORT.md) ──
+   Typing into a resumable field saves too, not only a screen change. Live: the three class-task
+   boxes on 04 s31 were typed and the page reloaded about a second later; nothing had been saved
+   (no screen change), the leave-page flush — an async request — was cancelled by the reload, and
+   the boxes came back empty. The fields are already in the payload (RESUME_INPUT_IDS /
+   RESUME_TEXT_IDS, 70-screens.js); this only gives them a save trigger. Debounced and
+   restore-guarded through scheduleResumeSave, exactly like the screen-change save. */
+function initResumeFieldSaves() {
+  var ids = {};
+  [typeof RESUME_INPUT_IDS !== 'undefined' ? RESUME_INPUT_IDS : [],
+   typeof RESUME_TEXT_IDS  !== 'undefined' ? RESUME_TEXT_IDS  : []].forEach(function (list) {
+    list.forEach(function (id) { ids[id] = true; });
+  });
+  var onEdit = function (e) {
+    var t = e && e.target;
+    if (t && t.id && ids[t.id]) scheduleResumeSave();
+  };
+  document.addEventListener('input', onEdit, true);
+  document.addEventListener('change', onEdit, true);
+}
+
 /* Registered from ../unit-js/90-boot.js. */
 function initResumeLeaveHandlers() {
   window.addEventListener('beforeunload', flushResumeSaveOnLeave);

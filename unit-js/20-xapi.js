@@ -138,14 +138,26 @@ function _xapiCloseItem(item) {
   try { sendCompletedOnce('doneItems', itemLedgerKey(item), 'question', xapiItemResult(item), { objectId: xapiItemId(item), expectsAnswer: _xapiIsEval(item) }); } catch (e) {}
 }
 
+/* ── O-1 (live Kata run 2026-09-27, QA/2026-09-27/REPORT.md) ──
+   An item is completed when the learner leaves it FORWARD, into a later item — or at the
+   component's end (xapiFinishItems). Going Back into an earlier item re-opens that one
+   ('initialized', as v2.4 requires on re-entry) but closes nothing: live, Back from s5 to s4 in
+   component 01 reported item 003 completed after one of its seven screens. The item stepped
+   back from stays open and closes when the learner passes it forward again; screens are gated in
+   order, so every item is passed forward before the component can finish. Items are numbered
+   '001', '002', … in screen order, so "earlier" is a numeric comparison. */
+function _xapiIsBackward(fromItem, toItem) {
+  return !!(fromItem && toItem && Number(toItem) < Number(fromItem));
+}
+
 /* Item-level initialized/completed pairs, driven from goTo(). Paging inside one item emits
-   nothing; the item closes when the learner enters a screen belonging to a different item. */
+   nothing; the item closes when the learner moves forward into a screen of a later item. */
 function xapiOnScreen(screen){
   if (!window.XAPI_USING_G || typeof sendStatement720 !== 'function') return;
   var map = (typeof SCREEN_TO_SUBCONTENT !== 'undefined') ? SCREEN_TO_SUBCONTENT[screen] : null;
   var item = map ? map[0] : null;
   if (item === xapiCurrentItem) return;
-  if (xapiCurrentItem) _xapiCloseItem(xapiCurrentItem);
+  if (xapiCurrentItem && !_xapiIsBackward(xapiCurrentItem, item)) _xapiCloseItem(xapiCurrentItem);
   xapiCurrentItem = item;
   if (item) {
     try { sendStatement720('initialized', 'question', null, { objectId: xapiItemId(item), isEvaluationItem: _xapiIsEval(item) }); } catch (e) {}
