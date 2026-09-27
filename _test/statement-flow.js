@@ -607,6 +607,105 @@ function offPlatformSendsNothing() {
 }
 
 
+/* ══════════════ 8. B-1: leaving an unanswered item keeps its completed ══════════════
+   Live Kata run 2026-09-27 (QA/2026-09-27/REPORT.md), component 02: after a reload onto s17
+   (item 003, not yet answered in THIS page load) the learner pressed Back to s16 and went on.
+   Leaving 003 called sendCompletedOnce; xapi-720-k.js dropped the 'completed' (its "deferring"
+   is a return: no queue, no retry) while the doneItems ledger still recorded it as sent — so the
+   real, scored 'completed', after the learner answered 003 and finished, never went out.
+   The stub models the drop, so the live path replays here exactly. Port of the mass-weight-01
+   fix 5ad764d: the close asks the library's question first and, when the library would drop
+   the statement, sends nothing and leaves the ledger untouched. */
+
+const ITEM_COMPLETED = (b, item) => b.stmts().filter(s => s.verb === 'completed' &&
+  s.objectType === 'question' && s.opts && /-(\d{3})\/$/.test(s.opts.objectId) &&
+  s.opts.objectId.replace(/\/$/, '').split('-').pop() === item);
+
+function b1UnansweredItemKeepsCompleted() {
+  /* ── the live replay, component 02 ── */
+  const b = boot('02');
+  b.finishBoot();
+  b.exec('goTo(14);' +
+    ' ["b","a","c","c"].forEach(function (v, i) { var e = document.getElementById("s14-sel-" + i); e.value = v; e.dispatchEvent(new Event("change", { bubbles: true })); });' +
+    ' s14Check(); goTo(15); s15Toggle("a"); s15Toggle("b"); s15Check(); goTo(16);' +
+    ' [40, 30, 10, 100].forEach(function (v, i) { var e = document.getElementById("s16-in-" + i); e.value = v; e.dispatchEvent(new Event("input", { bubbles: true })); });' +
+    ' s16Check(); goTo(17);');
+  ok('B-1', '02: s14-s16 answered through the real handlers',
+    b.val('!!(s14Done && s16Done && MCQ.s15.done)') === true);
+  const payload = JSON.parse(b.val('JSON.stringify(capturePartPayload())'));
+  const dumped = b.state();
+  b.dom.window.close();
+
+  /* A fresh page load onto s17: the library's per-load answered memory is empty for 003. */
+  const r = boot('02', { keepState: true });
+  r.exec('window.__reset(); window.__setState(' + JSON.stringify(dumped) + ');');
+  r.finishBoot(payload);
+  eq('B-1', '02: the reload lands on s17 (item 003)', r.val('currentScreen'), 17);
+  r.exec('goTo(16); goTo(17);');
+  eq('B-1', '02: Back through unanswered 003 sends no completed for it', ITEM_COMPLETED(r, '003').length, 0);
+  ok('B-1', '02: and leaves the ledger clean for 003',
+    r.val('alreadySent("doneItems", itemLedgerKey("003"))') === false);
+
+  /* Now answer 003 (s17, s18) and s19, and finish through the real exit. */
+  r.exec('["s17","s18"].forEach(function (sid) { goTo(Number(sid.slice(1))); var st = BQ[sid];' +
+    ' Object.keys(st.target).forEach(function (k) { var d = st.target[k] - st[k]; for (var i = 0; i < Math.abs(d); i++) bqAdd(sid, k, d > 0 ? 1 : -1); });' +
+    ' bqCheck(sid); }); goTo(19); s19qSelect(S19Q.correctId); s19qCheck(); goTo(PART_LAST + 1);');
+  const c3 = ITEM_COMPLETED(r, '003');
+  eq('B-1', '02: after answering, 003 is completed exactly once', c3.length, 1);
+  ok('B-1', '02: carrying its result', !!(c3[0] && c3[0].result && typeof c3[0].result.success === 'boolean'),
+    JSON.stringify(c3[0] && c3[0].result));
+  const order = r.stmts().filter(s => s.verb === 'completed').map(s => s.objectType);
+  ok('B-1', '02: the item completed goes out before the component completed',
+    order.indexOf('question') !== -1 && order.lastIndexOf('question') < order.indexOf('onlinelesson'), order.join(','));
+  r.dom.window.close();
+
+  /* ── every component with evaluated items: the guard itself ── */
+  for (const c of ['01', '02', '03', '04', '05', '06']) {
+    const g = boot(c);
+    g.finishBoot();
+    const E = g.val('Object.keys(XAPI_EVAL_ITEMS)[0] || ""');
+    if (!E) { g.dom.window.close(); continue; }
+    const sE = g.val('(function(){ for (var n = PART_FIRST; n <= PART_LAST; n++) { var m = SCREEN_TO_SUBCONTENT[n]; if (m && m[0] === ' + JSON.stringify(E) + ') return n; } return -1; })()');
+    const sO = g.val('(function(){ for (var n = PART_FIRST; n <= PART_LAST; n++) { var m = SCREEN_TO_SUBCONTENT[n]; if (!m || m[0] !== ' + JSON.stringify(E) + ') return n; } return -1; })()');
+    const tag = c + ' item ' + E;
+    /* Start with nothing open and the library's memory empty. */
+    g.exec('window.xapiItemAnswered = {}; xapiCurrentItem = null; window.__reset();');
+
+    g.exec('_goToCore(' + sE + '); xapiFinishItems();');
+    ok('B-1', tag + ': xapiFinishItems on it unanswered sends nothing, leaves the ledger clean, clears the open item',
+      ITEM_COMPLETED(g, E).length === 0 && g.val('alreadySent("doneItems", itemLedgerKey(' + JSON.stringify(E) + '))') === false &&
+      g.val('xapiCurrentItem === null') === true);
+    /* A single-item component (06: every screen is item 001) has no other item to leave to —
+       its only close is xapiFinishItems, checked above. */
+    if (sO < 0) { g.dom.window.close(); continue; }
+
+    g.exec('_goToCore(' + sE + '); _goToCore(' + sO + ');');
+    ok('B-1', tag + ': leaving it unanswered sends no completed and leaves the ledger clean',
+      ITEM_COMPLETED(g, E).length === 0 && g.val('alreadySent("doneItems", itemLedgerKey(' + JSON.stringify(E) + '))') === false);
+
+    g.exec('_goToCore(' + sE + '); window.xapiItemAnswered[xapiItemId(' + JSON.stringify(E) + ')] = true; _goToCore(' + sO + ');');
+    ok('B-1', tag + ': once answered, leaving sends its completed once and marks the ledger',
+      ITEM_COMPLETED(g, E).length === 1 && g.val('alreadySent("doneItems", itemLedgerKey(' + JSON.stringify(E) + '))') === true,
+      String(ITEM_COMPLETED(g, E).length));
+    g.dom.window.close();
+
+    /* Fallback: with the library's map unreachable, the recorded answers decide. The close is
+       observed at sendCompletedOnce, because the stub's own gate reads the same map. */
+    const f = boot(c);
+    f.finishBoot();
+    const fb = JSON.parse(f.val('(function(){ var E = ' + JSON.stringify(E) + ', n = 0, orig = window.sendCompletedOnce;' +
+      ' window.sendCompletedOnce = function (ledger, key) { if (ledger === "doneItems" && key === itemLedgerKey(E)) n++; };' +
+      ' delete window.xapiItemAnswered; Object.keys(XAPI_Q_RESULTS).forEach(function (k) { delete XAPI_Q_RESULTS[k]; }); xapiCurrentItem = null;' +
+      ' _goToCore(' + sE + '); _goToCore(' + sO + '); var out = { unanswered: n };' +
+      ' XAPI_Q_RESULTS[E + "/q1"] = false; _goToCore(' + sE + '); _goToCore(' + sO + '); out.answered = n - out.unanswered;' +
+      ' window.sendCompletedOnce = orig; return JSON.stringify(out); })()'));
+    ok('B-1', tag + ': without the library map, XAPI_Q_RESULTS decides (drop unanswered, send answered, even wrong)',
+      fb.unanswered === 0 && fb.answered === 1, JSON.stringify(fb));
+    f.dom.window.close();
+  }
+}
+
+
 /* ══════════════ run ══════════════ */
 
 const suites = [
@@ -618,6 +717,7 @@ const suites = [
   ['D-8: a finished component stays finished after a resume', endedButtonAfterResume],
   ['resume emits nothing extra', resumeEmitsNothingExtra],
   ['off-platform gate', offPlatformSendsNothing],
+  ['B-1: leaving an unanswered item keeps its completed', b1UnansweredItemKeepsCompleted],
 ];
 
 for (const [name, fn] of suites) {

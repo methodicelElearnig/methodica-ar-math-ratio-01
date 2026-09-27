@@ -117,6 +117,27 @@ function xapiSeedAnsweredFromResume(){
   });
 }
 
+/* ── B-1 (live Kata run 2026-09-27, QA/2026-09-27/REPORT.md) ──
+   The library DROPS an evaluated item's 'completed' when that item has no 'answered' in this page
+   load (the "deferring" return quoted above — no queue, no retry). sendStatementOnce cannot see
+   that: it marks the ledger anyway, and the real, scored 'completed' — after the learner comes
+   back and answers — is then suppressed forever. Live: component 02, a reload onto s17 (item 003)
+   then Back to s16 before answering; Kata never received 003's 'completed'.
+   So the close asks the library's own question first and, when the library would drop the
+   statement, sends nothing and leaves the ledger untouched. Fallback when the map is unreachable:
+   an answer recorded in XAPI_Q_RESULTS (restored by resume, same predicate as the seed above).
+   Port of methodica-science-mass-weight-01 5ad764d. */
+function _xapiLibWouldDrop(item) {
+  if (!_xapiIsEval(item)) return false;
+  var m = window.xapiItemAnswered;
+  if (m) return !m[xapiItemId(item)];
+  return !Object.keys(XAPI_Q_RESULTS).some(function (k) { return k.split('/')[0] === item; });
+}
+function _xapiCloseItem(item) {
+  if (_xapiLibWouldDrop(item)) return;
+  try { sendCompletedOnce('doneItems', itemLedgerKey(item), 'question', xapiItemResult(item), { objectId: xapiItemId(item), expectsAnswer: _xapiIsEval(item) }); } catch (e) {}
+}
+
 /* Item-level initialized/completed pairs, driven from goTo(). Paging inside one item emits
    nothing; the item closes when the learner enters a screen belonging to a different item. */
 function xapiOnScreen(screen){
@@ -124,9 +145,7 @@ function xapiOnScreen(screen){
   var map = (typeof SCREEN_TO_SUBCONTENT !== 'undefined') ? SCREEN_TO_SUBCONTENT[screen] : null;
   var item = map ? map[0] : null;
   if (item === xapiCurrentItem) return;
-  if (xapiCurrentItem) {
-    try { sendCompletedOnce('doneItems', itemLedgerKey(xapiCurrentItem), 'question', xapiItemResult(xapiCurrentItem), { objectId: xapiItemId(xapiCurrentItem), expectsAnswer: _xapiIsEval(xapiCurrentItem) }); } catch (e) {}
-  }
+  if (xapiCurrentItem) _xapiCloseItem(xapiCurrentItem);
   xapiCurrentItem = item;
   if (item) {
     try { sendStatement720('initialized', 'question', null, { objectId: xapiItemId(item), isEvaluationItem: _xapiIsEval(item) }); } catch (e) {}
@@ -137,7 +156,7 @@ function xapiOnScreen(screen){
 function xapiFinishItems(){
   if (!window.XAPI_USING_G || typeof sendStatement720 !== 'function') return;
   if (xapiCurrentItem) {
-    try { sendCompletedOnce('doneItems', itemLedgerKey(xapiCurrentItem), 'question', xapiItemResult(xapiCurrentItem), { objectId: xapiItemId(xapiCurrentItem), expectsAnswer: _xapiIsEval(xapiCurrentItem) }); } catch (e) {}
+    _xapiCloseItem(xapiCurrentItem);
     /* Cleared whether or not the statement was suppressed: a latch left set would make the next
        xapiOnScreen try to close the same item all over again. */
     xapiCurrentItem = null;
