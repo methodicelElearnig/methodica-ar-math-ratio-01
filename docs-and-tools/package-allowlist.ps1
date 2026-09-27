@@ -31,6 +31,11 @@
     'methodica-math-*-[0-9][0-9]' does not match — so every component file was silently
     excluded (0 of 22 shipped) while build and verify, reading the same rule, both passed.
     The widened glob matches the Hebrew folder names too, so it is safe to carry back.
+
+    It also ships NO root files (2026-09-27). The root index.html only redirects to the
+    folder URL ./methodica-ar-math-ratio-01-01/, which this CDN serves as 0 bytes, and KATA
+    launches every component by its explicit .../index.html — so it was dead weight. It
+    stays in the repo for local browsing.
 #>
 
 # ── Directories that never contribute a single file, whatever is inside them ──
@@ -47,7 +52,7 @@ $ExcludeExt = @('.ps1', '.log')
 $ExcludeUnderscoreSegment = $true
 
 # ── What each shipped area contributes ──
-$RootFiles = @('index.html')             # the redirect into component 01
+$RootFiles = @()                         # none — the root index.html is not deployed (see .NOTES)
 
 $UnitDirs = @{
     'metadata'    = '*.json'             # unit + per-component catalogue records

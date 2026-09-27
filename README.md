@@ -31,7 +31,9 @@ Screen 45 (the unit finale) has no slide of its own; it belongs to רכיב 6.
 
 ## Layout
 
-- `index.html` — redirects to component 01.
+- `index.html` — redirects to component 01, for local browsing only. **Not deployed**
+  (2026-09-27): it redirects to a folder URL, which the CDN serves as 0 bytes, and KATA
+  launches each component by its explicit `…/index.html`.
 - `methodica-ar-math-ratio-01-01 … -06/` — six standalone component apps
   (`index.html` + `script.js` + `index_dev.html`). `script.js` is that component's
   **configuration only** (about 180–200 lines: screen range, ids, maps, scoring); the screen
