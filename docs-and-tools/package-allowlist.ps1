@@ -25,6 +25,12 @@
     shared assets were hoisted on 2026-09-07, so this file is identical in both
     repos. Keep it that way — if the two units ever diverge structurally, change the
     RULES below rather than forking the file.
+
+    ⚠️ methodica-ar-math-ratio-01 (the Arabic unit) DEVIATES in one rule: $ComponentGlob.
+    Its component folders are methodica-ar-math-ratio-01-0N, which the original
+    'methodica-math-*-[0-9][0-9]' does not match — so every component file was silently
+    excluded (0 of 22 shipped) while build and verify, reading the same rule, both passed.
+    The widened glob matches the Hebrew folder names too, so it is safe to carry back.
 #>
 
 # ── Directories that never contribute a single file, whatever is inside them ──
@@ -52,7 +58,7 @@ $UnitDirs = @{
 
 # Inside a component folder: these files, plus everything under assets/.
 $ComponentFiles = @('index.html', 'script.js', 'styles.css')
-$ComponentGlob  = 'methodica-math-*-[0-9][0-9]'
+$ComponentGlob  = 'methodica-*-[0-9][0-9]'   # methodica-math-… and methodica-ar-math-… (see .NOTES)
 
 # ── Hygiene: if any of these turn up INSIDE a package, it is unsafe to upload ──
 $SecretPatterns = @('*key*', '*.ps1', '*.log', 'index_dev.html', 'README.md', '.git*', '_*')
