@@ -777,6 +777,16 @@ function o1BackDoesNotCloseAndO2TypingSaves() {
 }
 
 
+/* ══════════════ F-2 (QA 2026-10-02): a fraction answer keeps its slash ══════════════
+   01 s3 option a carries <span class="frac"><span class="frac-num">2</span><span class="frac-den">3</span></span>;
+   the bar is a CSS border, so the reported text read "23". */
+function f2FractionText() {
+  const b = boot('01');
+  const t = b.val('xapiAnswerText(document.querySelector(\'#s3 .scq-opt[data-id="a"]\'))');
+  ok('F-2', '01 s3 option a is reported with 2/3, not 23', typeof t === 'string' && t.indexOf('2/3') !== -1 && t.indexOf('23') === -1, t);
+  b.dom.window.close();
+}
+
 /* ══════════════ run ══════════════ */
 
 const suites = [
@@ -790,6 +800,7 @@ const suites = [
   ['off-platform gate', offPlatformSendsNothing],
   ['B-1: leaving an unanswered item keeps its completed', b1UnansweredItemKeepsCompleted],
   ['O-1: Back closes nothing; O-2: typing saves', o1BackDoesNotCloseAndO2TypingSaves],
+  ['F-2: a fraction answer keeps its slash', f2FractionText],
 ];
 
 for (const [name, fn] of suites) {
