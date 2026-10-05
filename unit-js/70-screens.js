@@ -266,7 +266,7 @@ function resetScreenState(n) {
   }
   // part-02+ screens
   const CHAR_SCREENS = { 20: 's20-char', 21: 's21-char', 26: 's26-char', 30: 's30-char',
-                         31: 's31-char', 33: 's33-char', 22: 's22-char', 45: 's45-char' };
+                         31: 's31-char', 32: 's32-char', 33: 's33-char', 22: 's22-char', 45: 's45-char' };
   if (CHAR_SCREENS[n]) {
     const img = document.getElementById(CHAR_SCREENS[n]);
     if (img) img.src = characterAsset('selection');
@@ -277,7 +277,7 @@ function resetScreenState(n) {
   }
   if (n === 24) bqEnter('s24');
   if (n === 25) bqEnter('s25');
-  if (n === 31 || n === 32) s32Sync();
+  if (n === 31 || n === 32) { placeClassTaskCard(n); s32Sync(); }
   const HINT_DONE2 = { s21: () => s21Done, s22: () => s22Done, s23: () => SCQ.s23.done,
                        s24: () => BQ.s24.done, s25: () => BQ.s25.done, s27: () => SCQ.s27.done,
                        s28: () => s28Done, s29: () => MCQ.s29.done, s34: () => MCQ.s34.done,
@@ -318,7 +318,6 @@ function advanceScreen() {
   if (currentScreen === 28 && !s28Done) return;
   if (currentScreen === 29 && !MCQ.s29.done) return;
   if (currentScreen === 31 && document.getElementById('s31-continue')?.disabled) return;
-  if (currentScreen === 32 && document.getElementById('s32-continue')?.disabled) return;
   if (currentScreen === 34 && !MCQ.s34.done) return;
   if (currentScreen === 35 && !SCQ.s35.done) return;
   if (currentScreen === 36 && !MCQ.s36.done) return;
@@ -2184,28 +2183,27 @@ function s34Check() { mcq2Check('s34'); }
 function s36Check() { mcq2Check('s36'); }
 
 /* ═══════════════════════════════════════════════════════════
-   S32 (slide 51) — class task: type the three ratios. The character
-   + bubble appear once all three are filled, then continue unlocks.
+   S31/S32 (slides 51-52) — class task. The three ratio boxes are typed on
+   screen 31 (as of 03.09) and its continue unlocks once all three are filled.
    ═══════════════════════════════════════════════════════════ */
 function s32Sync() {
-  /* the three boxes live on screen 31 as of 03.09 — both screens gate on them,
-     and the ids stay `s32-in-*` so nothing else has to move */
+  /* the ids stay `s32-in-*` so resume and reporting don't have to move */
   const filled = [0, 1, 2].every(i => {
     const el = document.getElementById('s32-in-' + i);
     return el && el.value.trim() !== '';
   });
-  const grp = document.getElementById('s32-char-group');
-  if (grp) {
-    grp.classList.toggle('hidden', !filled);
-    if (filled) {
-      const img = document.getElementById('s32-char');
-      if (img && !img.getAttribute('src')) img.src = characterAsset('selection');
-    }
-  }
-  const cont = document.getElementById('s32-continue');
-  if (cont) cont.disabled = !filled;
   const c31 = document.getElementById('s31-continue');
   if (c31) c31.disabled = !filled;
+}
+/* 05.10, MOE tester: screen 32 showed only its title. The task card is one node
+   shared by screens 31 and 32 — it moves to whichever is entered, and on 32 it only
+   shows what was typed on 31 (read-only; continue is always active there). */
+function placeClassTaskCard(n) {
+  const card = document.getElementById('class-task-card');
+  const host = document.querySelector('#s' + n + ' .s18-question');
+  if (!card || !host) return;
+  if (card.parentNode !== host) host.appendChild(card);
+  card.querySelectorAll('.task-input').forEach(el => { el.readOnly = (n === 32); });
 }
 function s32OnInput() { s32Sync(); }
 

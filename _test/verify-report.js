@@ -1014,23 +1014,44 @@ function checkResumeRoundTrip() {
     dom.window.close();
   }
 
-  /* ── the class task: free text with no answer key (component 04) ── */
+  /* ── the class task: free text with no answer key (component 04) ──
+     The three boxes are typed on s31 and gate its continue. 05.10 (MOE tester: s32
+     showed only its title): the same card moves onto s32, read-only, and s32's
+     continue is always active. */
   {
     const { dom, val, exec } = loadComponent('04');
-    exec('goTo(32);' +
-      '["0","1","2"].forEach(function(i){ document.getElementById("s32-in-"+i).value = "יחס " + i; });' +
+    exec('goTo(31);');
+    ok('resume', '04 s31: the empty fields lock continue',
+      val('document.getElementById("s31-continue").disabled') === true);
+    ok('resume', '04 s31: the card sits on s31, editable',
+      val('document.getElementById("class-task-card").closest(".screen").id') === 's31' &&
+      val('document.getElementById("s32-in-0").readOnly') === false);
+    exec('["0","1","2"].forEach(function(i){ document.getElementById("s32-in-"+i).value = "יחס " + i; });' +
       's32Sync();');
-    ok('resume', '04 s32: filling the three fields unlocks continue',
+    ok('resume', '04 s31: filling the three fields unlocks continue',
+      val('document.getElementById("s31-continue").disabled') === false);
+    exec('goTo(32);');
+    ok('resume', '04 s32: the card moves onto s32 with the typed text',
+      val('document.getElementById("class-task-card").closest(".screen").id') === 's32' &&
+      val('document.getElementById("s32-in-2").value') === 'יחס 2');
+    ok('resume', '04 s32: the fields are read-only there',
+      val('[0,1,2].every(function(i){ return document.getElementById("s32-in-"+i).readOnly; })') === true);
+    ok('resume', '04 s32: the character shows and continue is active',
+      val('document.getElementById("s32-char-group").classList.contains("hidden")') === false &&
       val('document.getElementById("s32-continue").disabled') === false);
+    exec('goTo(31);');
+    ok('resume', '04 s31: back from s32 brings the card back, editable again',
+      val('document.getElementById("class-task-card").closest(".screen").id') === 's31' &&
+      val('document.getElementById("s32-in-0").readOnly') === false);
     exec('window.__blob = JSON.parse(JSON.stringify(capturePartPayload()));');
     exec('["0","1","2"].forEach(function(i){ document.getElementById("s32-in-"+i).value = ""; }); s32Sync();');
-    ok('resume', '04 s32: clearing them locks it again',
-      val('document.getElementById("s32-continue").disabled') === true);
-    exec('applyResumeDom(__blob); resetScreenState(32);');
-    ok('resume', '04 s32: the typed text comes back verbatim',
+    ok('resume', '04 s31: clearing them locks it again',
+      val('document.getElementById("s31-continue").disabled') === true);
+    exec('applyResumeDom(__blob); restoreScreenUI(31);');
+    ok('resume', '04 s31: the typed text comes back verbatim',
       val('document.getElementById("s32-in-1").value') === 'יחס 1');
-    ok('resume', '04 s32: and continue is live again',
-      val('document.getElementById("s32-continue").disabled') === false);
+    ok('resume', '04 s31: and continue is live again',
+      val('document.getElementById("s31-continue").disabled') === false);
     dom.window.close();
   }
 
