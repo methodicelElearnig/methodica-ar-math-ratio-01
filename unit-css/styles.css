@@ -1566,7 +1566,10 @@ html, body {
   border: 1.5px solid rgba(174, 174, 174, 0.6); border-radius: 12px;
   background: #fff;
   font-family: 'Assistant', sans-serif; font-size: 22px; color: #303030;
-  direction: rtl;
+  /* 05.10: no `direction` here — it would override the inputs' dir="auto", and in an
+     RTL box `3 : 2` displays as `2 : 3`. dir="auto" keeps a ratio LTR and a sentence
+     that starts with a word RTL; the text stays on the right like the card's own */
+  text-align: right;
 }
 .task-input:focus { outline: none; border-color: var(--subject-500); }
 .s13-bubble--wide { width: 265px; height: 150px; }
