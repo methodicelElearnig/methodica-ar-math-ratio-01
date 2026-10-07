@@ -174,7 +174,9 @@ function recordPartResult(res) {
    s27 + s28. Six stations in total.
 
    success is set B's own stated gate — screen 20: "ענו נכון על 3 תרגילים ומעלה כדי
-   להתקדם". Set C carries no stated threshold, so it scores but does not gate. */
+   להתקדם". Set C carries no stated threshold, so it scores but does not gate.
+   Since 07.10 the gate is also ENFORCED: a learner under 3 never reaches set C — the component
+   ends on s25 (SET_GATES in ../unit-js/70-screens.js). */
 function partResult() {
   var setOk = function (key, n) {
     var c = 0;

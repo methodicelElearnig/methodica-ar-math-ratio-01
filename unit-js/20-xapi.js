@@ -329,6 +329,15 @@ function xapiEndComponent(result, btn){
    component's 'completed' is recorded in the state document, never merely because the learner
    is on the last screen. 30-nav.js calls it after every repaint. */
 function restoreEndedButton() {
+  /* A gate screen (SET_GATES, 70-screens.js) is a second, earlier end: re-disable its button only
+     when the gate holds AND the 'completed' is in the ledger. Answered-but-not-clicked must come
+     back LIVE so the click still gates and reports. */
+  if (typeof SET_GATES !== 'undefined' && SET_GATES[currentScreen]) {
+    if (!gateBlocks(currentScreen) || !alreadySent('done', currentPartSlug())) return;
+    var gb = document.getElementById(SET_GATES[currentScreen].btn);
+    if (gb) { gb.disabled = true; gb.setAttribute('aria-disabled', 'true'); }
+    return;
+  }
   if (currentScreen !== PART_LAST) return;
   if (!alreadySent('done', currentPartSlug())) return;
   var btn = typeof lastScreenButton === 'function' ? lastScreenButton() : null;

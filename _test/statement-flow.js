@@ -787,6 +787,99 @@ function f2FractionText() {
   b.dom.window.close();
 }
 
+/* ══════════════ 07.10: set B gate — "ענו נכון על 3 תרגילים ומעלה כדי להתקדם" ══════════════
+   MOE tester: four wrong answers in set B still led on to set C (s26-s29). A learner under 3
+   of 4 stations now ENDS component 03 on s25: 'completed' with success false, button dead, no
+   s26. Stations are seeded through qprogSubResults (s24+s25 are one station); the screens are
+   marked done the way their checks leave them. */
+const SETB = ['s21', 's22', 's23', 's24', 's25'];
+function seedSetB(b, okMap) {
+  b.exec('s21Done = true; s22Done = true; SCQ.s23.done = true; BQ.s24.done = true; BQ.s25.done = true;' +
+    SETB.map(k => 'qprogSubResults.' + k + ' = ' + (okMap[k] === true) + ';').join(' '));
+}
+const COMP_DONE = (b) => b.stmts().filter(s => s.verb === 'completed' && s.objectType === 'onlinelesson');
+function setBGate() {
+  /* 1 of 4 correct (s21 only): the click on s25 ends the component */
+  const b = boot('03');
+  b.finishBoot();
+  b.exec(MARK_ANSWERED);
+  b.exec('_goToCore(25);');
+  seedSetB(b, { s21: true });
+  b.exec('document.getElementById("s25-check").disabled = false; bqCheck("s25");');
+  const c = COMP_DONE(b);
+  ok('gate', '03 1/4: the s25 click reports the component completed, success false',
+    c.length === 1 && c[0].result && c[0].result.success === false, JSON.stringify(c.map(x => x.result)));
+  eq('gate', '03 1/4: the learner stays on s25 (no set C)', b.val('currentScreen'), 25);
+  ok('gate', '03 1/4: the button is ended',
+    b.val('document.getElementById("s25-check").disabled') === true &&
+    b.val('document.getElementById("s25-check").getAttribute("aria-disabled")') === 'true');
+  b.exec('advanceScreen(); advanceScreen();');
+  ok('gate', '03 1/4: ArrowLeft / a second click sends nothing more and still does not move',
+    COMP_DONE(b).length === 1 && b.val('currentScreen') === 25, 'completed=' + COMP_DONE(b).length);
+  /* Back to s24 and forward again: still dead */
+  b.exec('goTo(24); goTo(25);');
+  ok('gate', '03 1/4: Back and forward again leaves the button ended',
+    b.val('document.getElementById("s25-check").disabled') === true);
+  const payload = JSON.parse(b.val('JSON.stringify(capturePartPayload())'));
+  const dumped = b.state();
+  b.dom.window.close();
+
+  /* reload after the gated stop: still ended */
+  const r = boot('03', { keepState: true });
+  r.exec('window.__reset(); window.__setState(' + JSON.stringify(dumped) + ');');
+  r.finishBoot(payload);
+  ok('gate', '03 1/4: after a reload on s25 the button is still ended, nothing re-sent',
+    r.val('currentScreen') === 25 && r.val('document.getElementById("s25-check").disabled') === true &&
+    COMP_DONE(r).length === 0,
+    'screen=' + r.val('currentScreen') + ' disabled=' + r.val('document.getElementById("s25-check").disabled'));
+  r.dom.window.close();
+
+  /* answered s25 at 2/4 but reloaded WITHOUT clicking: the button is live, and the click gates */
+  const a = boot('03');
+  a.finishBoot();
+  a.exec(MARK_ANSWERED);
+  a.exec('_goToCore(25);');
+  seedSetB(a, { s21: true, s22: true });
+  const p2 = JSON.parse(a.val('JSON.stringify(capturePartPayload())'));
+  const d2 = a.state();
+  a.dom.window.close();
+  const r2 = boot('03', { keepState: true });
+  r2.exec('window.__reset(); window.__setState(' + JSON.stringify(d2) + ');');
+  r2.finishBoot(p2);
+  ok('gate', '03 2/4, reloaded before the click: the button is live',
+    r2.val('currentScreen') === 25 && r2.val('document.getElementById("s25-check").disabled') === false);
+  r2.exec('bqCheck("s25");');
+  ok('gate', '03 2/4: that click still gates and reports',
+    r2.val('currentScreen') === 25 && COMP_DONE(r2).length === 1 &&
+    COMP_DONE(r2)[0].result.success === false);
+  r2.dom.window.close();
+
+  /* 3 of 4 (station 3 = s24 AND s25 wrong): continues to s26, nothing completed */
+  for (const [tag, okMap] of [['3/4', { s21: true, s22: true, s23: true, s24: true, s25: false }],
+                              ['4/4', { s21: true, s22: true, s23: true, s24: true, s25: true }]]) {
+    const g = boot('03');
+    g.finishBoot();
+    g.exec(MARK_ANSWERED);
+    g.exec('_goToCore(25);');
+    seedSetB(g, okMap);
+    g.exec('bqCheck("s25");');
+    ok('gate', '03 ' + tag + ': continues to s26 (set C), component not completed',
+      g.val('currentScreen') === 26 && COMP_DONE(g).length === 0,
+      'screen=' + g.val('currentScreen') + ' completed=' + COMP_DONE(g).length);
+    g.dom.window.close();
+  }
+
+  /* fails open: set B unresolved (results missing) -> no block */
+  const f = boot('03');
+  f.finishBoot();
+  f.exec(MARK_ANSWERED);
+  f.exec('_goToCore(25); BQ.s25.done = true;');
+  f.exec('advanceScreen();');
+  ok('gate', '03: with set B results missing the gate fails open (on to s26)',
+    f.val('currentScreen') === 26 && COMP_DONE(f).length === 0);
+  f.dom.window.close();
+}
+
 /* ══════════════ run ══════════════ */
 
 const suites = [
@@ -801,6 +894,7 @@ const suites = [
   ['B-1: leaving an unanswered item keeps its completed', b1UnansweredItemKeepsCompleted],
   ['O-1: Back closes nothing; O-2: typing saves', o1BackDoesNotCloseAndO2TypingSaves],
   ['F-2: a fraction answer keeps its slash', f2FractionText],
+  ['07.10: set B gate (3 of 4) ends component 03', setBGate],
 ];
 
 for (const [name, fn] of suites) {

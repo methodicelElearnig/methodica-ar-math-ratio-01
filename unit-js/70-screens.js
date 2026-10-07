@@ -325,6 +325,9 @@ function advanceScreen() {
   if (currentScreen === 40 && !SCQ.s40.done) return;
   if (currentScreen === 42 && !MCQ.s42.done) return;
   if (currentScreen === 43 && !SCQ.s43.done) return;
+  /* The set gate — LAST, after every "is this screen answered" guard, so only a learner who
+     finished the screen reaches it; here rather than in bqCheck so ArrowLeft is covered too. */
+  if (gateBlocks(currentScreen)) { endComponentHere(SET_GATES[currentScreen].btn); return; }
   goTo(currentScreen + 1);
 }
 
@@ -1789,6 +1792,55 @@ function qprogStationState(setKey, idx) {
   const resolved = sids.every(k => qprogSubResults[k] !== undefined);
   if (!resolved) return null;
   return sids.every(k => qprogSubResults[k] === true);
+}
+
+/* ── The set gate (07.10, MOE tester + head of team) ──────────────
+   Slide 39 / s20 promises "ענו נכון על 3 תרגילים ומעלה כדי להתקדם", and until now nothing
+   enforced it: four wrong answers still led on to set C (standard B, s26-s29). The pattern is
+   methodica-math-ratio-02's (commit 7ae7cbd), ported as is.
+
+   A HARD stop: no message, no retry — the answers are already revealed by the time a set is
+   resolved. The component reports itself 'completed' (partResult: success false) and ENDS on
+   the set's last screen; the PLATFORM routes on that statement —
+   metadata/*-03.json carries recommendedAfterFail ["…-01"]. Keyed by SCREEN, unit-wide
+   numbering, so only component 03 (20-29) can reach it.
+
+   ⚠️ `need` counts STATIONS (the qprog dots: s24+s25 are one), the learner's own count. */
+var SET_GATES = { 25: { set: 'B', need: 3, btn: 's25-check' } };
+
+/* How much of a set is RESOLVED, and how much of it was right. */
+function setScore(setKey) {
+  var total = QSET_SIZE[setKey] || 0, resolved = 0, correct = 0;
+  for (var i = 0; i < total; i++) {
+    var st = qprogStationState(setKey, i);
+    if (st === null) continue;
+    resolved++;
+    if (st === true) correct++;
+  }
+  return { total: total, resolved: resolved, correct: correct };
+}
+
+/* ⚠️ FAILS OPEN, deliberately: a gate closes only on evidence. Every station has to be resolved
+   before its verdict counts — a payload that came back without results must not read as
+   "0 correct" and trap a learner who may well have passed. */
+function gateBlocks(n) {
+  var g = SET_GATES[n];
+  if (!g) return false;
+  var s = setScore(g.set);
+  if (s.resolved < s.total) return false;
+  return s.correct < g.need;
+}
+
+/* End the component HERE, on the gate screen, instead of at its forward edge. Not leaveToPart():
+   its button is lastScreenButton() (s29, never seen by a gated learner) and under DEV_NAV it hops
+   to the next component — the one place a failed learner must not go. Same order otherwise: the
+   'completed' goes out first. Idempotent: sendCompletedOnce is ledger-guarded, so a re-click or
+   ArrowLeft reports nothing more. It navigates NOWHERE — the platform moves the learner. */
+function endComponentHere(btnId) {
+  var res = partResult();
+  try { xapiEndComponent(res, document.getElementById(btnId)); } catch (e) {}
+  try { recordPartResult(res); } catch (e) {}
+  try { flushResumeSave(); } catch (e) {}
 }
 
 /* ═══════════════════════════════════════════════════════════
