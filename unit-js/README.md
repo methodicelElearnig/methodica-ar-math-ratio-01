@@ -143,7 +143,7 @@ No `DOMContentLoaded` wrapper is needed: `90-boot.js` sits immediately before `<
 Four, all deliberate. Anything else differing from `methodica-math-scale-01/unit-js/` is drift.
 
 1. **Screen numbering is unit-wide, 0–45**, and `TOTAL_SCREENS = 46` in all six parts, while each
-   part's DOM holds only its own slice (`-01` 0–12, `-02` 13–19, `-03` 20–29, `-04` 30–32,
+   part's DOM holds only its own slice (`-01` 0–12, `-02` 13–19, `-03` 20–29, `-04` 30–31,
    `-05` 33–36, `-06` 37–45 — the script's six רכיבים). What makes this safe is `goTo`'s
    null-screen guard: part 04 calling `goTo(40)` is a silent no-op.
    Two consequences:

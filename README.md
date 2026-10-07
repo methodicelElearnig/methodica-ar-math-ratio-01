@@ -18,7 +18,7 @@ repo re-derives them from the screen flow.
 | 1 — הקנייה ותרגול מונחה | 3–29 | `-01` | 0–12 | 001–004 |
 | 2 — תרגול סטנדרטי | 31–37 | `-02` | 13–19 | 001–003 |
 | 3 — תרגול בסיסי וסטנדרטי ב | 39–48 | `-03` | 20–29 | 001–006 |
-| 4 — משימת כיתה | 50–52 | `-04` | 30–32 | 001 |
+| 4 — משימת כיתה | 50–52 | `-04` | 30–31 | 001 |
 | 5 — תרגול מתקדם | 54–57 | `-05` | 33–36 | 001–003 |
 | 6 — שאלת שיא | 59–66 | `-06` | 37–45 | 001 |
 
@@ -91,7 +91,7 @@ five ways.
   index: `…RATIO.RECOG` resolves to *"התלמיד יזהה מצבים שבהם מופיע יחס (כגון: מתכון,
   מהירות נסיעה)"* — this unit's יעד 1.1 exactly. (The `…RATIO.IDENTIFY` this repo
   carried before the v2.5 migration is **not** a real code; the migration fixed it.)
-- `_test/` — the headless regression oracle (2123 + 128 assertions across two harnesses) plus the
+- `_test/` — the headless regression oracle (2121 + 128 assertions across two harnesses) plus the
   local stand-in for the CDN library. **Not deployed** — the allowlist excludes it twice over, by
   name and by the leading-underscore rule. See its README for what each suite covers, and
   [`Documentation/GITHUB-GH.md`](../../../Documentation/GITHUB-GH.md) for how to run them:

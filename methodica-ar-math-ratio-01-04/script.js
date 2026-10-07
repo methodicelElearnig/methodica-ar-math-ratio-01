@@ -2,11 +2,15 @@
 /* ═══════════ methodica-ar-math-ratio-01-04 — component 4 of 6 of methodica-ar-math-ratio-01 ═══════════
    רכיב 4 — משימת כיתה  (script slides 50–52).
 
+   07.10, head of team: the component ENDS on "חזרתי." (screen 31) — that click is the
+   end of reporting and the platform moves on. Screen 32 (slide 52) was removed; the three
+   boxes of slide 52 already live on 31 (since 03.09).
+
    The six components ARE the script's six רכיבים: every boundary here is a divider
    slide of מתמטיקה_יחס_יעד 1.1 (slides 2, 30, 38, 49, 53, 58), and every item id
    below is the מספר פריט printed on the slide it covers.
 
-   Screens keep the unit's ORIGINAL global numbering (30–32); markup for other
+   Screens keep the unit's ORIGINAL global numbering (30–31); markup for other
    screens is absent and unit-js/30-nav's goTo() guard makes a stray number a no-op.
    Shared behaviour comes from ../unit-js (see its README); this file is this
    component's CONFIGURATION ONLY. The screen logic of all six components, and the
@@ -14,7 +18,7 @@
 
 var TOTAL_SCREENS = 46;                    // unit-wide numbering (goTo bound)
 var PART_FIRST = 30;
-var PART_LAST  = 32;
+var PART_LAST  = 31;
 
 /* The components on either side of this one. Empty means an edge of the unit:
    PART_NEXT '' is the last component, PART_PREV '' the first. */
@@ -26,7 +30,7 @@ var XAPI_COMP_ID   = XAPI_ID_PREFIX + XAPI_COMP_SLUG + '/';
 var XAPI_METADATA_FILE = '../metadata/methodica-ar-math-ratio-01-04.json';
 
 /* screen -> [subContent suffix, page-in-item] */
-var SCREEN_TO_SUBCONTENT = {30: ["001", 1], 31: ["001", 2], 32: ["001", 3]};
+var SCREEN_TO_SUBCONTENT = {30: ["001", 1], 31: ["001", 2]};
 
 /* No item here carries a graded question: the class task is open-ended with no answer
    key ("משימה פתוחה ללא מפתח" in the item's own metadata). */

@@ -56,7 +56,7 @@ const partCode = c =>
    script's six רכיבים; every boundary below is one of its divider slides. */
 const RANGE = {
   '01': [0, 12], '02': [13, 19], '03': [20, 29],
-  '04': [30, 32], '05': [33, 36], '06': [37, 45],
+  '04': [30, 31], '05': [33, 36], '06': [37, 45],
 };
 
 /* The shared-layer API every component must have after the v4 upgrade. */
@@ -607,7 +607,7 @@ function checkPainters() {
 }
 
 /* Not-throwing and idempotent are necessary but not sufficient, and the gap was a live
-   defect: restoreScreenUI had NO branch for the class task (screens 31/32), so after
+   defect: restoreScreenUI had NO branch for the class task (screen 31; 32 until 07.10), so after
    applyResumeDom refilled the three boxes nothing re-derived the gate and the continue
    button stayed dead. Both checks above passed throughout — a missing branch throws
    nothing and is perfectly idempotent.
@@ -618,8 +618,8 @@ function checkPainters() {
 function checkPainterDispatch() {
   for (const c of COMPONENTS) {
     const src = partCode(c);
-    ok('paint', c + ': restoreScreenUI dispatches the class-task gate (screens 31/32)',
-      /if\s*\(n\s*===\s*31\s*\|\|\s*n\s*===\s*32\)\s*\{\s*s32Sync\(\);\s*return;\s*\}/.test(src),
+    ok('paint', c + ': restoreScreenUI dispatches the class-task gate (screen 31)',
+      /if\s*\(n\s*===\s*31\)\s*\{\s*s32Sync\(\);\s*return;\s*\}/.test(src),
       'without it a resumed learner keeps their typed answers and loses the continue button');
   }
 }
@@ -1015,34 +1015,20 @@ function checkResumeRoundTrip() {
   }
 
   /* ── the class task: free text with no answer key (component 04) ──
-     The three boxes are typed on s31 and gate its continue. 05.10 (MOE tester: s32
-     showed only its title): the same card moves onto s32, read-only, and s32's
-     continue is always active. */
+     07.10, head of team: the component ENDS on s31's "חזרתי." — screen 32 is gone. The
+     three boxes gate that button; the click reports the component and ends it. */
   {
     const { dom, val, exec } = loadComponent('04');
+    ok('resume', '04: the component is 30..31 and has no screen 32',
+      val('PART_LAST') === 31 && val('!!document.getElementById("s32")') === false &&
+      val('JSON.stringify(Object.keys(SCREEN_TO_SUBCONTENT))') === '["30","31"]');
     exec('goTo(31);');
-    ok('resume', '04 s31: the empty fields lock continue',
+    ok('resume', '04 s31: the empty fields lock "חזרתי."',
       val('document.getElementById("s31-continue").disabled') === true);
-    ok('resume', '04 s31: the card sits on s31, editable',
-      val('document.getElementById("class-task-card").closest(".screen").id') === 's31' &&
-      val('document.getElementById("s32-in-0").readOnly') === false);
     exec('["0","1","2"].forEach(function(i){ document.getElementById("s32-in-"+i).value = "יחס " + i; });' +
       's32Sync();');
-    ok('resume', '04 s31: filling the three fields unlocks continue',
+    ok('resume', '04 s31: filling the three fields unlocks it',
       val('document.getElementById("s31-continue").disabled') === false);
-    exec('goTo(32);');
-    ok('resume', '04 s32: the card moves onto s32 with the typed text',
-      val('document.getElementById("class-task-card").closest(".screen").id') === 's32' &&
-      val('document.getElementById("s32-in-2").value') === 'יחס 2');
-    ok('resume', '04 s32: the fields are read-only there',
-      val('[0,1,2].every(function(i){ return document.getElementById("s32-in-"+i).readOnly; })') === true);
-    ok('resume', '04 s32: the character shows and continue is active',
-      val('document.getElementById("s32-char-group").classList.contains("hidden")') === false &&
-      val('document.getElementById("s32-continue").disabled') === false);
-    exec('goTo(31);');
-    ok('resume', '04 s31: back from s32 brings the card back, editable again',
-      val('document.getElementById("class-task-card").closest(".screen").id') === 's31' &&
-      val('document.getElementById("s32-in-0").readOnly') === false);
     exec('window.__blob = JSON.parse(JSON.stringify(capturePartPayload()));');
     exec('["0","1","2"].forEach(function(i){ document.getElementById("s32-in-"+i).value = ""; }); s32Sync();');
     ok('resume', '04 s31: clearing them locks it again',
@@ -1050,8 +1036,25 @@ function checkResumeRoundTrip() {
     exec('applyResumeDom(__blob); restoreScreenUI(31);');
     ok('resume', '04 s31: the typed text comes back verbatim',
       val('document.getElementById("s32-in-1").value') === 'יחס 1');
-    ok('resume', '04 s31: and continue is live again',
+    ok('resume', '04 s31: and "חזרתי." is live again',
       val('document.getElementById("s31-continue").disabled') === false);
+    /* a learner who stopped on the old s32 (live until 07.10) has currentScreen 32 saved:
+       the restore lands on 31 and does NOT end the component on their behalf */
+    exec('window.__blob.currentScreen = 32; applyExecutionState(__blob);');
+    ok('resume', '04: a saved currentScreen 32 restores onto 31, component not ended',
+      val('currentScreen') === 31 && val('alreadySent("done", currentPartSlug())') === false &&
+      val('document.getElementById("s31-continue").disabled') === false,
+      'screen=' + val('currentScreen') + ' done=' + val('alreadySent("done", currentPartSlug())'));
+    exec('advanceScreen();');
+    /* no library in this harness, so the 'done' ledger stays empty here; that half is
+       statement-flow.js's endedButtonAfterResume, which runs 04 through PART_LAST too */
+    ok('resume', '04 s31: "חזרתי." ends the component and disables itself',
+      val('currentScreen') === 31 &&
+      val('document.getElementById("s31-continue").disabled') === true &&
+      val('document.getElementById("s31-continue").getAttribute("aria-disabled")') === 'true');
+    exec('var e = document.getElementById("s32-in-0"); e.value = "4 : 3"; s32OnInput();');
+    ok('resume', '04 s31: typing after the end does not bring the button back',
+      val('document.getElementById("s31-continue").disabled') === true);
     dom.window.close();
   }
 

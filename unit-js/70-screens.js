@@ -266,7 +266,7 @@ function resetScreenState(n) {
   }
   // part-02+ screens
   const CHAR_SCREENS = { 20: 's20-char', 21: 's21-char', 26: 's26-char', 30: 's30-char',
-                         31: 's31-char', 32: 's32-char', 33: 's33-char', 22: 's22-char', 45: 's45-char' };
+                         31: 's31-char', 33: 's33-char', 22: 's22-char', 45: 's45-char' };
   if (CHAR_SCREENS[n]) {
     const img = document.getElementById(CHAR_SCREENS[n]);
     if (img) img.src = characterAsset('selection');
@@ -277,7 +277,7 @@ function resetScreenState(n) {
   }
   if (n === 24) bqEnter('s24');
   if (n === 25) bqEnter('s25');
-  if (n === 31 || n === 32) { placeClassTaskCard(n); s32Sync(); }
+  if (n === 31) s32Sync();
   const HINT_DONE2 = { s21: () => s21Done, s22: () => s22Done, s23: () => SCQ.s23.done,
                        s24: () => BQ.s24.done, s25: () => BQ.s25.done, s27: () => SCQ.s27.done,
                        s28: () => s28Done, s29: () => MCQ.s29.done, s34: () => MCQ.s34.done,
@@ -2183,8 +2183,9 @@ function s34Check() { mcq2Check('s34'); }
 function s36Check() { mcq2Check('s36'); }
 
 /* ═══════════════════════════════════════════════════════════
-   S31/S32 (slides 51-52) — class task. The three ratio boxes are typed on
-   screen 31 (as of 03.09) and its continue unlocks once all three are filled.
+   S31 (slides 51-52) — class task, the LAST screen of component 04. The three
+   ratio boxes are typed here (as of 03.09); "חזרתי." unlocks once all three are
+   filled and ends the component (07.10: screen 32 removed).
    ═══════════════════════════════════════════════════════════ */
 function s32Sync() {
   /* the ids stay `s32-in-*` so resume and reporting don't have to move */
@@ -2193,17 +2194,12 @@ function s32Sync() {
     return el && el.value.trim() !== '';
   });
   const c31 = document.getElementById('s31-continue');
-  if (c31) c31.disabled = !filled;
-}
-/* 05.10, MOE tester: screen 32 showed only its title. The task card is one node
-   shared by screens 31 and 32 — it moves to whichever is entered, and on 32 it only
-   shows what was typed on 31 (read-only; continue is always active there). */
-function placeClassTaskCard(n) {
-  const card = document.getElementById('class-task-card');
-  const host = document.querySelector('#s' + n + ' .s18-question');
-  if (!card || !host) return;
-  if (card.parentNode !== host) host.appendChild(card);
-  card.querySelectorAll('.task-input').forEach(el => { el.readOnly = (n === 32); });
+  /* once the component has ended the button stays ended (D-8): typing again must not
+     bring it back. Ended = the 'completed' is in the ledger, or the click already marked
+     the button (xapiEndComponent / restoreEndedButton set aria-disabled) */
+  const ended = !!c31 && (alreadySent('done', currentPartSlug()) ||
+                          c31.getAttribute('aria-disabled') === 'true');
+  if (c31) c31.disabled = !filled || ended;
 }
 function s32OnInput() { s32Sync(); }
 
@@ -2872,7 +2868,7 @@ function restoreScreenUI(n) {
   if (n === 4) { paintS4(); return; }
   if (n === 7 || n === 8 || n === 9) { paintGStep('s' + n); return; }
   if (n === 19) { paintS19(); return; }
-  if (n === 31 || n === 32) { s32Sync(); return; }
+  if (n === 31) { s32Sync(); return; }
   var sid = 's' + n;
   if (MCQ[sid]) { paintMCQ(sid); return; }
   if (SCQ[sid]) { paintSCQ(sid); return; }

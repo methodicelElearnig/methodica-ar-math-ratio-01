@@ -2082,14 +2082,11 @@ html, body {
 
 /* s31: the three ratio boxes moved onto the task screen, so the card has to
    fit them above the bottom bar */
-#s31 .s18-question, #s32 .s18-question { top: 96px; }
-#s31 .task-card, #s32 .task-card { padding: 16px 22px; gap: 6px; }
-#s31 .task-card .rs-text, #s32 .task-card .rs-text { font-size: 19px; line-height: 1.35; margin: 0; }
-#s31 .task-inputs, #s32 .task-inputs { gap: 8px; margin-top: 8px; }
-#s31 .task-input, #s32 .task-input { height: 36px; }
-/* 05.10: the same card is shown on s32 with the typed ratios, read-only */
-#s32 .task-input[readonly] { background: transparent; cursor: default; }
-#s32 .task-input[readonly]:focus { border-color: rgba(174, 174, 174, 0.6); }
+#s31 .s18-question { top: 96px; }
+#s31 .task-card { padding: 16px 22px; gap: 6px; }
+#s31 .task-card .rs-text { font-size: 19px; line-height: 1.35; margin: 0; }
+#s31 .task-inputs { gap: 8px; margin-top: 8px; }
+#s31 .task-input { height: 36px; }
 
 /* 08.09, producer: a ratio must not break across lines — `3` ended one line and
    `: 4` began the next. An inline `<span dir="ltr">3 : 4</span>` breaks at its own

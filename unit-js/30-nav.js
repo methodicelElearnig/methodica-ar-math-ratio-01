@@ -100,6 +100,11 @@ function applyExecutionState(st, screenOverride) {
               screenOverride < TOTAL_SCREENS)
       ? screenOverride
       : ((typeof st.currentScreen === 'number') ? st.currentScreen : 0);
+    /* A restore never leaves its part. goTo() turns a number past either edge into a part
+       handover (leaveToPart / goBackToPreviousPart) — under the stubbed sender above, that
+       would end a component without reporting it. Live case (07.10): component 04 lost its
+       screen 32, and a learner who stopped there has currentScreen 32 saved; they land on 31. */
+    _n = Math.min(Math.max(_n, PART_FIRST), PART_LAST);
     goTo(_n);
     applyResumeVars(st);   // undo the reset that this screen's sNNEnter() just did
     applyResumeDom(st);    // before the painter, which locks/disables the inputs
