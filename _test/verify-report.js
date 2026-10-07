@@ -1058,6 +1058,29 @@ function checkResumeRoundTrip() {
     dom.window.close();
   }
 
+  /* ── 02's intro promise matches the code (07.10, MOE tester + head of team) ──
+     s13 said "3 exercises, at least 2 correct" over a six-station strip whose pass mark is 4.
+     The numbers on s13 must be the strip size and the pass threshold — read from the code,
+     digits parsed from the text, so the check holds in either language. */
+  {
+    const { dom, val, exec } = loadComponent('02');
+    const nums = (sel) => (val('document.querySelector(' + JSON.stringify(sel) + ').textContent') || '')
+      .match(/\d+/g) || [];
+    const shown = nums('#s13 .s1-title'), need = nums('#s13 .s13-mid');
+    const size = val('practiceResults.length');
+    exec('practiceResults.fill(false); [0,1,2].forEach(function(i){ practiceResults[i] = true; });');
+    const at3 = val('partResult().success');
+    exec('practiceResults[3] = true;');
+    const at4 = val('partResult().success');
+    exec('practiceResults.fill(null);');
+    const threshold = at3 === false && at4 === true ? 4 : null;
+    ok('content', '02 s13: the promised count is the strip size',
+      shown.length === 1 && Number(shown[0]) === size, 'text=' + shown.join(',') + ' strip=' + size);
+    ok('content', '02 s13: the promised pass mark is the code\'s threshold',
+      need.length === 1 && Number(need[0]) === threshold, 'text=' + need.join(',') + ' code=' + threshold);
+    dom.window.close();
+  }
+
   /* ── navigating away and back keeps an answered screen answered ──
      The §8.4a hard-lock. This is the one that is invisible to a suite calling the
      painter directly: goTo() runs resetScreenState(), which is an INITIALISER. */

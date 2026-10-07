@@ -2938,15 +2938,15 @@
         <note from="source-location">methodica-math-ratio-01-02/index.html:105</note>
       </trans-unit>
       <trans-unit id="01-02-13-002">
-        <source>מיד יוצגו 3 תרגילים.</source>
-        <target>ستُعرض 3 تمارين فوراً.</target>
+        <source>מיד יוצגו 6 תרגילים.</source>
+        <target>ستُعرض 6 تمارين فوراً.</target>
         <note from="screen-id">01-02-13</note>
         <note from="element-role">main-heading</note>
         <note from="source-location">methodica-math-ratio-01-02/index.html:106</note>
       </trans-unit>
       <trans-unit id="01-02-13-003">
-        <source>צריך לענות נכון על 2 תרגילים לפחות.</source>
-        <target>يجب الإجابة بشكل صحيح عن تمرينَين على الأقل.</target>
+        <source>צריך לענות נכון על 4 תרגילים לפחות.</source>
+        <target>يجب الإجابة بشكل صحيح عن 4 تمارين على الأقل.</target>
         <note from="screen-id">01-02-13</note>
         <note from="element-role">body-text</note>
         <note from="source-location">methodica-math-ratio-01-02/index.html:107</note>

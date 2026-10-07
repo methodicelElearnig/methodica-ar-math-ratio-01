@@ -170,12 +170,10 @@ function recordPartResult(res) {
    Denominator: the six-station strip the learner actually sees on screens 14-19
    (labelled שאלה 1..שאלה 6 by renderQprog), so six.
 
-   ⚠️ CONTENT/CODE MISMATCH, reported not patched: screen 13's intro still says
-   "מיד יוצגו 3 תרגילים. צריך לענות נכון על 2 תרגילים לפחות." — three exercises, while
-   six graded screens and six strip stations were built, and the script's own רכיב 2
-   holds three ITEMS (פיצה, שוקולד, זרים) spanning those six screens. The gate below
-   keeps that text's RATIO (2 of 3 = 4 of 6) rather than its count. Which side is
-   wrong is a content call for the learning developer. */
+   s13 promises exactly this since 07.10 (MOE tester, head of team): "6 exercises, at least
+   4 correct". It said "3 … 2" before, the script's count of its three ITEMS (פיצה, שוקולד,
+   זרים) spanning these six screens; the threshold here was already 4 of 6 and is unchanged.
+   _test/verify-report.js ties the s13 numbers to practiceResults.length and this threshold. */
 function partResult() {
   var total = practiceResults.length;
   var ok = practiceResults.filter(function (r) { return r === true; }).length;
