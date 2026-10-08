@@ -170,11 +170,12 @@ function recordPartResult(res) {
    Denominator: set D, the three advanced-practice stations promised on screen 33
    ("הגענו ל-3 שאלות של תרגול מתקדם") — one per item (ריבועים, משולש, שתייה).
 
-   ⚠️ The script states no pass threshold for רכיב 5. The gate below is 2 of 3, the
-   same "most of them" rule the peak uses and the same ratio screen 13 states for its
-   own set. NEEDS THE LEARNING DEVELOPER'S CONFIRMATION. */
+   Score over the 3 questions metadata declares for this component (001–003, q1 each);
+   unanswered counts as wrong.
+   MOE 2026-10-08: real score, success only ≥60%, no gate, nothing shown. */
 function partResult() {
   var d = 0;
   for (var i = 0; i < QSET_SIZE.D; i++) { if (qprogStationState('D', i) === true) d++; }
-  return { success: d >= 2, score: { scaled: QSET_SIZE.D ? d / QSET_SIZE.D : 0 } };
+  var _s = d / 3;
+  return { success: _s >= 0.6, score: { scaled: _s } };
 }

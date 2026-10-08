@@ -1081,6 +1081,23 @@ function checkResumeRoundTrip() {
     dom.window.close();
   }
 
+  /* ── 05, the challenge: real score, success only at >= 60% (MOE 2026-10-08) ──
+     Over the 3 questions metadata declares (set D: s34, s35, s36); unanswered counts as wrong.
+     None/0/1 of 3 fail, 2/3 and 3/3 pass, each with the real scaled score. */
+  {
+    const { dom, val, exec } = loadComponent('05');
+    const out = [];
+    out.push(val('(function(){ var r = partResult(); return r.success + ":" + r.score.scaled; })()'));
+    for (const n of [0, 1, 2, 3]) {
+      exec('["s34", "s35", "s36"].forEach(function (k, i) { qprogSubResults[k] = i < ' + n + '; });');
+      out.push(val('(function(){ var r = partResult(); return r.success + ":" + r.score.scaled; })()'));
+    }
+    const want = ['false:0', 'false:0', 'false:' + (1 / 3), 'true:' + (2 / 3), 'true:1'];
+    ok('result', '05 challenge: success only at >= 60%, real score (none, 0/3, 1/3 fail; 2/3, 3/3 pass)',
+      out.join(',') === want.join(','), out.join(','));
+    dom.window.close();
+  }
+
   /* ── navigating away and back keeps an answered screen answered ──
      The §8.4a hard-lock. This is the one that is invisible to a suite calling the
      painter directly: goTo() runs resetScreenState(), which is an INITIALISER. */

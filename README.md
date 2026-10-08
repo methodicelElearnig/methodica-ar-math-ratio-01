@@ -91,7 +91,7 @@ five ways.
   index: `…RATIO.RECOG` resolves to *"התלמיד יזהה מצבים שבהם מופיע יחס (כגון: מתכון,
   מהירות נסיעה)"* — this unit's יעד 1.1 exactly. (The `…RATIO.IDENTIFY` this repo
   carried before the v2.5 migration is **not** a real code; the migration fixed it.)
-- `_test/` — the headless regression oracle (2123 + 140 assertions across two harnesses) plus the
+- `_test/` — the headless regression oracle (2124 + 140 assertions across two harnesses) plus the
   local stand-in for the CDN library. **Not deployed** — the allowlist excludes it twice over, by
   name and by the leading-underscore rule. See its README for what each suite covers, and
   [`Documentation/GITHUB-GH.md`](../../../Documentation/GITHUB-GH.md) for how to run them:
@@ -161,12 +161,12 @@ resultless success is valid under v2.4.
 | `-02` | the six-station strip on screens 14–19 | 4 of 6 |
 | `-03` | six stations (set B ×4 + set C ×2) | 3 of set B, per screen 20 |
 | `-04` | — | `success: true` |
-| `-05` | set D ×3 | 2 of 3 — **draft** |
+| `-05` | set D ×3 (the 3 declared questions; unanswered = wrong) | `correct / 3 >= 0.6`, real `score.scaled` — **MOE 2026-10-08** (with Maya): no gate on screen, nothing shown |
 | `-06` | the peak's four parts | 3 of 4 |
 
-The two **draft** gates are new: רכיב 1 and רכיב 5 were inside larger components
-before the re-cut and had no gate of their own, and the script states no threshold for
-either. They need the learning developer's confirmation.
+The **draft** gate is new: רכיב 1 was inside a larger component before the re-cut and
+had no gate of its own, and the script states no threshold for it. It needs the learning
+developer's confirmation. רכיב 5's line was set by MOE on 2026-10-08.
 
 ### The platform owns routing (2026-09-16)
 
