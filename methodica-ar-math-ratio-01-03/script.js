@@ -174,17 +174,20 @@ function recordPartResult(res) {
    s27 + s28. Six stations in total.
 
    success is set B's own stated gate — screen 20: "ענו נכון על 3 תרגילים ומעלה כדי
-   להתקדם". Set C carries no stated threshold, so it scores but does not gate.
-   Since 07.10 the gate is also ENFORCED: a learner under 3 never reaches set C — the component
-   ends on s25 (SET_GATES in ../unit-js/70-screens.js). */
+   להתקדם". Since 07.10 the gate is also ENFORCED: a learner under 3 never reaches set C — the component
+   ends on s25 (SET_GATES in ../unit-js/70-screens.js).
+
+   2026-11-09 (08.11 sheet fixes 1, 2): success and score.scaled come from the SAME count — set B's
+   four stations only, the count the gate reads. Set C (the harder two) reports its own answered and
+   no longer enters the component result (it was (b + c) / 6: 3 of 4 + set C wrong → success true,
+   scaled 0.5). */
+var XAPI_PASS_K = 3, XAPI_PASS_N = 4;
+function xapiBasicCorrect() {
+  var c = 0;
+  for (var i = 0; i < XAPI_PASS_N; i++) { if (qprogStationState('B', i) === true) c++; }
+  return c;
+}
 function partResult() {
-  var setOk = function (key, n) {
-    var c = 0;
-    for (var i = 0; i < n; i++) { if (qprogStationState(key, i) === true) c++; }
-    return c;
-  };
-  var b = setOk('B', QSET_SIZE.B);
-  var c = setOk('C', QSET_SIZE.C);
-  var total = QSET_SIZE.B + QSET_SIZE.C;
-  return { success: b >= 3, score: { scaled: total ? (b + c) / total : 0 } };
+  var ok = xapiBasicCorrect();
+  return { success: ok >= XAPI_PASS_K, score: { scaled: ok / XAPI_PASS_N } };
 }

@@ -809,6 +809,9 @@ function setBGate() {
   const c = COMP_DONE(b);
   ok('gate', '03 1/4: the s25 click reports the component completed, success false',
     c.length === 1 && c[0].result && c[0].result.success === false, JSON.stringify(c.map(x => x.result)));
+  /* 08.11 sheet fixes 1, 2: the score is the same count as the gate — 1 of 4, set C never enters */
+  ok('gate', '03 1/4: that completed carries scaled 0.25 (1 of the 4 stations)',
+    c.length === 1 && c[0].result.score && Math.abs(c[0].result.score.scaled - 0.25) < 1e-9, JSON.stringify(c.map(x => x.result)));
   eq('gate', '03 1/4: the learner stays on s25 (no set C)', b.val('currentScreen'), 25);
   ok('gate', '03 1/4: the button is ended',
     b.val('document.getElementById("s25-check").disabled') === true &&
@@ -866,6 +869,13 @@ function setBGate() {
     ok('gate', '03 ' + tag + ': continues to s26 (set C), component not completed',
       g.val('currentScreen') === 26 && COMP_DONE(g).length === 0,
       'screen=' + g.val('currentScreen') + ' completed=' + COMP_DONE(g).length);
+    /* set C all wrong, then the forward edge: the final completed is set B's count alone (08.11 fixes 1, 2) */
+    const nb = tag === '3/4' ? 3 : 4;
+    g.exec('qprogSubResults.s27 = false; qprogSubResults.s28 = false; qprogSubResults.s29 = false; goTo(PART_LAST + 1);');
+    const fin = COMP_DONE(g);
+    ok('gate', '03 ' + tag + ' + set C all wrong: the final completed is success true, scaled ' + (nb / 4),
+      fin.length === 1 && fin[0].result.success === true && Math.abs(fin[0].result.score.scaled - nb / 4) < 1e-9,
+      JSON.stringify(fin.map(x => x.result)));
     g.dom.window.close();
   }
 
