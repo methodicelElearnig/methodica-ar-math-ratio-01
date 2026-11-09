@@ -10444,8 +10444,8 @@ Wait, let me correct that.
         <note from="source-location">methodica-math-ratio-01-06/index.html:107</note>
       </trans-unit>
       <trans-unit id="01-06-37-004">
-        <source>יש בה 3 סעיפים. עליכם לענות נכון על 2 לפחות.</source>
-        <target>يحتوي على 3 بنود. عليكم الإجابة بشكل صحيح عن 2 على الأقل.</target>
+        <source>יש בה 4 סעיפים. עליכם לענות נכון על 3 לפחות.</source>
+        <target>يحتوي على 4 بنود. عليكم الإجابة بشكل صحيح عن 3 على الأقل.</target>
         <note from="screen-id">01-06-37</note>
         <note from="element-role">body-text</note>
         <note from="source-location">methodica-math-ratio-01-06/index.html:108</note>

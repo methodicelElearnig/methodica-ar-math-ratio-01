@@ -1864,6 +1864,35 @@ function checkScoreContract() {
     }
     dom.window.close();
   }
+  checkPeakContract();
+}
+
+/* 06, שאלת השיא (2026-11-09, Vadim): s37 promised "3 סעיפים … 2 לפחות" over the four parts built
+   (א/ב/ג/ד, metadata "(4 סעיפים)"); it now promises 4 of which 3, the code's rule. The screen counts
+   sections, so each part is one unit. No strip and no gate (the last graded component): the parts
+   live in XAPI_Q_RESULTS 001/q1..q4. */
+const PEAK_CONTRACT = { K: 3, N: 4, intro: '#s37 .s13-mid', parts: ['q1', 'q2', 'q3', 'q4'] };
+function checkPeakContract() {
+  const pc = PEAK_CONTRACT;
+  const { dom, val, exec } = loadComponent('06');
+  const nums = (val('document.querySelector(' + JSON.stringify(pc.intro) + ').textContent') || '').match(/\d+/g) || [];
+  ok('score', '06 ' + pc.intro + ' promises ' + pc.K + ' of ' + pc.N,
+    nums.length === 2 && +nums[0] === pc.N && +nums[1] === pc.K, nums.join(','));
+  ok('score', '06: the peak screens graded are the ' + pc.N + ' parts',
+    val('JSON.stringify(itemQuestionKeys("001"))') === JSON.stringify(pc.parts.map(q => '001/' + q)),
+    val('JSON.stringify(itemQuestionKeys("001"))'));
+  const meta = readJSON(path.join(BASE, 'metadata', PART_DIR('06') + '.json'));
+  ok('score', '06: the metadata declares the ' + pc.N + ' parts',
+    meta.subContent.length === 1 && meta.subContent[0].questions.length === pc.N);
+  for (let k = 0; k <= pc.N; k++) {
+    exec(pc.parts.map((q, i) => 'XAPI_Q_RESULTS["001/' + q + '"] = ' + (i < k) + ';').join(' '));
+    const res = JSON.parse(val('JSON.stringify(partResult())'));
+    const tag = '06 ' + k + '/' + pc.N;
+    ok('score', tag + ': success = correct ≥ ' + pc.K, res.success === (k >= pc.K), JSON.stringify(res));
+    ok('score', tag + ': scaled = correct / ' + pc.N, Math.abs(res.score.scaled - k / pc.N) < 1e-9, JSON.stringify(res));
+    ok('score', tag + ': success ⇔ scaled ≥ K/N', res.success === (res.score.scaled >= pc.K / pc.N - 1e-9));
+  }
+  dom.window.close();
 }
 
 /* ══════════════ run ══════════════ */

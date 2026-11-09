@@ -172,11 +172,11 @@ function recordPartResult(res) {
    why xapiAnswered writes that map before its own XAPI_USING_G guard and outside its
    try: scoring behaves identically with reporting off.
 
-   success is the peak's own stated gate, screen 37: "יש בה 3 סעיפים. עליכם לענות נכון
-   על 2 לפחות." ⚠️ CONTENT/CODE MISMATCH, reported not patched: four peak parts were
-   built (א/ב/ג/ד), not three, and the script's own metadata titles the item
-   "(4 סעיפים)". The gate below reads "most of them" as 3 of 4, matching the reference
-   unit's own peak rule. Which side is wrong is a content call. */
+   success is the peak's own stated gate, screen 37: "יש בה 4 סעיפים. עליכם לענות נכון
+   על 3 לפחות." Each part counts 1 (the screen counts sections); success and scaled come
+   from that one count, so success ⇔ scaled >= 3/4. Until 2026-11-09 the screen said
+   "3 סעיפים … 2 לפחות" over the four parts built and the metadata's "(4 סעיפים)"; Vadim
+   set the text to the code's 3 of 4 (08.11 sheet, Monday #11). */
 function partResult() {
   var peak = ['q1', 'q2', 'q3', 'q4'].filter(function (q) {
     return XAPI_Q_RESULTS['001/' + q] === true;
