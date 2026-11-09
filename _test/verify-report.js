@@ -1812,6 +1812,60 @@ function checkDocLinks() {
   }
 }
 
+/* ══════════════ score contract (MOE QA runbook §4 "ציון ומעבר") ══════════════
+   2026-11-09, fixes 1/2 of the 08.11 sheet. A component that promises K of N on its first screen:
+   success and score.scaled come from ONE count of the N threshold stations only (the harder set
+   never enters), success ⇔ scaled ≥ K/N, and the set gate stops at the same K. A station that spans
+   several screens counts 1 and is right only when all of them are (fix 6). The gate's behaviour
+   (one completed, button ended, reload) is statement-flow.js's "set B gate" suite.
+   threshold / challenge: the qprog stations, each a list of the screens it ANDs. */
+const SCORE_CONTRACT = {
+  '03': { K: 3, N: 4, intro: '#s20', set: 'B',
+          threshold: [['s21'], ['s22'], ['s23'], ['s24', 's25']],
+          challenge: [['s27', 's28'], ['s29']], gate: 25 },
+};
+function checkScoreContract() {
+  for (const c of Object.keys(SCORE_CONTRACT)) {
+    const sc = SCORE_CONTRACT[c];
+    const { dom, val, exec } = loadComponent(c);
+    const seed = (correct, challengeOk) => exec(
+      sc.threshold.map((st, i) => st.map(k => 'qprogSubResults.' + k + ' = ' + (i < correct) + ';').join(' ')).join(' ') +
+      sc.challenge.map(st => st.map(k => 'qprogSubResults.' + k + ' = ' + challengeOk + ';').join(' ')).join(' '));
+    const result = () => val('JSON.stringify(partResult())');
+
+    /* the screen's numbers are the code's: digits parsed, so it holds in either language */
+    const nums = (val('document.querySelector(' + JSON.stringify(sc.intro) + ').textContent') || '').match(/\d+/g) || [];
+    ok('score', c + ' ' + sc.intro + ' promises ' + sc.K + ' of ' + sc.N,
+      nums.length === 2 && +nums[0] === sc.N && +nums[1] === sc.K, nums.join(','));
+    ok('score', c + ': the set gate is the same K over the same set',
+      val('SET_GATES[' + sc.gate + '].set') === sc.set && val('SET_GATES[' + sc.gate + '].need') === sc.K &&
+      val('QSET_SIZE.' + sc.set) === sc.N);
+
+    for (let k = 0; k <= sc.N; k++) for (const chal of [false, true]) {
+      seed(k, chal);
+      const res = JSON.parse(result());
+      const tag = c + ' ' + k + '/' + sc.N + (chal ? ' + harder all right' : ' + harder all wrong');
+      ok('score', tag + ': success = correct ≥ ' + sc.K, res.success === (k >= sc.K), JSON.stringify(res));
+      ok('score', tag + ': scaled = correct / ' + sc.N + ' (harder set not counted)',
+        Math.abs(res.score.scaled - k / sc.N) < 1e-9, JSON.stringify(res));
+      ok('score', tag + ': success ⇔ scaled ≥ K/N', res.success === (res.score.scaled >= sc.K / sc.N - 1e-9));
+      ok('score', tag + ': the gate blocks exactly below K',
+        val('gateBlocks(' + sc.gate + ')') === (k < sc.K));
+    }
+
+    /* fix 6: a multi-screen station with one screen wrong contributes 0 */
+    const multi = sc.threshold.findIndex(st => st.length > 1);
+    if (multi !== -1) {
+      seed(sc.N, false);
+      exec('qprogSubResults.' + sc.threshold[multi][sc.threshold[multi].length - 1] + ' = false;');
+      const res = JSON.parse(result());
+      ok('score', c + ': station ' + sc.threshold[multi].join('+') + ' with one part wrong counts 0',
+        Math.abs(res.score.scaled - (sc.N - 1) / sc.N) < 1e-9, JSON.stringify(res));
+    }
+    dom.window.close();
+  }
+}
+
 /* ══════════════ run ══════════════ */
 
 const suites = [
@@ -1837,6 +1891,7 @@ const suites = [
   ['css + html assets resolve', checkCssAssets],
   ['dev harnesses share one review key', checkDevHarnesses],
   ['docs resolve', checkDocLinks],
+  ['score contract', checkScoreContract],
 ];
 
 for (const [name, fn] of suites) {
