@@ -91,7 +91,7 @@ five ways.
   index: `…RATIO.RECOG` resolves to *"התלמיד יזהה מצבים שבהם מופיע יחס (כגון: מתכון,
   מהירות נסיעה)"* — this unit's יעד 1.1 exactly. (The `…RATIO.IDENTIFY` this repo
   carried before the v2.5 migration is **not** a real code; the migration fixed it.)
-- `_test/` — the headless regression oracle (2167 + 143 assertions across two harnesses) plus the
+- `_test/` — the headless regression oracle (2185 + 143 assertions across two harnesses) plus the
   local stand-in for the CDN library. **Not deployed** — the allowlist excludes it twice over, by
   name and by the leading-underscore rule. See its README for what each suite covers, and
   [`Documentation/GITHUB-GH.md`](../../../Documentation/GITHUB-GH.md) for how to run them:
@@ -253,12 +253,11 @@ this part's own document.
    FIRST id of each run rather than asserting per-input results it never computed.
    Splitting them into per-input statements is a grading change — a learning-developer
    call, not a realignment one. See the `XAPI_QMAP` header in any `script.js`.
-2. **Two content/code mismatches**, reported rather than patched — both are content
-   calls, and both are commented at the `partResult()` that depends on them:
-   component 02's screen 13 promises "3 תרגילים ... 2 לפחות" while six graded screens
-   and a six-station strip were built; component 06's screen 37 promises "3 סעיפים"
-   while שאלת השיא has four parts (א/ב/ג/ד) — and the script's own item title says
-   "(4 סעיפים)".
+2. **Two content/code mismatches, both since fixed in the text**: component 02's
+   screen 13 promised "3 תרגילים ... 2 לפחות" over a six-station strip (now 6 / 4, 07.10);
+   component 06's screen 37 promised "3 סעיפים ... 2 לפחות" while שאלת השיא has four parts
+   (א/ב/ג/ד, metadata "(4 סעיפים)") — now "4 סעיפים ... 3 לפחות", the code's rule
+   (2026-11-09, Vadim). `_test/verify-report.js` checks both promises against the code.
 3. **The two draft gates above**, plus the draft catalogue fields in `metadata/`.
 4. **The companion character now shows on screen 0 after a reload.** It used to always
    start unselected; the state document is now the source of truth. Worth confirming
