@@ -64,7 +64,7 @@ const SHARED_FNS = [
   'shortId', 'scaleApp', 'announce', 'initReportModal', 'bootXAPI', 'goTo',
   'xapiItemId', 'xapiQ', 'xapiOnScreen', 'xapiFinishItems', 'xapiAnswered',
   'xapiRequestedHint', 'xapiCompleteComponent', 'xapiEndComponent', 'restoreEndedButton',
-  'xapiAnswerText', 'xapiFieldsAnswer', 'xapiMultiAnswer', 'xapiItemResult',
+  'xapiAnswerText', 'xapiResponse', 'xapiQMeta', 'xapiItemResult',   // 2026-11-11: the response layer replaced xapiFieldsAnswer / xapiMultiAnswer
   'sendStatementOnce', 'sendCompletedOnce', 'itemLedgerKey', 'currentPartSlug',
   'readUnitState', 'captureUnitState', 'persistUnitState', 'emptyUnitState',
   'applyExecutionState', 'scheduleResumeSave', 'flushResumeSave',
