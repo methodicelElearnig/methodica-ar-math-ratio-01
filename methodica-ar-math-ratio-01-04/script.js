@@ -58,8 +58,9 @@ var XAPI_EVAL_ITEMS = {};
    that was never computed per input. Unreported today, listed so it is not lost:
    02-003/q2 + q4 (s17/s18 — the second flower of each bouquet), 03-001/q2..q5 (s21's
    rows ב–ה), 03-002/q2..q4 (s22's rows ב–ד), 03-004/q2 + q4 (s24/s25 — the sweets
-   beside the bars). Splitting those into per-input statements is a grading change and
-   belongs to the learning developer, not to this realignment. */
+   beside the bars). 2026-11-11 (MOE runbook, class I): where Kata declares one question
+   per input, the screen's entry now lists them all and reports one answered per input
+   (see xapiKeyFor); the item score follows those answers. */
 var XAPI_QMAP = {
   /* רכיב 1 */
   s1:   [1,  'q1'],                                     /* 001 */
@@ -70,12 +71,12 @@ var XAPI_QMAP = {
   /* רכיב 2 */
   s14:  [14, 'q1'],                                     /* 001 — פיצות */
   s15:  [15, 'q1'],  s16:  [16, 'q2'],                  /* 002 — שוקולד */
-  s17:  [17, 'q1'],  s18:  [18, 'q3'],  s19:  [19, 'q5'], /* 003 — זרים */
+  s17:  [17, ['q1', 'q2']],  s18:  [18, ['q3', 'q4']],  s19:  [19, 'q5'], /* 003 — זרים: one question per flower (Kata ar) */
   /* רכיב 3 */
-  s21:  [21, 'q1'],                                     /* 001 — צמצום */
-  s22:  [22, 'q1'],                                     /* 002 — הרחבה */
+  s21:  [21, ['q1', 'q2', 'q3', 'q4', 'q5']],            /* 001 — צמצום: one question per row (Kata ar) */
+  s22:  [22, ['q1', 'q2', 'q3', 'q4']],                  /* 002 — הרחבה: one question per row (Kata) */
   s23:  [23, 'q1'],                                     /* 003 — גרביים */
-  s24:  [24, 'q1'],  s25:  [25, 'q3'],                  /* 004 — ממתקים */
+  s24:  [24, ['q1', 'q2']],  s25:  [25, ['q3', 'q4']],    /* 004 — ממתקים: bars, sweets (Kata) */
   s27:  [27, 'q1'],  s28:  [28, 'q2'],                  /* 005 — פנקייקים */
   s29:  [29, 'q1'],                                     /* 006 — קינוחים */
   /* רכיב 5 */
@@ -84,12 +85,18 @@ var XAPI_QMAP = {
   s39:  [39, 'q1'],  s40:  [40, 'q2'],  s42:  [42, 'q3'],  s43:  [43, 'q4'],
 };
 
+/* ── One screen, several catalogue questions (2026-11-11, MOE runbook class I) ──
+   Where Kata declares one question per input (03-002 q1–q4, 03-004 q1–q4, and in Arabic
+   02-003 q1–q4 and 03-001 q1–q5), the screen's entry lists every qKey and the screen
+   reports one answered per input: the call site passes answer.split[i] = {correct, spec}
+   for qKeys[i]. A screen with one qKey reports the whole answer, as before. */
 function xapiKeyFor(sid) {
   var e = XAPI_QMAP[sid];
   if (!e) return null;
   var m = SCREEN_TO_SUBCONTENT[e[0]];
   if (!m) return null;                 /* another component's screen */
-  return { item: m[0], qKey: e[1] };
+  var keys = Array.isArray(e[1]) ? e[1] : [e[1]];
+  return { item: m[0], qKey: keys[0], qKeys: keys };
 }
 
 /* One graded answer.
@@ -100,6 +107,13 @@ function xapiKeyFor(sid) {
 function reportAnswer(sid, correct, isLast, answer) {
   var k = xapiKeyFor(sid);
   if (!k) return;
+  if (k.qKeys.length > 1 && answer && answer.split) {
+    k.qKeys.forEach(function (q, i) {
+      var part = answer.split[i] || { correct: false, spec: '' };
+      xapiAnswered(k.item, q, part.correct, isLast, part.spec);
+    });
+    return;
+  }
   xapiAnswered(k.item, k.qKey, correct, isLast, answer);
 }
 
@@ -116,7 +130,7 @@ function reportHint(sid) {
 function itemQuestionKeys(item) {
   return Object.keys(XAPI_QMAP).reduce(function (acc, sid) {
     var k = xapiKeyFor(sid);
-    if (k && k.item === item) acc.push(item + '/' + k.qKey);
+    if (k && k.item === item) k.qKeys.forEach(function (q) { acc.push(item + '/' + q); });
     return acc;
   }, []);
 }

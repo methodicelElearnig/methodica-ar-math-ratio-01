@@ -441,14 +441,21 @@ function s1qSelect(id) {
   if (check) check.disabled = false;
 }
 
+/* ── xAPI answer specs (2026-11-11, MOE runbook: response = Kata's correctXapiResponsesPattern) ──
+   Options are reported by POSITION: option ids are 'a', 'b', 'c'… in screen order, and Kata's
+   answers[] list them in the same order. Kata keeps several ratio options in the form an RTL
+   view shows them ('… 3 : 4' renders as the page's '4 : 3'), so the text cannot be matched,
+   the position can. 20-xapi.js turns the positions into Kata's own strings. */
+function xapiOptIndex(id) { return String(id).charCodeAt(0) - 97; }
+function xapiOptIndexes(ids) { return [...ids].map(xapiOptIndex); }
+
 function s1qCheck() {
   if (s1State.answered || !s1State.selected) return;
   s1State.answered = true;
   const wasCorrect = s1State.selected === S1Q_CORRECT;
   /* One attempt only on this screen, so every answer is the last one. */
   try {
-    reportAnswer('s1', wasCorrect, true,
-      xapiAnswerText(document.querySelector('#s1 .scq-opt[data-id="' + s1State.selected + '"]')));
+    reportAnswer('s1', wasCorrect, true, { choices: [xapiOptIndex(s1State.selected)] });
   } catch (e) { console.error('[xAPI] s1', e); }
   document.querySelectorAll('#s1 .scq-opt').forEach(o => {
     o.disabled = true;
@@ -699,9 +706,7 @@ function mcqCheck(q) {
      would send the answer key back as the learner's own answer. */
   try {
     reportAnswer(q.id, isCorrect, isCorrect || q.attempts >= q.maxAttempts,
-      xapiMultiAnswer([...q.selected], function (id) {
-        return document.querySelector('#' + q.id + ' ' + (q.optSelector || '.scq-opt') + '[data-id="' + id + '"]');
-      }));
+      { choices: xapiOptIndexes(q.selected) });   // '[,]' in Kata's order, whatever the click order
   } catch (e) { console.error('[xAPI] ' + q.id, e); }
 
   if (isCorrect) {
@@ -827,9 +832,7 @@ function s4q1Check() {
   const isCorrect = setsEqual(s4q1Selected, S4Q1_CORRECT);
   try {
     reportAnswer('s4q1', isCorrect, isCorrect || s4q1Attempts >= 2,
-      xapiMultiAnswer([...s4q1Selected], function (id) {
-        return document.querySelector('#s4 .rs-block:nth-of-type(4) .scq-opt[data-id="' + id + '"]');
-      }));
+      { choices: xapiOptIndexes(s4q1Selected) });
   } catch (e) { console.error('[xAPI] s4q1', e); }
   const finish = () => {
     s4State.q1 = true;
@@ -894,7 +897,7 @@ function s4q2Check() {
   const isCorrect = Number(left.value) === 1 && Number(right.value) === 4;
   try {
     reportAnswer('s4q2', isCorrect, isCorrect || s4q2Attempts >= 2,
-      xapiFieldsAnswer(['s4q2-left', 's4q2-right']));
+      { text: right.value.trim() + ' : ' + left.value.trim() });   // Kata keeps it as '4:1' (the RTL view of the boxes 1 : 4)
   } catch (e) { console.error('[xAPI] s4q2', e); }
   const finish = () => {
     s4State.q2 = true;
@@ -948,7 +951,7 @@ function s4q3Check() {
   const isCorrect = Number(input.value) === 12;
   try {
     reportAnswer('s4q3', isCorrect, isCorrect || s4q3Attempts >= 2,
-      xapiFieldsAnswer(['s4q3-input']));
+      { value: input.value.trim() });
   } catch (e) { console.error('[xAPI] s4q3', e); }
   const finish = () => {
     s4State.q3 = true;
@@ -1013,7 +1016,8 @@ function s4q4Check() {
   const isCorrect = Object.keys(S4Q4_CORRECT).every(k => s4q4Picks[k] === S4Q4_CORRECT[k]);
   try {
     reportAnswer('s4q4', isCorrect, isCorrect || s4q4Attempts >= 2,
-      xapiFieldsAnswer(Object.keys(S4Q4_CORRECT), s4q4Picks));
+      { pairs: Object.keys(S4Q4_CORRECT).filter(k => s4q4Picks[k]).map(k => ({   // row a–d -> Kata source 0–3, yes/no -> target 0/1
+          source: xapiOptIndex(k), target: s4q4Picks[k] === 'yes' ? 0 : 1 })) });
   } catch (e) { console.error('[xAPI] s4q4', e); }
   const markRows = (revealCorrect) => {
     document.querySelectorAll('#s4 .saq-row').forEach(row => {
@@ -1289,6 +1293,9 @@ const S14_EXPLAIN = [
 ];
 let s14Attempts = 0, s14Done = false, s14LastWrong = null;
 
+/* xAPI: dropdown row -> its statement's index in Kata's answers.target (Kata lists the
+   statements in another order: 3 : 1, 5 : 3, 1 : 3, ×3 — rows 1, 0, 3, 2 here). */
+const S14_XAPI_TARGET = [1, 0, 3, 2];
 function s14Values() {
   return [0, 1, 2, 3].map(i => document.getElementById('s14-sel-' + i).value);
 }
@@ -1328,7 +1335,7 @@ function s14Check() {
      dropdown, which would otherwise be reported as the learner's answer. */
   try {
     reportAnswer('s14', allOk, allOk || s14Attempts >= 2,
-      xapiFieldsAnswer(S14_CORRECT.map(function (_, i) { return 's14-sel-' + i; })));
+      { pairs: vals.map((v, i) => v ? { source: xapiOptIndex(v), target: S14_XAPI_TARGET[i] } : null).filter(Boolean) });
   } catch (e) { console.error('[xAPI] s14', e); }
   const finish = (ok) => {
     s14Done = true;
@@ -1424,7 +1431,8 @@ function s16Check() {
   const allOk = vals.every((v, i) => Number(v) === S16_CORRECT[i]);
   try {
     reportAnswer('s16', allOk, allOk || s16Attempts >= 2,
-      xapiFieldsAnswer(S16_CORRECT.map(function (_, i) { return 's16-in-' + i; })));
+      { steps: vals, pairs: vals.map((v, i) => ({ source: i,   // he: performance steps; ar: matching price
+          target: S16_CORRECT.indexOf(Number(v)) !== -1 ? S16_CORRECT.indexOf(Number(v)) : v })) });
   } catch (e) { console.error('[xAPI] s16', e); }
   const finish = (ok) => {
     s16Done = true;
@@ -1594,10 +1602,11 @@ function bqCheck(sid) {
   /* Before the branches: the final-wrong branch overwrites the counters with the
      target values, so the learner's own counts only exist until then. */
   try {
-    var _bqAns = {};
-    _bqAns[kA] = st[kA];
-    _bqAns[kB] = st[kB];
-    reportAnswer(sid, ok, ok || st.attempts >= 2, xapiFieldsAnswer([kA, kB], _bqAns));
+    /* both counts as steps (one question), or one answered per count where Kata has one
+       question per input (reportAnswer picks by the screen's qKeys) */
+    reportAnswer(sid, ok, ok || st.attempts >= 2, { steps: [st[kA], st[kB]], split: [
+      { correct: st[kA] === st.target[kA], spec: { value: st[kA] } },
+      { correct: st[kB] === st.target[kB], spec: { value: st[kB] } }] });
   } catch (e) { console.error('[xAPI] ' + sid, e); }
   const pc = document.getElementById(sid + '-count-' + kA);
   const wc = document.getElementById(sid + '-count-' + kB);
@@ -1716,7 +1725,7 @@ function s19qCheck() {
   const isCorrect = s19qSelected === S19Q.correctId;
   try {
     reportAnswer('s19', isCorrect, isCorrect || s19qAttempts >= S19Q.maxAttempts,
-      xapiAnswerText(document.querySelector('#s19 .scq-opt[data-id="' + s19qSelected + '"]')));
+      { choices: [xapiOptIndex(s19qSelected)] });
   } catch (e) { console.error('[xAPI] s19', e); }
   const mark = (id, cls) => {
     const o = document.querySelector('#s19 .scq-opt[data-id="' + id + '"]');
@@ -1892,9 +1901,10 @@ function s21Check() {
   const allOk = rowOk.every(Boolean);
   try {
     reportAnswer('s21', allOk, allOk || s21Attempts >= 2,
-      xapiFieldsAnswer(S21_ANS.reduce(function (ids, _, i) {
-        return ids.concat(['s21-in-' + i + 'a', 's21-in-' + i + 'b']);
-      }, [])));
+      /* he: one question, a step per row 'a:b' (Kata's text order); ar: one question per row,
+         written from the second box ('2 : 1' for the boxes 1, 2), as Kata ar has it */
+      { steps: vals.map(v => v[0] + ':' + v[1]),
+        split: vals.map((v, i) => ({ correct: rowOk[i], spec: { text: v[1] + ' : ' + v[0] } })) });
   } catch (e) { console.error('[xAPI] s21', e); }
   const finish = (ok) => {
     s21Done = true;
@@ -1963,7 +1973,7 @@ function s22Check() {
   const allOk = rowOk.every(Boolean);
   try {
     reportAnswer('s22', allOk, allOk || s22Attempts >= 2,
-      xapiFieldsAnswer(S22_ANS.map(function (_, i) { return 's22-in-' + i; })));
+      { steps: vals, split: vals.map((v, i) => ({ correct: rowOk[i], spec: { value: v } })) });
   } catch (e) { console.error('[xAPI] s22', e); }
   const finish = (ok) => {
     s22Done = true;
@@ -2054,7 +2064,7 @@ function scqCheck(sid) {
   const isCorrect = q.selected === q.correctId;
   try {
     reportAnswer(sid, isCorrect, isCorrect || q.attempts >= 2,
-      xapiAnswerText(document.querySelector('#' + sid + ' .scq-opt[data-id="' + q.selected + '"]')));
+      { choices: [xapiOptIndex(q.selected)] });
   } catch (e) { console.error('[xAPI] ' + sid, e); }
   const mark = (id, cls) => {
     const o = document.querySelector('#' + sid + ' .scq-opt[data-id="' + id + '"]');
@@ -2147,7 +2157,7 @@ function s28Check() {
   const allOk = rowOk.every(Boolean);
   try {
     reportAnswer('s28', allOk, allOk || s28Attempts >= 2,
-      xapiFieldsAnswer(S28_ANS.map(function (_, i) { return 's28-in-' + i; })));
+      { steps: vals.map((v, i) => rowOk[i] ? S28_ANS[i] : v) });   // a right row in the key's form ('0.75' -> '3/4')
   } catch (e) { console.error('[xAPI] s28', e); }
   const finish = (ok) => {
     s28Done = true;
@@ -2283,7 +2293,7 @@ function s39Check() {
   const isCorrect = Number(v) === 3;
   try {
     reportAnswer('s39', isCorrect, isCorrect || s39Attempts >= 2,
-      xapiFieldsAnswer(['s39-input']));
+      { value: v });
   } catch (e) { console.error('[xAPI] s39', e); }
   const finish = () => {
     s39Done = true;
@@ -2573,7 +2583,7 @@ function screenWasCorrect(sid) {
   if (QPROG_INDEX[sid] !== undefined) return practiceResults[QPROG_INDEX[sid]] === true;
   if (qprogSubResults[sid] !== undefined) return qprogSubResults[sid] === true;
   var k = xapiKeyFor(sid);
-  if (k) return XAPI_Q_RESULTS[k.item + '/' + k.qKey] === true;
+  if (k) return k.qKeys.every(function (q) { return XAPI_Q_RESULTS[k.item + '/' + q] === true; });
   return false;
 }
 
