@@ -102,7 +102,7 @@
           "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-002/q4",
           "questionType": "fill-in",
           "questionText": "أمامكم 5 ملصقات. 4 ملصقات زرقاء وملصق واحد أخضر. أ. اكتبوا النسبة بين عدد الملصقات الخضراء وعدد الملصقات الزرقاء.",
-          "answers": [],
+          "answers": null,
           "correctAnswers": [
             "4 : 1",
             "4:1"
@@ -160,32 +160,7 @@
       "informationToBot": "מטרת הפריט: פתרון שלב-שלב יחד עם הדמות של תרגיל יחס ראשון — יחס בין אריחים מקושטים לחלקים ברצועת אריחים בחנות, כולל צמצום. כיווני חשיבה: זיהוי סדר הכתיבה של היחס לפי סדר ההופעה בכתיב המילולי, ובדיקה האם ניתן לצמצם את היחס שהתקבל. טעויות נפוצות: היפוך סדר המספרים ביחס. מידע נוסף: מהלך מודרך לחלוטין (אין החלטה עצמאית של הלומד על הפתרון הסופי, רק אישור צעדי ביניים).",
       "contentType": "solved-exercise",
       "mediaFormat": "text",
-      "questions": [
-        {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-003/q1",
-          "questionType": "choice",
-          "questionText": "عدد البلاطات المزخرفة مكتوب أولاً في الكتابة اللفظية. أين سيكون موقع هذا العدد في الكتابة الرياضية للنسبة؟",
-          "answers": [
-            "اليمين",
-            "اليسار"
-          ],
-          "correctAnswers": [
-            "اليسار"
-          ]
-        },
-        {
-          "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-003/q2",
-          "questionType": "true-false",
-          "questionText": "النسبة بين عدد البلاطات المزخرفة (3) وعدد البلاطات الملساء (9) هي 9:3. هل يمكن اختزال هذه النسبة؟",
-          "answers": [
-            "نعم",
-            "لا"
-          ],
-          "correctAnswers": [
-            "نعم"
-          ]
-        }
-      ]
+      "questions": []
     },
     {
       "id": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-01/methodica-ar-math-ratio-01-01-004/",
@@ -205,7 +180,7 @@
             "عدد الماسات السوداء أكبر بـ4 أضعاف من عدد الماسات البيضاء"
           ],
           "correctAnswers": [
-            "النسبة بين عدد الماسات السوداء وعدد الماسات البيضاء هي 4 : 1",
+            "النسبة بين عدد الماسات السوداء وعدد الماسات البيضاء هي 1 : 4",
             "عدد الماسات السوداء أكبر بـ4 أضعاف من عدد الماسات البيضاء"
           ]
         }
