@@ -38,7 +38,9 @@
           "correctAnswers": [
             "2 : 1",
             "2:1"
-          ]
+          ],
+          "xapiInteractionComponents": null,
+          "correctXapiResponsesPattern": ["2 : 1", "2:1"]
         },
         {
           "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-03/methodica-ar-math-ratio-01-03-001/q2",
@@ -48,7 +50,9 @@
           "correctAnswers": [
             "4 : 3",
             "4:3"
-          ]
+          ],
+          "xapiInteractionComponents": null,
+          "correctXapiResponsesPattern": ["4 : 3", "4:3"]
         },
         {
           "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-03/methodica-ar-math-ratio-01-03-001/q3",
@@ -58,7 +62,9 @@
           "correctAnswers": [
             "3 : 5",
             "3:5"
-          ]
+          ],
+          "xapiInteractionComponents": null,
+          "correctXapiResponsesPattern": ["3 : 5", "3:5"]
         },
         {
           "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-03/methodica-ar-math-ratio-01-03-001/q4",
@@ -68,7 +74,9 @@
           "correctAnswers": [
             "5 : 2",
             "5:2"
-          ]
+          ],
+          "xapiInteractionComponents": null,
+          "correctXapiResponsesPattern": ["5 : 2", "5:2"]
         },
         {
           "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-03/methodica-ar-math-ratio-01-03-001/q5",
@@ -78,7 +86,9 @@
           "correctAnswers": [
             "16 : 5",
             "16:5"
-          ]
+          ],
+          "xapiInteractionComponents": null,
+          "correctXapiResponsesPattern": ["16 : 5", "16:5"]
         }
       ]
     },
@@ -96,7 +106,9 @@
           "answers": [],
           "correctAnswers": [
             12
-          ]
+          ],
+          "xapiInteractionComponents": null,
+          "correctXapiResponsesPattern": ["12"]
         },
         {
           "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-03/methodica-ar-math-ratio-01-03-002/q2",
@@ -105,7 +117,9 @@
           "answers": [],
           "correctAnswers": [
             3
-          ]
+          ],
+          "xapiInteractionComponents": null,
+          "correctXapiResponsesPattern": ["3"]
         },
         {
           "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-03/methodica-ar-math-ratio-01-03-002/q3",
@@ -114,7 +128,9 @@
           "answers": [],
           "correctAnswers": [
             20
-          ]
+          ],
+          "xapiInteractionComponents": null,
+          "correctXapiResponsesPattern": ["20"]
         },
         {
           "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-03/methodica-ar-math-ratio-01-03-002/q4",
@@ -123,7 +139,9 @@
           "answers": [],
           "correctAnswers": [
             80
-          ]
+          ],
+          "xapiInteractionComponents": null,
+          "correctXapiResponsesPattern": ["80"]
         }
       ]
     },
@@ -145,7 +163,15 @@
           ],
           "correctAnswers": [
             "النسبة بين عدد أزواج الجوارب السوداء وعدد أزواج الجوارب البيضاء هي 4 : 3"
-          ]
+          ],
+          "xapiInteractionComponents": {
+            "choices": [
+              {"id": "النسبة بين عدد أزواج الجوارب السوداء وعدد أزواج الجوارب البيضاء هي 3 : 4", "description": "النسبة بين عدد أزواج الجوارب السوداء وعدد أزواج الجوارب البيضاء هي 3 : 4"},
+              {"id": "النسبة بين عدد أزواج الجوارب السوداء وعدد أزواج الجوارب البيضاء هي 4 : 3", "description": "النسبة بين عدد أزواج الجوارب السوداء وعدد أزواج الجوارب البيضاء هي 4 : 3"},
+              {"id": "النسبة بين عدد أزواج الجوارب السوداء وعدد أزواج الجوارب البيضاء هي 1 : 1", "description": "النسبة بين عدد أزواج الجوارب السوداء وعدد أزواج الجوارب البيضاء هي 1 : 1"}
+            ]
+          },
+          "correctXapiResponsesPattern": ["النسبة بين عدد أزواج الجوارب السوداء وعدد أزواج الجوارب البيضاء هي 4 : 3"]
         }
       ]
     },
@@ -163,7 +189,9 @@
           "answers": [],
           "correctAnswers": [
             1
-          ]
+          ],
+          "xapiInteractionComponents": null,
+          "correctXapiResponsesPattern": ["1"]
         },
         {
           "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-03/methodica-ar-math-ratio-01-03-004/q2",
@@ -172,7 +200,9 @@
           "answers": [],
           "correctAnswers": [
             2
-          ]
+          ],
+          "xapiInteractionComponents": null,
+          "correctXapiResponsesPattern": ["2"]
         },
         {
           "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-03/methodica-ar-math-ratio-01-03-004/q3",
@@ -181,7 +211,9 @@
           "answers": [],
           "correctAnswers": [
             4
-          ]
+          ],
+          "xapiInteractionComponents": null,
+          "correctXapiResponsesPattern": ["4"]
         },
         {
           "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-03/methodica-ar-math-ratio-01-03-004/q4",
@@ -190,7 +222,9 @@
           "answers": [],
           "correctAnswers": [
             8
-          ]
+          ],
+          "xapiInteractionComponents": null,
+          "correctXapiResponsesPattern": ["8"]
         }
       ]
     },
@@ -213,14 +247,25 @@
           ],
           "correctAnswers": [
             "1:4"
-          ]
+          ],
+          "xapiInteractionComponents": {
+            "choices": [
+              {"id": "1:2", "description": "1:2"},
+              {"id": "1:4", "description": "1:4"},
+              {"id": "1:8", "description": "1:8"},
+              {"id": "1:16", "description": "1:16"}
+            ]
+          },
+          "correctXapiResponsesPattern": ["1:4"]
         },
         {
           "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-03/methodica-ar-math-ratio-01-03-005/q2",
           "questionType": "other",
           "questionText": "في اليوم التالي استضافت شحر صديقات وأرادت تكبير كمية البان كيك إلى 30 قطعة، فاستخدمت 3 أكواب دقيق (3 أضعاف الوصفة الأصلية). ساعدوها على إكمال باقي الكميات في الوصفة المكبَّرة، مع الحفاظ على نفس النسبة بين المكونات:",
           "answers": "في اليوم التالي استضافت شحر صديقات وأرادت تكبير كمية البان كيك إلى 30 قطعة، فاستخدمت 3 أكواب دقيق (3 أضعاف الوصفة الأصلية). ساعدوها على إكمال باقي الكميات في الوصفة المكبَّرة، مع الحفاظ على نفس النسبة بين المكونات:",
-          "correctAnswers": []
+          "correctAnswers": [],
+          "xapiInteractionComponents": null,
+          "correctXapiResponsesPattern": []
         }
       ]
     },
@@ -246,6 +291,18 @@
             "النسبة بين عدد كعكات الجبن وعدد كعكات موس الشوكولاتة هي 1:2",
             "النسبة بين عدد كعكات الجبن وعدد حصص آيس كريم الفانيليا هي 5:17",
             "عدد حصص آيس كريم الفانيليا أكبر بـ1.7 أضعاف من عدد كعكات موس الشوكولاتة"
+          ],
+          "xapiInteractionComponents": {
+            "choices": [
+              {"id": "النسبة بين عدد كعكات الجبن وعدد كعكات موس الشوكولاتة هي 1:2", "description": "النسبة بين عدد كعكات الجبن وعدد كعكات موس الشوكولاتة هي 1:2"},
+              {"id": "النسبة بين عدد حصص آيس كريم الفانيليا وعدد حصص البطيخ هي 13:17", "description": "النسبة بين عدد حصص آيس كريم الفانيليا وعدد حصص البطيخ هي 13:17"},
+              {"id": "النسبة بين عدد حصص آيس كريم الفانيليا وعدد كعكات موس الشوكولاتة هي 10:7", "description": "النسبة بين عدد حصص آيس كريم الفانيليا وعدد كعكات موس الشوكولاتة هي 10:7"},
+              {"id": "النسبة بين عدد كعكات الجبن وعدد حصص آيس كريم الفانيليا هي 5:17", "description": "النسبة بين عدد كعكات الجبن وعدد حصص آيس كريم الفانيليا هي 5:17"},
+              {"id": "عدد حصص آيس كريم الفانيليا أكبر بـ1.7 أضعاف من عدد كعكات موس الشوكولاتة", "description": "عدد حصص آيس كريم الفانيليا أكبر بـ1.7 أضعاف من عدد كعكات موس الشوكولاتة"}
+            ]
+          },
+          "correctXapiResponsesPattern": [
+            "النسبة بين عدد كعكات الجبن وعدد كعكات موس الشوكولاتة هي 1:2[,]النسبة بين عدد كعكات الجبن وعدد حصص آيس كريم الفانيليا هي 5:17[,]عدد حصص آيس كريم الفانيليا أكبر بـ1.7 أضعاف من عدد كعكات موس الشوكولاتة"
           ]
         }
       ]

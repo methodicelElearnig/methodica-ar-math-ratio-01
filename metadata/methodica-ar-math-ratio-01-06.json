@@ -35,7 +35,9 @@
           "answers": [],
           "correctAnswers": [
             3
-          ]
+          ],
+          "xapiInteractionComponents": null,
+          "correctXapiResponsesPattern": ["3"]
         },
         {
           "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-06/methodica-ar-math-ratio-01-06-001/q2",
@@ -48,7 +50,15 @@
           ],
           "correctAnswers": [
             "في كل ساعة قياس، انخفضت درجة الحرارة بمقدار 3°C"
-          ]
+          ],
+          "xapiInteractionComponents": {
+            "choices": [
+              {"id": "في كل ساعة قياس، تنخفض درجة الحرارة 3 أضعاف", "description": "في كل ساعة قياس، تنخفض درجة الحرارة 3 أضعاف"},
+              {"id": "في كل ساعة قياس، انخفضت درجة الحرارة بمقدار 3°C", "description": "في كل ساعة قياس، انخفضت درجة الحرارة بمقدار 3°C"},
+              {"id": "في كل 3 ساعات قياس، انخفضت درجة الحرارة بمقدار 1°C", "description": "في كل 3 ساعات قياس، انخفضت درجة الحرارة بمقدار 1°C"}
+            ]
+          },
+          "correctXapiResponsesPattern": ["في كل ساعة قياس، انخفضت درجة الحرارة بمقدار 3°C"]
         },
         {
           "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-06/methodica-ar-math-ratio-01-06-001/q3",
@@ -62,7 +72,15 @@
           "correctAnswers": [
             "أ",
             "ب"
-          ]
+          ],
+          "xapiInteractionComponents": {
+            "choices": [
+              {"id": "أ", "description": "أ"},
+              {"id": "ب", "description": "ب"},
+              {"id": "ج", "description": "ج"}
+            ]
+          },
+          "correctXapiResponsesPattern": ["أ[,]ب"]
         },
         {
           "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-06/methodica-ar-math-ratio-01-06-001/q4",
@@ -76,7 +94,16 @@
           ],
           "correctAnswers": [
             "بعد 8 ساعات من بداية القياس"
-          ]
+          ],
+          "xapiInteractionComponents": {
+            "choices": [
+              {"id": "بعد 3 ساعات من بداية القياس", "description": "بعد 3 ساعات من بداية القياس"},
+              {"id": "بعد 8 ساعات من بداية القياس", "description": "بعد 8 ساعات من بداية القياس"},
+              {"id": "لن يتشكّل جليد لأن درجة الحرارة وفق الرسم البياني لا تنخفض دون 0°C", "description": "لن يتشكّل جليد لأن درجة الحرارة وفق الرسم البياني لا تنخفض دون 0°C"},
+              {"id": "لا يمكن معرفة ذلك", "description": "لا يمكن معرفة ذلك"}
+            ]
+          },
+          "correctXapiResponsesPattern": ["بعد 8 ساعات من بداية القياس"]
         }
       ]
     }

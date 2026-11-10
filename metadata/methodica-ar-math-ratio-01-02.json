@@ -62,6 +62,22 @@
               "source": "بيتزا أ",
               "target": "عدد قطع البيتزا بالفطر أكبر بـ 3 أضعاف من عدد قطع البيتزا بالزيتون"
             }
+          ],
+          "xapiInteractionComponents": {
+            "source": [
+              {"id": "بيتزا أ", "description": "بيتزا أ"},
+              {"id": "بيتزا ب", "description": "بيتزا ب"},
+              {"id": "بيتزا ج", "description": "بيتزا ج"}
+            ],
+            "target": [
+              {"id": "3 : 1", "description": "3 : 1"},
+              {"id": "5 : 3", "description": "5 : 3"},
+              {"id": "1 : 3", "description": "1 : 3"},
+              {"id": "عدد قطع البيتزا بالفطر أكبر بـ 3 أضعاف من عدد قطع البيتزا بالزيتون", "description": "عدد قطع البيتزا بالفطر أكبر بـ 3 أضعاف من عدد قطع البيتزا بالزيتون"}
+            ]
+          },
+          "correctXapiResponsesPattern": [
+            "بيتزا أ[.]3 : 1[,]بيتزا ب[.]5 : 3[,]بيتزا ج[.]1 : 3[,]بيتزا أ[.]عدد قطع البيتزا بالفطر أكبر بـ 3 أضعاف من عدد قطع البيتزا بالزيتون"
           ]
         }
       ]
@@ -86,6 +102,17 @@
           "correctAnswers": [
             "6 كرات شوكولاتة بالحليب و8 كرات شوكولاتة داكنة",
             "4.5 كرات شوكولاتة بالحليب و6 كرات شوكولاتة داكنة"
+          ],
+          "xapiInteractionComponents": {
+            "choices": [
+              {"id": "6 كرات شوكولاتة بالحليب و8 كرات شوكولاتة داكنة", "description": "6 كرات شوكولاتة بالحليب و8 كرات شوكولاتة داكنة"},
+              {"id": "4.5 كرات شوكولاتة بالحليب و6 كرات شوكولاتة داكنة", "description": "4.5 كرات شوكولاتة بالحليب و6 كرات شوكولاتة داكنة"},
+              {"id": "4 كرات شوكولاتة بالحليب و5 كرات شوكولاتة داكنة", "description": "4 كرات شوكولاتة بالحليب و5 كرات شوكولاتة داكنة"},
+              {"id": "8 كرات شوكولاتة بالحليب و6 كرات شوكولاتة داكنة", "description": "8 كرات شوكولاتة بالحليب و6 كرات شوكولاتة داكنة"}
+            ]
+          },
+          "correctXapiResponsesPattern": [
+            "6 كرات شوكولاتة بالحليب و8 كرات شوكولاتة داكنة[,]4.5 كرات شوكولاتة بالحليب و6 كرات شوكولاتة داكنة"
           ]
         },
         {
@@ -123,6 +150,23 @@
               "source": "15 شوكولاتة بالحليب و20 شوكولاتة داكنة",
               "target": "100 شيكل"
             }
+          ],
+          "xapiInteractionComponents": {
+            "source": [
+              {"id": "6 شوكولاتة بالحليب و8 شوكولاتة داكنة", "description": "6 شوكولاتة بالحليب و8 شوكولاتة داكنة"},
+              {"id": "4.5 شوكولاتة بالحليب و6 شوكولاتة داكنة", "description": "4.5 شوكولاتة بالحليب و6 شوكولاتة داكنة"},
+              {"id": "1.5 شوكولاتة بالحليب و2 شوكولاتة داكنة", "description": "1.5 شوكولاتة بالحليب و2 شوكولاتة داكنة"},
+              {"id": "15 شوكولاتة بالحليب و20 شوكولاتة داكنة", "description": "15 شوكولاتة بالحليب و20 شوكولاتة داكنة"}
+            ],
+            "target": [
+              {"id": "40 شيكل", "description": "40 شيكل"},
+              {"id": "30 شيكل", "description": "30 شيكل"},
+              {"id": "10 شيكل", "description": "10 شيكل"},
+              {"id": "100 شيكل", "description": "100 شيكل"}
+            ]
+          },
+          "correctXapiResponsesPattern": [
+            "6 شوكولاتة بالحليب و8 شوكولاتة داكنة[.]40 شيكل[,]4.5 شوكولاتة بالحليب و6 شوكولاتة داكنة[.]30 شيكل[,]1.5 شوكولاتة بالحليب و2 شوكولاتة داكنة[.]10 شيكل[,]15 شوكولاتة بالحليب و20 شوكولاتة داكنة[.]100 شيكل"
           ]
         }
       ]
@@ -141,7 +185,9 @@
           "answers": [],
           "correctAnswers": [
             10
-          ]
+          ],
+          "xapiInteractionComponents": null,
+          "correctXapiResponsesPattern": ["10"]
         },
         {
           "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/q2",
@@ -150,7 +196,9 @@
           "answers": [],
           "correctAnswers": [
             18
-          ]
+          ],
+          "xapiInteractionComponents": null,
+          "correctXapiResponsesPattern": ["18"]
         },
         {
           "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/q3",
@@ -159,7 +207,9 @@
           "answers": [],
           "correctAnswers": [
             15
-          ]
+          ],
+          "xapiInteractionComponents": null,
+          "correctXapiResponsesPattern": ["15"]
         },
         {
           "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/q4",
@@ -168,7 +218,9 @@
           "answers": [],
           "correctAnswers": [
             27
-          ]
+          ],
+          "xapiInteractionComponents": null,
+          "correctXapiResponsesPattern": ["27"]
         },
         {
           "questionId": "https://lomdot.education.gov.il/metodica/720/ar/math/ratio/01/methodica-ar-math-ratio-01-02/methodica-ar-math-ratio-01-02-003/q5",
@@ -181,7 +233,15 @@
           ],
           "correctAnswers": [
             "لا"
-          ]
+          ],
+          "xapiInteractionComponents": {
+            "choices": [
+              {"id": "نعم", "description": "نعم"},
+              {"id": "لا", "description": "لا"},
+              {"id": "لا يمكن معرفة ذلك", "description": "لا يمكن معرفة ذلك"}
+            ]
+          },
+          "correctXapiResponsesPattern": ["لا"]
         }
       ]
     }
