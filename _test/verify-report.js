@@ -1574,8 +1574,10 @@ function checkLedger() {
     body.indexOf('alreadySent(') < body.indexOf('sendStatement720('));
   ok('ledger', 'it marks only AFTER a successful send',
     body.indexOf('sendStatement720(') < body.indexOf('markSent('));
-  ok('ledger', 'markSent persists synchronously',
-    /function markSent[\s\S]{0,400}persistUnitState\(captureUnitState\(\)\)/.test(src));
+  /* 2026-11-14 (fix R, A2): it still persists synchronously, but only once the restore is done;
+     the behaviour is covered by _test/write-guard.js e–f. */
+  ok('ledger', 'markSent persists synchronously, only once _resumeReady',
+    /function markSent[\s\S]{0,900}if \(!_resumeReady\) return;\s*try \{ persistUnitState\(captureUnitState\(\)\)/.test(src));
   ok('ledger', 'the document carries all four ledgers',
     /done:\s*\{\}/.test(src) && /doneItems:\s*\{\}/.test(src) &&
     /hints:\s*\{\}/.test(src) && /picks:\s*\{\}/.test(src));
